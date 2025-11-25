@@ -1,28 +1,28 @@
 {
   "main": [
     {
-      "name": "Yield",
-      "url": "/categories/yield"
-    },
-    {
-      "name": "Perps",
-      "url": "/categories/perps"
-    },
-    {
-      "name": "EVM",
-      "url": "/categories/evm"
-    },
-    {
-      "name": "Solana",
-      "url": "/categories/solana"
+      "name": "DeFi",
+      "url": "/"
     },
     {
       "name": "Aster",
       "url": "/categories/aster"
     },
     {
+      "name": "Solana",
+      "url": "/categories/solana"
+    },
+    {
+      "name": "EVM",
+      "url": "/categories/evm"
+    },
+    {
       "name": "Bitcoin",
       "url": "/categories/bitcoin"
+    },
+    {
+      "name": "Research",
+      "url": "/categories/research"
     }
   ],
   "footer": [

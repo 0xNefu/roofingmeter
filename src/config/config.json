@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Txchyon",
-    "base_url": "http://localhost:4321",
+    "base_url": "https://txchyon.com",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
@@ -18,7 +18,7 @@
   "metadata": {
     "meta_author": "NefuTrades",
     "meta_image": "/images/og-image.jpg",
-    "meta_description": "Minimalist thoughts on markets, code, and the cosmos. Powered by Astro."
+    "meta_description": "Raw data. Real alpha. Live Aster positions and Solana infra bets."
   },
 
   "google_tag_manager": {
@@ -28,7 +28,7 @@
 
   "params": {
     "contact_form_action": "#",
-    "copyright": "© 2025 Txchyon — Built by NefuTrades"
+    "copyright": "© 2025 Txchyon Capital"
   },
 
   "contactinfo": {
@@ -38,8 +38,10 @@
   },
 
   "social": {
-    "twitter": "txchyon",
-    "github": "",
+    "twitter": "https://twitter.com/txchyon",
+    "telegram": "https://t.me/txchyon",
+    "discord": "https://discord.gg/txchyon",
+    "github": "https://github.com/txchyon",
     "linkedin": "",
     "youtube": "",
     "instagram": ""
@@ -49,7 +51,7 @@
     "name": "NefuTrades",
     "bio": "Trading, building, and writing in public.",
     "avatar": "/images/avatar.jpg",
-    "twitter": "nefutrades"
+    "twitter": "https://twitter.com/nefutrades"
   },
 
   "branding": {

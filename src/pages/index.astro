@@ -9,7 +9,9 @@ import { sortByDate } from "@/lib/utils/sortFunctions";
 const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
-const currentPosts = sortedPosts.slice(0, config.settings.pagination);
+
+// THIS LINE IS THE ONLY CHANGE — 7 instead of config
+const currentPosts = sortedPosts.slice(0, 7);
 ---
 
 <Base>
