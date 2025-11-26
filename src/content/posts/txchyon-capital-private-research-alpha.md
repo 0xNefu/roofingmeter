@@ -59,8 +59,8 @@ Why Aster? Simple:
 - My personal target: $1,000–$3,000+ per $ASTER in 8 years  
 
 Current fund status (live, on-chain, verifiable on demand):
-- 7-figure exposure across Aster perps, staked nodes, and ecosystem bets  
-- 6-figure Solana infra & MEV positions  
+- 6-figure exposure across Aster perps, staked nodes, and ecosystem bets  
+- personal funds in Solana infra & MEV positions  
 - Growing BTC cold-storage stack  
 
 Goal by 2033–2035: 8- or 9-figure portfolio. No withdrawals until then.
