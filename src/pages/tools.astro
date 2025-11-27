@@ -1,0 +1,48 @@
+---
+// src/pages/tools.astro
+import Base from '../layouts/base.astro';
+
+const title = "Tools & Disclosures";
+const description = "All the platforms I use daily with full transparency on referral earnings.";
+---
+
+<Base title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-6 py-16 prose">
+    <!-- Removed all dark: classes since you don’t have dark mode yet -->
+    <!-- Forced real black text with these two classes ↓ -->
+    <div class="text-black leading-relaxed">
+
+      <h1>Tools & Disclosures</h1>
+
+      <p class="text-lg font-medium text-gray-800 mb-8">
+        Everything I actually use for trading and research. Full transparency — if I earn a commission when you sign up or trade through my link, it’s listed below (never costs you extra).
+      </p>
+
+      <h2>Trading & Perpetuals</h2>
+      <ul class="space-y-3">
+        <li>→ <a href="https://axiom.trade/?ref=YOUR_AXIOM_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Axiom</a> – 30% of L1 fees forever</li>
+        <li>→ <a href="https://app.drift.trade/?ref=YOUR_DRIFT_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Drift Protocol</a> – 15% lifetime</li>
+        <li>→ <a href="https://app.hyperliquid.xyz/ref=YOUR_HYPERLIQUID_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Hyperliquid</a> – up to 30%</li>
+        <li>→ <a href="https://gmx.io/?ref=YOUR_GMX_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">GMX v2</a></li>
+        <li>→ <a href="https://dydx.exchange/?ref=YOUR_DYDX_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">dYdX</a></li>
+      </ul>
+
+      <h2>Prediction Markets</h2>
+      <ul class="space-y-3">
+        <li>→ <a href="https://polymarket.com/?ref=YOUR_POLYMARKET_CODE" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Polymarket</a> – $10 on first deposit + $0.01/click</li>
+      </ul>
+
+      <h2>Wallets & Infrastructure</h2>
+      <ul class="space-y-3">
+        <li>→ <a href="https://phantom.app/download?ref=YOUR_PHANTOM" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Phantom Wallet</a></li>
+        <li>→ <a href="https://backpack.app?ref=YOUR_BACKPACK" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Backpack</a></li>
+        <li>→ <a href="https://jup.ag/?ref=YOUR_JUPITER" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Jupiter Aggregator</a></li>
+      </ul>
+
+      <p class="text-sm text-gray-500 mt-20">
+        Last updated: November 2025 · Not financial advice · DYOR
+      </p>
+
+    </div>
+  </main>
+</Base>

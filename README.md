@@ -105,5 +105,5 @@ If you need a custom theme, theme customization, or complete website development
 to upload to git 
 
 git add .
-git commit -m "bitcoin wallet guide"
+git commit -m "tools and disclosures page added"
 git push

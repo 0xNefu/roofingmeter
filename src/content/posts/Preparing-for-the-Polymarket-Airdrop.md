@@ -13,11 +13,11 @@ draft: false
 
 # Preparing for the Polymarket Airdrop: A Step-by-Step Guide (2025–2026)
 
-Polymarket, the leading decentralized prediction market platform on Polygon, has confirmed plans to launch its native token **$POLY** with an associated airdrop for active users. This follows their recent U.S. relaunch preparations and a $2 billion funding round at a $9 billion valuation, positioning it as one of the most anticipated drops in crypto history—potentially rivaling Uniswap’s $6.4 billion distribution in scale.
+Polymarket, the leading decentralized prediction market platform on Polygon, has confirmed plans to launch its native token **$POLY** with an associated airdrop for active users. This follows their recent U.S. relaunch preparations and a $2 billion funding round at a $9 billion valuation, positioning it as one of the most anticipated drops in crypto history potentially rivaling Uniswap’s $6.4 billion distribution in scale.
 
-The exact timeline points to **Q1 2026**, tied to full U.S. operations via their CFTC-regulated exchange acquisition, but eligibility will likely be snapshotted based on **pre-launch activity**. No official criteria have been released yet, but based on Polymarket’s points system (gPOLY) and patterns from similar projects (e.g., Arbitrum, Optimism), rewards will prioritize **genuine engagement** over sybil farming.
+The exact timeline points to **Q1 2026**, tied to full U.S. operations via their CFTC regulated exchange acquisition, but eligibility will likely be snapshotted based on **pre-launch activity**. No official criteria have been released yet, but based on Polymarket’s points system (gPOLY) and patterns from similar projects (e.g., Arbitrum, Optimism), rewards will prioritize **genuine engagement** over sybil farming.
 
-**The key? Start now**—trading volume and consistency are your best bets for qualifying, with the top 20% of users potentially seeing the largest allocations.
+**The key? Start now** trading volume and consistency are your best bets for qualifying, with the top 20% of users potentially seeing the largest allocations.
 
 Aim for **$100–$200** in total activity to hit basic thresholds, but scale up for better odds.
 
@@ -38,7 +38,7 @@ Here’s how to get set up and maximize your chances without risking capital unn
 Only ~1.7% of users have traded >$50K — consistent $200–$1K volume already puts you in a strong mid-tier cohort.
 
 ## 3. Earn Community Badges & Extra Visibility
-- Post trade recaps, analysis, or strategies on X and tag @Polymarket — many contributors have earned special badges that may boost allocations.
+- Post trade recaps, analysis, or strategies on X and tag @Polymarket  many contributors have earned special badges that may boost allocations.
 - Grow your audience by sharing real insights (users like @Graciee0x gained traction this way).
 - Stay active in Discord and watch for referral campaigns or bonus tasks.
 
@@ -54,7 +54,7 @@ Only ~1.7% of users have traded >$50K — consistent $200–$1K volume already p
 - Top traders could see 5–10x the base allocation.
 - This is retroactive — farm ethically or risk blacklisting.
 
-Start trading smart today and you’re not just farming $POLY — you’re actually profiting from the world’s most accurate prediction engine (Polymarket’s crowd beats traditional polls 70%+ of the time).
+Start trading smart today and you’re not just farming $POLY you’re actually profiting from the world’s most accurate prediction engine (Polymarket’s crowd beats traditional polls 70%+ of the time).
 
 DYOR and good luck!
 

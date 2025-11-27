@@ -8,23 +8,34 @@ import { markdownify } from "@/lib/utils/textConverter";
 
 <footer class="section bg-dark">
   <div class="container text-center">
-    {/* footer menu */}
+    {/* footer menu
     <ul class="mb-8 space-x-4">
       {
-        menu.footer.map((menu) => (
+        menu.footer.map((item) => (
           <li class="inline-block">
             <a
-              href={menu.url}
+              href={item.url}
               class="p-4 text-white/75 hover:text-white transition-all"
             >
-              {menu.name}
+              {item.name}
             </a>
           </li>
         ))
       }
+      {/* ← NEW LINK ADDED HERE (same style as the others) */}
+      <li class="inline-block">
+        <a
+          href="/tools"
+          class="p-4 text-white/75 hover:text-white transition-all"
+        >
+          Tools & Disclosures
+        </a>
+      </li>
     </ul>
+
     {/* social icons */}
     <Social source={social.main} className="social-icons mb-8" />
+
     {/* copyright */}
     <p set:html={markdownify(config.params.copyright)} class="text-white/75" />
   </div>
