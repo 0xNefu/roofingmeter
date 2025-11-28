@@ -1,11 +1,12 @@
-// src/pages/rss.xml.js   ← this file gives you BOTH /rss.xml AND /feed.json
+// src/pages/rss.xml.js
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("blog"); // ← keep this outside — runs once
+// This runs at build time — totally fine
+const posts = await getCollection("blog");
 
 // RSS Feed → https://txchyon.com/rss.xml
-export async function GET(context) {
+export async function get(context) {
   return rss({
     title: "Txchyon Capital – On-chain Alpha",
     description: "DeFi research, airdrops, and alpha from Txchyon",
@@ -15,7 +16,6 @@ export async function GET(context) {
       description: post.data.description ?? post.data.excerpt ?? "",
       link: `/posts/${post.slug}/`,
       pubDate: post.data.date || new Date(),
-      // Optional: enclosure for images (some readers love this)
       enclosure: post.data.image
         ? {
             url: `https://txchyon.com${post.data.image.startsWith("/") ? "" : "/"}${post.data.image}`,
@@ -27,8 +27,8 @@ export async function GET(context) {
   });
 }
 
-// JSON Feed → https://txchyon.com/feed.json   (rename the function so Astro routes it correctly)
-export async function GET_feed_json(context) {
+// JSON Feed → https://txchyon.com/feed.json
+export async function get_feed_json(context) {
   const items = posts.map((post) => ({
     id: `${context.site}posts/${post.slug}/`,
     url: `${context.site}posts/${post.slug}/`,
