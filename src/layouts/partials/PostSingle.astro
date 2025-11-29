@@ -129,23 +129,18 @@ const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
           <Content />
         </div>
 
-        <!-- BEEHIIV SUBSCRIBE FORM – FULLY MOBILE RESPONSIVE -->
-        <div class="my-16 md:my-20 px-4 sm:px-6 lg:px-8">
-          <div class="mx-auto max-w-3xl rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-6 sm:p-8 lg:p-10 text-center shadow-lg">
+        <!-- BEEHIIV SUBSCRIBE FORM – FIXED: COMPACT & BEAUTIFUL -->
+        <div class="my-16 md:my-20 px-4">
+          <div class="mx-auto max-w-2xl rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-6 sm:p-8 text-center shadow-lg">
             
-            <h3 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
-              Get Weekly DeFi Alpha in Your Inbox
-            </h3>
-            
-            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
+            <h3 class="text-2xl sm:text-3xl font-bold mb-3">Get Weekly DeFi Alpha in Your Inbox</h3>
+            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
               Join 56k+ traders getting my private watchlist every Thursday
             </p>
 
-            <!-- Beehiiv script (loads once) -->
             <script async data-id="beehiiv-embed" src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 
-            <!-- Responsive iframe with auto-height -->
-            <div class="w-full max-w-2xl mx-auto">
+            <div class="w-full max-w-lg mx-auto overflow-hidden rounded-xl">
               <iframe
                 src="https://subscribe-forms.beehiiv.com/cc63cad9-7786-4f32-badd-628ad1226266"
                 class="beehiiv-embed w-full"
@@ -153,23 +148,18 @@ const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
                 frameborder="0"
                 scrolling="no"
                 style="
-                  height: 420px;
+                  height: 320px !important;
+                  max-height: 380px;
                   border-radius: 12px;
                   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-                  min-height: 400px;
                 "
-                onload="this.style.height=(this.contentWindow.document.body.scrollHeight + 30) + 'px'"
+                onload="this.style.height='320px'; 
+                         setTimeout(() => {
+                           const h = this.contentWindow.document.body.scrollHeight + 40;
+                           this.style.height = (h > 380 ? 380 : h) + 'px';
+                         }, 800);"
               ></iframe>
             </div>
-
-            <!-- Fallback if JS is disabled -->
-            <noscript>
-              <p class="text-sm text-gray-500 mt-4">
-                <a href="https://www.beehiiv.com/?via=txchyon" target="_blank" class="underline hover:text-primary">
-                  Subscribe to the newsletter
-                </a>
-              </p>
-            </noscript>
           </div>
         </div>
         <!-- END OF SUBSCRIBE FORM -->
