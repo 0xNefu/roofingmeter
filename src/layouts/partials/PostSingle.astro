@@ -1,6 +1,7 @@
 ---
 import SocialShare from "@/components/SocialShare.astro";
 import SimilarPosts from "@/components/SimilarPosts.astro";
+import SEO from "@/layouts/components/SEO.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import dateFormat from "@/lib/utils/dateFormat";
 import similerItems from "@/lib/utils/similarItems";
@@ -22,28 +23,20 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
 ---
 
-<head>
-  <meta charset="utf-8" />
-  <title>{title} | Txchyon</title>
-  <meta name="description" content={description} />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Add SEO component for social cards -->
+<SEO 
+  title={`${title} | Txchyon`}
+  description={description}
+  image={image || "/images/tokens.jpg"}
+  canonical={canonicalUrl}
+  type="article"
+  publishedTime={date.toISOString()}
+  author={authors?.map(a => a.data.name).join(", ") || "NefuTrades"}
+  section={categories?.[0] || "DeFi"}
+/>
 
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:site_name" content="Txchyon" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@txchyon" />
-  <meta name="twitter:creator" content="@txchyon" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
-
-  <link rel="canonical" href={canonicalUrl} />
-</head>
+<!-- Keep existing viewport meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <section class="section">
   <div class="container">
@@ -53,7 +46,41 @@ const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
         <h1 set:html={markdownify(title)} class="h2" />
         <ul class="mt-4 flex flex-wrap items-center justify-center text-text">
           <!-- Author, Date, Categories – exactly as you had them -->
-          <!-- ... your code ... -->
+          {authors && (
+            <li class="mr-4 flex items-center">
+              {authors.map((author: any, i: number) => (
+                <span>
+                  {i > 0 && ", "}
+                  <a
+                    href={`/authors/${slugify(author.data.name)}`}
+                    class="ml-1 hover:text-primary"
+                  >
+                    {author.data.name}
+                  </a>
+                </span>
+              ))}
+            </li>
+          )}
+          <li class="mr-4 flex items-center">
+            <BiCalendarEdit class="mr-1" />
+            {dateFormat(date)}
+          </li>
+          {categories && (
+            <li class="flex items-center">
+              <BiCategoryAlt class="mr-1" />
+              {categories.map((category: string, i: number) => (
+                <span>
+                  {i > 0 && ", "}
+                  <a
+                    href={`/categories/${slugify(category)}`}
+                    class="ml-1 hover:text-primary"
+                  >
+                    {humanize(category)}
+                  </a>
+                </span>
+              ))}
+            </li>
+          )}
         </ul>
       </div>
 
