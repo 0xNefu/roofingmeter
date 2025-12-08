@@ -70,30 +70,69 @@ const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og-default.jpg`;
           <Content />
         </div>
 
-        <!-- MOBILE-OPTIMIZED BEEHIIV FORM -->
+        <!-- MOBILE-OPTIMIZED BEEHIIV FORM WITH PLAIN CSS -->
         <!-- Updated: 2024-12-08 for mobile responsiveness -->
         <div class="my-16 md:my-20 px-4 sm:px-6 lg:px-8">
           <div class="mx-auto max-w-2xl rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-6 sm:p-8 lg:p-10 text-center shadow-lg">
             
-            <!-- Desktop Title (full) -->
-            <h3 class="hidden sm:block text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
-              Get Weekly DeFi Alpha in Your Inbox
-            </h3>
+            <!-- SIMPLE CSS VERSION - Bypasses Tailwind -->
+            <h3 class="desktop-title">Get Weekly DeFi Alpha in Your Inbox</h3>
+            <h3 class="mobile-title">Weekly DeFi Alpha</h3>
             
-            <!-- Mobile Title (shorter) -->
-            <h3 class="sm:hidden text-2xl font-bold mb-3 leading-tight">
-              Weekly DeFi Alpha
-            </h3>
-            
-            <!-- Desktop Description -->
-            <p class="hidden sm:block text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed">
-              Join 56k+ traders getting my private watchlist every Thursday
-            </p>
-            
-            <!-- Mobile Description (shorter) -->
-            <p class="sm:hidden text-base text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto leading-relaxed">
-              Private watchlist for 56k+ traders
-            </p>
+            <p class="desktop-desc">Join 56k+ traders getting my private watchlist every Thursday</p>
+            <p class="mobile-desc">Private watchlist for 56k+ traders</p>
+
+            <style>
+              /* Mobile first */
+              .desktop-title, .desktop-desc {
+                display: none;
+              }
+              
+              .mobile-title, .mobile-desc {
+                display: block;
+              }
+              
+              .mobile-title, .desktop-title {
+                font-size: 1.5rem; /* text-2xl */
+                font-weight: 700; /* font-bold */
+                margin-bottom: 0.75rem; /* mb-3 */
+                line-height: 1.25; /* leading-tight */
+              }
+              
+              .mobile-desc, .desktop-desc {
+                font-size: 1rem; /* text-base */
+                color: #4b5563; /* text-gray-600 */
+                margin-bottom: 2rem; /* mb-8 */
+                max-width: 36rem; /* max-w-xl */
+                margin-left: auto;
+                margin-right: auto;
+                line-height: 1.625; /* leading-relaxed */
+              }
+              
+              .dark .mobile-desc, .dark .desktop-desc {
+                color: #9ca3af; /* dark:text-gray-400 */
+              }
+              
+              /* Desktop styles */
+              @media (min-width: 640px) {
+                .desktop-title, .desktop-desc {
+                  display: block !important;
+                }
+                .mobile-title, .mobile-desc {
+                  display: none !important;
+                }
+                
+                .desktop-title {
+                  font-size: 1.875rem; /* text-3xl */
+                  margin-bottom: 1rem; /* mb-4 */
+                }
+                
+                .desktop-desc {
+                  font-size: 1.125rem; /* text-lg */
+                  margin-bottom: 2.5rem; /* sm:mb-10 */
+                }
+              }
+            </style>
 
             <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 
