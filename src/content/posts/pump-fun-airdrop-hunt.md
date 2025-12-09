@@ -9,7 +9,7 @@ authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Pumpfun", "Airdrop", "Solana", "Memecoin", "Tokenomics", "Farming Strategy", "Crypto Speculation"]
 categories: ["airdrops", "speculation", "solana"]
-draft: true
+draft: false
 ---
 
 # 💸 Farming for Free Funds: Your Strategy for a Potential Pump.fun Airdrop
