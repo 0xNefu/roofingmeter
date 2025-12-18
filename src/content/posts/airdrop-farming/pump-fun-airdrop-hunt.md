@@ -8,8 +8,8 @@ heroImageAlt: "A rocket launching from a crypto chart with a parachuting airdrop
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Pumpfun", "Airdrop", "Solana", "Memecoin", "Tokenomics", "Farming Strategy", "Crypto Speculation"]
-categories:
-  - "airdrop-farming"
+category: "airdrop-farming"
+subcategory: "points-systems"
   # Keep existing tags: "airdrop", "research", "defi", "speculation", "solana", "security"
 draft: false
 ---

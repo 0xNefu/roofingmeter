@@ -8,9 +8,8 @@ heroImageAlt: "A digital lock with multiple chains (Ethereum, BNB, Arbitrum logo
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["EVM", "Ethereum", "Arbitrum", "BSC", "Security", "Token Allowance", "Revoke.cash", "DeFi"]
-categories:
-  - "security-privacy"
-  - "security-privacy/transaction-security"
+category: "security-privacy"
+subcategory: "transaction-security"
   # Keep: "security", "beginner"
 draft: true
 ---

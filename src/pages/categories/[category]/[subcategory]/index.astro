@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
+import { CATEGORY_HIERARCHY, getCategoryDisplay } from '@/lib/categories.js';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft && data.subcategory);
+  const paths = posts.map(p => ({
+    params: { category: p.data.category, subcategory: p.data.subcategory }
+  }));
+  return [...new Set(paths.map(p => JSON.stringify(p)))].map(JSON.parse);
+}
+
+const { category, subcategory } = Astro.params;
+const pillarData = CATEGORY_HIERARCHY[category];
+const subName = pillarData?.subcategories[subcategory];
+
+if (!pillarData || !subName) return Astro.redirect('/404');
+
+const display = getCategoryDisplay(`${category}/${subcategory}`);
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const postsInSub = allPosts.filter(p => 
+  p.data.category === category && p.data.subcategory === subcategory
+).sort((a,b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+---
+
+<Base title={display} description={`Best ${subName} guides`}>
+  <div class="container mx-auto py-12">
+    <h1 class="text-4xl font-bold mb-4">{display}</h1>
+    <p class="mb-8">
+      <a href={`/categories/${category}`} class="text-blue-400 hover:underline">← Back to {pillarData.name}</a>
+    </p>
+
+    {postsInSub.length === 0 ? (
+      <p class="text-center text-xl">Coming soon – no guides here yet</p>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {postsInSub.map(post => <PostCard post={post} />)}
+      </div>
+    )}
+  </div>
+</Base>

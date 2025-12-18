@@ -16,6 +16,8 @@ const { post } = Astro.props;
 
 const similarPosts = similerItems(post, posts, post.slug);
 const { Content } = await render(post);
+
+// Updated to use your existing frontmatter keys
 const { title, description, authors, categories, image, date, tags } = post.data;
 
 const siteUrl = "https://txchyon.com";
@@ -45,7 +47,7 @@ const authorNames = getAuthorNames();
   type="article"
   publishedTime={date.toISOString()}
   author={authorNames}
-  section={categories?.[0] || "DeFi"}
+  section={categories?.[0] || "Crypto"}
 />
 
 <!-- Keep existing viewport meta -->
@@ -54,11 +56,11 @@ const authorNames = getAuthorNames();
 <section class="section">
   <div class="container">
     <article class="row justify-center">
-      <!-- Title + meta info (unchanged) -->
+      <!-- Title + meta info -->
       <div class="md:col-10 text-center">
         <h1 set:html={markdownify(title)} class="h2" />
         <ul class="mt-4 flex flex-wrap items-center justify-center text-text">
-          <!-- Author, Date, Categories – with safe handling -->
+          <!-- Author -->
           {authorNames !== "NefuTrades" && (
             <li class="mr-4 flex items-center">
               {authorNames.split(", ").map((name: string, i: number) => (
@@ -74,10 +76,12 @@ const authorNames = getAuthorNames();
               ))}
             </li>
           )}
+          <!-- Date -->
           <li class="mr-4 flex items-center">
             <BiCalendarEdit class="mr-1" />
             {dateFormat(date)}
           </li>
+          <!-- Categories -->
           {categories && (
             <li class="flex items-center">
               <BiCategoryAlt class="mr-1" />
@@ -97,7 +101,7 @@ const authorNames = getAuthorNames();
         </ul>
       </div>
 
-      <!-- Featured image (unchanged) -->
+      <!-- Featured image -->
       {image && (
         <div class="col-12 mt-8 mb-2">
           <Image src={image} height={500} width={1000} alt={title} class="rounded-lg w-full" />
@@ -111,11 +115,9 @@ const authorNames = getAuthorNames();
         </div>
 
         <!-- MOBILE-OPTIMIZED BEEHIIV FORM WITH PLAIN CSS -->
-        <!-- Updated: 2024-12-08 for mobile responsiveness -->
         <div class="my-16 md:my-20 px-4 sm:px-6 lg:px-8">
           <div class="mx-auto max-w-2xl rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-6 sm:p-8 lg:p-10 text-center shadow-lg">
             
-            <!-- SIMPLE CSS VERSION - Bypasses Tailwind -->
             <h3 class="desktop-title">Get Weekly DeFi Alpha in Your Inbox</h3>
             <h3 class="mobile-title">Weekly DeFi Alpha</h3>
             
@@ -133,24 +135,24 @@ const authorNames = getAuthorNames();
               }
               
               .mobile-title, .desktop-title {
-                font-size: 1.5rem; /* text-2xl */
-                font-weight: 700; /* font-bold */
-                margin-bottom: 0.75rem; /* mb-3 */
-                line-height: 1.25; /* leading-tight */
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+                line-height: 1.25;
               }
               
               .mobile-desc, .desktop-desc {
-                font-size: 1rem; /* text-base */
-                color: #4b5563; /* text-gray-600 */
-                margin-bottom: 2rem; /* mb-8 */
-                max-width: 36rem; /* max-w-xl */
+                font-size: 1rem;
+                color: #4b5563;
+                margin-bottom: 2rem;
+                max-width: 36rem;
                 margin-left: auto;
                 margin-right: auto;
-                line-height: 1.625; /* leading-relaxed */
+                line-height: 1.625;
               }
               
               .dark .mobile-desc, .dark .desktop-desc {
-                color: #9ca3af; /* dark:text-gray-400 */
+                color: #9ca3af;
               }
               
               /* Desktop styles */
@@ -163,18 +165,17 @@ const authorNames = getAuthorNames();
                 }
                 
                 .desktop-title {
-                  font-size: 1.875rem; /* text-3xl */
-                  margin-bottom: 1rem; /* mb-4 */
+                  font-size: 1.875rem;
+                  margin-bottom: 1rem;
                 }
                 
                 .desktop-desc {
-                  font-size: 1.125rem; /* text-lg */
-                  margin-bottom: 2.5rem; /* sm:mb-10 */
+                  font-size: 1.125rem;
+                  margin-bottom: 2.5rem;
                 }
               }
             </style>
 
-            <!-- FIXED: Wider Beehiiv iframe (500px) for proper email field -->
             <div class="w-full flex justify-center">
               <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
               <iframe
@@ -209,7 +210,7 @@ const authorNames = getAuthorNames();
             ))}
           </div>
 
-          <!-- SHARE BUTTONS – NOW VISIBLE -->
+          <!-- SHARE BUTTONS -->
           <SocialShare title={title} url={Astro.url} />
         </div>
       </div>
@@ -217,7 +218,7 @@ const authorNames = getAuthorNames();
   </div>
 </section>
 
-<!-- Similar posts – untouched -->
+<!-- Similar posts -->
 {similarPosts.length > 0 && (
   <section class="section pt-0">
     <div class="container">

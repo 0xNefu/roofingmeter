@@ -8,9 +8,8 @@ heroImageAlt: "A simple digital button labeled 'Launch Your Coin' with a Solana 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Pumpfun", "Memecoin Launch", "Solana", "Crypto Creation", "Community Building", "Project Ascend", "Creator Fees"]
-categories:
-  - "defi-yield"
-  - "defi-yield/structured-products"
+category: "defi-yield"
+subcategory: "structured-products"
   # Keep: "defi", "Founders", "tutorial", "solana", "DeFi", "Guides"
 draft: true
 ---

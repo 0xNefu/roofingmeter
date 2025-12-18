@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
         title: String(post.data.title || "Untitled Post"),
         description: String(post.data.description || "New on-chain alpha from Txchyon Capital"),
         link: link,
-        pubDate: new Date(post.data.date).toISOString(),
+        date: new Date(post.data.date).toISOString(),
         // Optional: enclosure for images if you want richer feeds
         // enclosure: post.data.image ? { url: new URL(post.data.image, site).href, type: "image/jpeg" } : undefined,
       };

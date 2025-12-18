@@ -8,9 +8,8 @@ heroImageAlt: "Phantom Wallet interface showing both Solana and Ethereum network
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["phantom-wallet", "solana", "ethereum", "crypto-wallet", "web3", "defi", "nft", "crypto-security", "step-by-step", "beginners-guide"]
-categories:
-  - "getting-started"
-  - "getting-started/wallet-setup"
+category: "getting-started"
+subcategory: "wallet-setup"
   # Keep: "tutorial"
 draft: false
 ---

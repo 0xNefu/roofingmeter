@@ -8,9 +8,8 @@ heroImageAlt: "Aster, Drift, and Hyperliquid logos with live volume, funding, an
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Aster", "Drift", "Hyperliquid", "Solana", "Perps", "Funding", "Liquidity", "Smart Money"]
-categories:
-  - "trading-investing"
-  - "trading-investing/perpetuals-derivatives"
+category: "trading-investing"
+subcategory: "perpetuals-derivatives"
   # Keep: "aster" if it's a tag
 draft: false
 ---

@@ -8,9 +8,8 @@ heroImageAlt: "Uniswap V3 concentrated liquidity interface showing price range s
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Uniswap", "Uniswap V3", "Liquidity Providing", "DeFi", "Concentrated Liquidity", "Impermanent Loss", "EVM", "Ethereum", "Yield Farming"]
-categories:
-  - "defi-yield"
-  - "defi-yield/dexs-swapping"
+category: "defi-yield"
+subcategory: "dexs-swapping"
   # Keep: "defi", "evm", "tutorial", "guides"
 draft: false
 ---

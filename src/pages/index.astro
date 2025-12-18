@@ -1,7 +1,7 @@
 ---
-import Posts from "@/components/Posts.astro";
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -10,14 +10,21 @@ const posts = await getSinglePage("posts");
 const sortedPosts = sortByDate(posts);
 const totalPages = Math.ceil(posts.length / config.settings.pagination);
 
-// THIS LINE IS THE ONLY CHANGE — 7 instead of config
+// Show 7 latest posts on homepage (your preference)
 const currentPosts = sortedPosts.slice(0, 7);
 ---
 
 <Base>
   <section class="section">
     <div class="container">
-      <Posts posts={currentPosts} className="mb-16" />
+      <!-- Latest Posts Grid using your original PostCard -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {currentPosts.map(post => (
+          <PostCard post={post} />
+        ))}
+      </div>
+
+      <!-- Pagination (kept exactly as before) -->
       <Pagination currentPage={1} totalPages={totalPages} />
     </div>
   </section>

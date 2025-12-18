@@ -1,7 +1,7 @@
 ---
-import Posts from "@/components/Posts.astro";
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -31,10 +31,21 @@ const indexOfFirstPost = indexOfLastPost - config.settings.pagination;
 const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
 ---
 
-<Base>
+<Base title={`Blog Page ${currentPage}`}>
   <section class="section">
     <div class="container">
-      <Posts className="mb-16" posts={currentPosts} />
+      <!-- Posts Grid using your original PostCard design -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {currentPosts.length > 0 ? (
+          currentPosts.map(post => (
+            <PostCard post={post} />
+          ))
+        ) : (
+          <p class="col-span-full text-center text-gray-500 py-12">No posts on this page.</p>
+        )}
+      </div>
+
+      <!-- Pagination -->
       <Pagination totalPages={totalPages} currentPage={currentPage} />
     </div>
   </section>

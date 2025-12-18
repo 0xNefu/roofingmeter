@@ -9,8 +9,7 @@ authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["Txchyon", "Txchyon Capital", "Aster", "Bitcoin", "On-Chain Alpha", "Research", "Media", "DeFi", "Private Fund"]
 sticky: true
-categories:
-  - "research-analysis"
+category: "research-analysis"
   # Keep: "announcement", "research"
 draft: false
 ---

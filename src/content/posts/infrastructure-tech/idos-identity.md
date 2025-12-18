@@ -8,8 +8,8 @@ heroImageAlt: "idOS decentralized identity vault connected to Ethereum, Solana, 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["idOS", "decentralized-identity", "zk", "kyc", "sybil-resistance", "airdrop", "wallchain"]
-categories:
-  - "infrastructure-tech"
+category: "infrastructure-tech"
+subcategory: "zk-technology"
   # Keep: "evm", "research", "solana", "ai", "EVM"
 draft: false
 ---

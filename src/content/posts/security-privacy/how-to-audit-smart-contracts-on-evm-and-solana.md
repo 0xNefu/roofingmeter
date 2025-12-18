@@ -8,9 +8,8 @@ heroImageAlt: "Two programmers reviewing complex blockchain code on a split scre
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Smart Contract Audit", "EVM", "Solana", "Solidity", "Rust", "Anchor", "DeFi Security", "Vulnerability", "Security Tools"]
-categories:
-  - "security-privacy"
-  - "security-privacy/transaction-security"
+category: "security-privacy"
+subcategory: "transaction-security"
   # Keep: "security", "beginner"
 draft: true
 ---

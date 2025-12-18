@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 
-// Define all categories with their metadata
+// Define all categories with their metadata (kept for type safety & validation)
 export const blogCategories = [
   'getting-started',
   'security-privacy', 
@@ -12,111 +12,28 @@ export const blogCategories = [
   'research-analysis',
   'regulatory-tax',
   'portfolio-management',
-  'prediction-markets'  // ← New 11th pillar
+  'prediction-markets'
 ] as const;
 
 export type BlogCategory = typeof blogCategories[number];
 
-// Define subcategories for each main category
-export const subcategories: Record<BlogCategory, string[]> = {
-  'getting-started': [
-    'Basics & Terminology',
-    'First Purchase Guides', 
-    'Wallet Setup Tutorials',
-    'Crypto Psychology',
-    'Common Mistakes'
-  ],
-  'security-privacy': [
-    'Hardware Wallets',
-    'Software Wallets',
-    'Seed Phrase Management',
-    'Transaction Security',
-    'Privacy Tools & Techniques',
-    'Scam Prevention',
-    'Multi-Sig & Inheritance'
-  ],
-  'trading-investing': [
-    'Spot Trading',
-    'Derivatives',
-    'Technical Analysis',
-    'On-Chain Analysis',
-    'Memecoins & NFTs',
-    'Venture Investing',
-    'Exit Strategies'
-  ],
-  'defi-yield': [
-    'DEXs & Swapping',
-    'Liquidity Providing',
-    'Lending & Borrowing',
-    'Yield Aggregators',
-    'Restaking & LSTs',
-    'Structured Products',
-    'Cross-Chain Yield'
-  ],
-  'airdrop-farming': [
-    'Wallet Strategy',
-    'Points Systems',
-    'Eligibility Optimization',
-    'Gas Optimization',
-    'Multi-Chain Farming',
-    'Retroactive Analysis',
-    'Tool & Bot Setup'
-  ],
-  'infrastructure-tech': [
-    'Layer 1s',
-    'Layer 2s & Rollups',
-    'Oracles',
-    'Bridges',
-    'ZK Technology',
-    'AI x Crypto',
-    'DePIN & RWAs'
-  ],
-  'tools-automation': [
-    'Trading Bots',
-    'Analytics Platforms',
-    'Portfolio Trackers',
-    'Alert Systems',
-    'Automation Scripts',
-    'API Integration',
-    'Custom Dashboard Builds'
-  ],
-  'research-analysis': [
-    'Due Diligence Framework',
-    'Tokenomics Analysis',
-    'Team & Backer Analysis',
-    'Competitor Analysis',
-    'Market Fit Assessment',
-    'Risk Assessment Templates'
-  ],
-  'regulatory-tax': [
-    'Global Regulations',
-    'Tax Reporting',
-    'Entity Formation',
-    'Banking Solutions',
-    'Compliance Tools',
-    'Legal Structures',
-    'Audit & Accounting'
-  ],
-  'portfolio-management': [
-    'Allocation Strategies',
-    'Rebalancing Methods',
-    'Risk Management',
-    'Performance Tracking',
-    'Tax-Loss Harvesting',
-    'Estate Planning'
-  ],
-  'prediction-markets': [  // ← New subcategories
-    'Platform Guides',
-    'Event Strategies',
-    'Liquidity Providing',
-    'Arbitrage Opportunities',
-    'On-Chain Betting Protocols',
-    'Resolution Mechanisms',
-    'Risk Management & Bankroll',
-    'Market Manipulation Detection',
-    'Regulatory Landscape'
-  ]
-};
+// Define exact subcategory keys
+const subcategoryKeys = {
+  'getting-started': ['basics', 'first-purchase', 'wallet-setup', 'psychology', 'common-mistakes'],
+  'security-privacy': ['hardware-wallets', 'software-wallets', 'seed-phrase', 'transaction-security', 'privacy-tools', 'scam-prevention', 'multi-sig'],
+  'trading-investing': ['spot-trading', 'derivatives', 'technical-analysis', 'on-chain-analysis', 'memecoins-nfts', 'venture-investing', 'exit-strategies'],
+  'defi-yield': ['dexs-swapping', 'liquidity-providing', 'lending-borrowing', 'yield-aggregators', 'restaking-lsts', 'structured-products', 'cross-chain-yield'],
+  'airdrop-farming': ['wallet-strategy', 'points-systems', 'eligibility-optimization', 'gas-optimization', 'multi-chain-farming', 'retroactive-analysis', 'tool-bot-setup'],
+  'infrastructure-tech': ['layer-1s', 'layer-2s-rollups', 'oracles', 'bridges', 'zk-technology', 'ai-x-crypto', 'depin-rwas'],
+  'tools-automation': ['trading-bots', 'analytics-platforms', 'portfolio-trackers', 'alert-systems', 'automation-scripts', 'api-integration', 'custom-dashboard-builds'],
+  'research-analysis': ['due-diligence-framework', 'tokenomics-analysis', 'team-backer-analysis', 'competitor-analysis', 'market-fit-assessment', 'risk-assessment-templates'],
+  'regulatory-tax': ['global-regulations', 'tax-reporting', 'entity-formation', 'banking-solutions', 'compliance-tools', 'legal-structures', 'audit-accounting'],
+  'portfolio-management': ['allocation-strategies', 'rebalancing-methods', 'risk-management', 'performance-tracking', 'tax-loss-harvesting', 'estate-planning'],
+  'prediction-markets': ['platform-guides', 'event-strategies', 'liquidity-providing', 'arbitrage-opportunities', 'on-chain-protocols', 'resolution-mechanisms', 'bankroll-management', 'market-analysis', 'regulatory-updates'],
+} as const;
+
+// Flatten all subcategory keys into a union type for validation
+const allSubcategoryKeys = Object.values(subcategoryKeys).flat() as [string, ...string[]];
 
 // Main blog collection
 const blogCollection = defineCollection({
@@ -125,33 +42,33 @@ const blogCollection = defineCollection({
     // Required fields
     title: z.string(),
     description: z.string(),
-    pubDate: z.date(),
-    
-    // Category system - now includes prediction-markets
-    categories: z.array(z.enum(blogCategories)).or(z.enum(blogCategories)),
-    subcategory: z.string().optional(),
-    
+
+    // YOUR PREFERRED DATE FORMAT — keep using "date:" and "updatedDate:" in posts
+    date: z.coerce.date(),                     // Accepts strings like "2025-11-28" → converts to Date
+    updatedDate: z.coerce.date().optional(),   // Optional, same conversion
+
+    // Hierarchical category system
+    category: z.enum(blogCategories),
+    subcategory: z.enum(allSubcategoryKeys).optional(),
+
     // SEO & organization
     tags: z.array(z.string()).min(1).max(10).default([]),
     difficulty: z.enum(['beginner', 'intermediate', 'advanced']).default('intermediate'),
-    
+
     // Content features
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     author: z.string().default('NefuTrades'),
-    
+
     // Visuals
     coverImage: image().optional(),
     coverAlt: z.string().optional(),
-    
-    // Updates
-    updatedDate: z.date().optional(),
-    
+
     // Advanced
     readingTime: z.number().optional(),
     externalLink: z.string().url().optional(),
-    
-    // Series support (for multi-part articles)
+
+    // Series support
     series: z.object({
       name: z.string(),
       part: z.number(),
@@ -169,61 +86,17 @@ export const collections = {
   'contact': defineCollection({ type: 'content' }),
 };
 
-// Helper functions - updated with Prediction Markets metadata
+// Keep metadata for display purposes (icons, colors, etc.)
 export const categoryMetadata: Record<BlogCategory, { title: string; description: string; color: string }> = {
-  'getting-started': {
-    title: 'Getting Started',
-    description: 'Beginner guides and first steps in crypto',
-    color: '#3B82F6'
-  },
-  'security-privacy': {
-    title: 'Security & Privacy',
-    description: 'Protect your assets and maintain privacy',
-    color: '#10B981'
-  },
-  'trading-investing': {
-    title: 'Trading & Investing',
-    description: 'Markets, strategies, and investment analysis',
-    color: '#F59E0B'
-  },
-  'defi-yield': {
-    title: 'DeFi & Yield',
-    description: 'Decentralized finance and passive income strategies',
-    color: '#8B5CF6'
-  },
-  'airdrop-farming': {
-    title: 'Airdrop Farming',
-    description: 'Maximize airdrop eligibility and rewards',
-    color: '#EC4899'
-  },
-  'infrastructure-tech': {
-    title: 'Infrastructure & Tech',
-    description: 'Blockchain technology and infrastructure deep dives',
-    color: '#06B6D4'
-  },
-  'tools-automation': {
-    title: 'Tools & Automation',
-    description: 'Productivity tools and automation strategies',
-    color: '#84CC16'
-  },
-  'research-analysis': {
-    title: 'Research & Analysis',
-    description: 'Due diligence frameworks and analytical methodologies',
-    color: '#EF4444'
-  },
-  'regulatory-tax': {
-    title: 'Regulatory & Tax',
-    description: 'Legal compliance and tax optimization',
-    color: '#6366F1'
-  },
-  'portfolio-management': {
-    title: 'Portfolio Management',
-    description: 'Wealth building and portfolio optimization',
-    color: '#14B8A6'
-  },
-  'prediction-markets': {  // ← New pillar metadata
-    title: 'Prediction Markets',
-    description: 'Betting on real-world outcomes — platforms, strategies, and edge in on-chain prediction markets',
-    color: '#FF6B6B'  // Vibrant coral red — stands out nicely
-  }
+  'getting-started': { title: 'Getting Started', description: 'Beginner guides and first steps in crypto', color: '#3B82F6' },
+  'security-privacy': { title: 'Security & Privacy', description: 'Protect your assets and maintain privacy', color: '#10B981' },
+  'trading-investing': { title: 'Trading & Investing', description: 'Markets, strategies, and investment analysis', color: '#F59E0B' },
+  'defi-yield': { title: 'DeFi & Yield', description: 'Decentralized finance and passive income strategies', color: '#8B5CF6' },
+  'airdrop-farming': { title: 'Airdrop Farming', description: 'Maximize airdrop eligibility and rewards', color: '#EC4899' },
+  'infrastructure-tech': { title: 'Infrastructure & Tech', description: 'Blockchain technology and infrastructure deep dives', color: '#06B6D4' },
+  'tools-automation': { title: 'Tools & Automation', description: 'Productivity tools and automation strategies', color: '#84CC16' },
+  'research-analysis': { title: 'Research & Analysis', description: 'Due diligence frameworks and analytical methodologies', color: '#EF4444' },
+  'regulatory-tax': { title: 'Regulatory & Tax', description: 'Legal compliance and tax optimization', color: '#6366F1' },
+  'portfolio-management': { title: 'Portfolio Management', description: 'Wealth building and portfolio optimization', color: '#14B8A6' },
+  'prediction-markets': { title: 'Prediction Markets', description: 'Betting on real-world outcomes — platforms, strategies, and edge in on-chain prediction markets', color: '#FF6B6B' },
 };

@@ -8,9 +8,8 @@ heroImageAlt: "ASTER price chart wicked below $1 with explosive OI, funding, and
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["ASTER", "Solana", "Perps", "Funding", "Accumulation", "Price Target"]
-categories:
-  - "trading-investing"
-  - "trading-investing/market-analysis"
+category: "trading-investing"
+subcategory: "market-analysis"
   # Keep: "aster" if it's a tag
 draft: false
 ---

@@ -8,9 +8,8 @@ heroImageAlt: "A hand shielding a crypto coin from a barrage of digital threats 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Scams", "Security", "Phishing", "RugPull", "Investment Fraud", "Wallet Protection", "Beginner"]
-categories:
-  - "security-privacy"
-  - "security-privacy/scam-prevention"
+category: "security-privacy"
+subcategory: "scam-prevention"
   # Keep: "security", "beginner", "awareness"
 draft: true
 ---

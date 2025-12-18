@@ -8,9 +8,8 @@ heroImageAlt: "VOOI dashboard showing $20B+ volume, 26× oversubscribed Cookie s
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["VOOI", "Perps", "DeFi", "TGE", "Airdrop", "Chain Abstraction", "Cookie Launchpad"]
-categories:
-  - "defi-yield"
-  - "defi-yield/yield-aggregators"
+category: "defi-yield"
+subcategory: "yield-aggregators"
   # Keep: "defi", "research", "solana", "evm"
 draft: false
 ---

@@ -7,10 +7,9 @@ image: "/images/posts/solana_4_airdrop_snowball.jpg"
 heroImageAlt: "Four different logos representing crypto projects on Solana (NFT, DeFi, Derivatives) arranged like a snowball"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
-tags: ["Airdrop", "Solana", "Tensor", "Parcl", "ZetaMarkets", "Pumpfun", "Farming Strategy", "Crypto Rewards", "Security"]
-categories:
-  - "airdrop-farming"
-  # Keep existing tags: "airdrop", "research", "defi", "speculation", "solana", "security"
+tags: ["Airdrop", "Solana", "Tensor", "Pumpfun", "Farming Strategy", "Crypto Rewards", "Security"]
+category: airdrop-farming
+subcategory: points-systems   
 draft: true
 ---
 

@@ -8,9 +8,8 @@ heroImageAlt: "MetaMask settings screen showing Infura RPC with red warning over
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["MetaMask", "Privacy", "IP Leak", "RPC", "VPN", "Rabby Wallet", "Ethereum", "DeFi Security"]
-categories:
-  - "security-privacy"
-  - "security-privacy/privacy-tools"
+category: "security-privacy"
+subcategory: "privacy-tools"
   # Keep: "defi", "privacy", "evm", "tools"
 draft: false
 ---

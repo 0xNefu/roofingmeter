@@ -8,8 +8,8 @@ heroImageAlt: "iopn Network OPN Chain — the sovereign EVM L1 powering AI agent
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["iopn", "opn-chain", "evm", "solana", "ai-agents", "rwa", "infrastructure"]
-categories:
-  - "infrastructure-tech"
+category: "infrastructure-tech"
+subcategory: "layer-2s-rollups"
   # Keep: "evm", "research", "solana", "ai", "EVM"
 draft: false
 ---

@@ -2,7 +2,6 @@
 title: "How to Buy Cryptocurrency: Complete Step-by-Step Beginner's Guide"
 description: "Mastering your first crypto purchase doesn't need to be intimidating. This guide walks you through every click—from choosing a platform to securing your assets."
 date: 2025-12-08
-pubDate: 2025-12-08
 updatedDate: 2025-12-08
 image: "/images/posts/tokens.jpg"
 heroImageAlt: "Step-by-step visual guide showing smartphone, Coinbase interface, and crypto wallet security"
@@ -10,9 +9,8 @@ authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["cryptocurrency", "beginners-guide", "how-to-buy-crypto", "Solana", "Bitcoin", "Ethereum", "Coinbase", "Phantom-Wallet", "crypto-security", "step-by-step"]
 # CORRECT FORMAT - ONE categories array with multiple values
-categories: 
-  - "getting-started"               # For main category page
-  - "getting-started/first-purchase" # For subcategory page
+category: "getting-started"
+subcategory: "first-purchase" # For subcategory page
 difficulty: "beginner"
 draft: false
 ---
@@ -145,7 +143,7 @@ Total: $25.99
 
 **Why this is risky (even on trusted exchanges):**
 
-- "Not your keys, not your coins" — you don't control the private keys
+category: "Not your keys, not your coins" — you don't control the private keys
 - Limited to the exchange's features and withdrawal rules
 - While Coinbase is insured, self-custody is the gold standard in crypto
 

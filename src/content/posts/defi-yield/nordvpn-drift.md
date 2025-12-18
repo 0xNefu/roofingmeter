@@ -8,9 +8,8 @@ heroImageAlt: "NordVPN connected to Singapore server with Drift.trade open and P
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["NordVPN", "Drift Protocol", "Solana", "Perps", "DeFi Security", "Privacy", "VPN", "Anonymity", "Trading Guide"]
-categories:
-  - "defi-yield"
-  - "defi-yield/yield-aggregators"
+category: "defi-yield"
+subcategory: "yield-aggregators"
   # Keep: "defi", "research", "solana", "evm"
 draft: false
 ---

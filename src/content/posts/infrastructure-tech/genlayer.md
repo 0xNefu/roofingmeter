@@ -8,8 +8,8 @@ heroImageAlt: "Genlayer architecture diagram showing blockchain + traditional or
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Genlayer", "EVM", "AI", "DeFi", "Prediction Markets", "Autonomous Agents", "Web3 AI", "Zero-Knowledge"]
-categories:
-  - "infrastructure-tech"
+category: "infrastructure-tech"
+subcategory: "zk-technology"
   # Keep: "evm", "research", "solana", "ai", "EVM"
 draft: false
 ---
@@ -22,14 +22,14 @@ Imagine if your smartphone could only run calculators. No apps for weather, no m
 
 Blockchains like Ethereum and Solana are incredible at one thing: deterministic, simple math. They’re perfect for:
 
-- "If Alice sends 1 ETH to Bob, update their balances."
-- "If this timestamp passes, release the funds."
+category: "If Alice sends 1 ETH to Bob, update their balances."
+category: "If this timestamp passes, release the funds."
 
 But they are fundamentally incapable of:
 
-- "Is this news article positive or negative for this company's stock?"
-- "Did this athlete's performance in the game qualify as 'exceptional' according to sports analysts?"
-- "Is this social media post appropriate for our community guidelines?"
+category: "Is this news article positive or negative for this company's stock?"
+category: "Did this athlete's performance in the game qualify as 'exceptional' according to sports analysts?"
+category: "Is this social media post appropriate for our community guidelines?"
 
 This isn't a bug; it's a design feature. For a decentralized network to agree on a result, every single node must arrive at the exact same answer from the exact same inputs. There's no room for interpretation, nuance, or complex reasoning. Blockchains are isolated, blind, and simple by design.
 
@@ -67,9 +67,9 @@ This isn't just theoretical. Genlayer enables applications that were previously 
 ### Prediction Markets That Predict Everything
 Platforms like Polymarket and Augur can now host markets on subjective, nuanced events:
 
-- "Will critics consider the next Avatar film a visual masterpiece?" (Analyzing review sentiment)
-- "Will the Fed's statement be interpreted as 'hawkish' by Wall Street?" (Analyzing financial media)
-- "Which candidate 'won' the debate based on real-time social sentiment?"
+category: "Will critics consider the next Avatar film a visual masterpiece?" (Analyzing review sentiment)
+category: "Will the Fed's statement be interpreted as 'hawkish' by Wall Street?" (Analyzing financial media)
+category: "Which candidate 'won' the debate based on real-time social sentiment?"
 
 No more reliance on a single data point or a centralized judge. The crowd's wisdom, processed through verifiable AI, becomes the arbiter.
 

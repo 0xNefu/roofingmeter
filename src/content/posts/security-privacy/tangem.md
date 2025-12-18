@@ -8,9 +8,8 @@ heroImageAlt: "A Tangem card being tapped against a smartphone running the Tange
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Tangem", "Cold Storage", "Hardware Wallet", "NFC", "Seedless", "Security", "Mobile Crypto"]
-categories:
-  - "security-privacy"
-  - "security-privacy/hardware-wallets"
+category: "security-privacy"
+subcategory: "hardware-wallets"
   # Keep: "Security", "Beginner", "Guides", "Cryptocurrency"
 draft: true
 ---

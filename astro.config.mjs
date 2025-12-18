@@ -26,15 +26,8 @@ export default defineConfig({
 
   integrations: [
     react(),
-    mdx(),
 
-    // REMOVED: sitemap integration is replaced by a manual API endpoint (Step 2)
-    // sitemap({
-    //   changefreq: "weekly",
-    //   priority: 0.7,
-    //   lastmod: new Date(),
-    // }),
-
+    // AutoImport MUST come BEFORE mdx() so shortcodes work in .mdx files
     AutoImport({
       imports: [
         "@/shortcodes/Button",
@@ -46,6 +39,15 @@ export default defineConfig({
         "@/shortcodes/Tab",
       ],
     }),
+
+    mdx(),  // ← Moved here, after AutoImport
+
+    // REMOVED: sitemap integration is replaced by a manual API endpoint (Step 2)
+    // sitemap({
+    //   changefreq: "weekly",
+    //   priority: 0.7,
+    //   lastmod: new Date(),
+    // }),
   ],
 
   markdown: {

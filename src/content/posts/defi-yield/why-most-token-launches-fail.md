@@ -8,9 +8,8 @@ heroImageAlt: "X (Twitter) algorithm visualization showing replies outperforming
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Token Launch", "X Algorithm", "Reply Guy Strategy", "TGE", "Crypto Marketing", "Web3 Growth", "Engagement Hacking", "Solana", "DeFi"]
-categories:
-  - "defi-yield"
-  - "defi-yield/structured-products"
+category: "defi-yield"
+subcategory: "structured-products"
   # Keep: "defi", "Founders", "tutorial", "solana", "DeFi", "Guides"
 draft: false
 ---

@@ -8,8 +8,7 @@ heroImageAlt: "KloutGG on-chain social graph visualization with Solana wallets, 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["KloutGG", "SocialFi", "On-Chain Reputation", "Solana", "Klout Score", "Airdrop", "DeFi"]
-categories:
-  - "infrastructure-tech"
+category: "infrastructure-tech"
   # Keep: "evm", "research", "solana", "ai", "EVM"
 draft: false
 ---

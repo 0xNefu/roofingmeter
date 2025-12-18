@@ -8,9 +8,8 @@ heroImageAlt: "debitcard"
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["crypto", "debit card", "crypto debit card", "rewards", "beginner guide"]
-categories:
-  - "getting-started" 
-  - "getting-started/first-purchase"
+category: "getting-started"
+subcategory: "first-purchase"
   # Keep: "defi", "crypto" if relevant
 draft: true
 ---

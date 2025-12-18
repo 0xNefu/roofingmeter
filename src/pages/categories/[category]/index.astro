@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
+import { CATEGORY_HIERARCHY } from '@/lib/categories.js';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const pillars = [...new Set(posts.map(p => p.data.category).filter(Boolean))];
+  return pillars.map(pillar => ({ params: { category: pillar } }));
+}
+
+const { category } = Astro.params;
+const pillarData = CATEGORY_HIERARCHY[category];
+
+if (!pillarData) return Astro.redirect('/404');
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const postsInPillar = allPosts
+  .filter(p => p.data.category === category)
+  .sort((a, b) => {
+    // Safe sorting using your existing 'date' field
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  });
+---
+
+<Base title={pillarData.name} description={pillarData.description}>
+  <div class="container mx-auto py-12">
+    <h1 class="text-4xl font-bold mb-4">{pillarData.icon} {pillarData.name}</h1>
+    <p class="text-xl mb-8">{pillarData.description}</p>
+
+    <!-- Subcategory Pills -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      {Object.entries(pillarData.subcategories).map(([key, name]) => (
+        <a 
+          href={`/categories/${category}/${key}`} 
+          class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition text-center text-white font-medium"
+        >
+          {name}
+        </a>
+      ))}
+    </div>
+
+    <!-- All Guides in This Pillar -->
+    <h2 class="text-2xl font-bold mb-6">All Guides in {pillarData.name}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {postsInPillar.length > 0 ? (
+        postsInPillar.map(post => <PostCard post={post} />)
+      ) : (
+        <p class="col-span-full text-center text-gray-500 py-8">
+          No guides published in this category yet.
+        </p>
+      )}
+    </div>
+  </div>
+</Base>

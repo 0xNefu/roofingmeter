@@ -1,6 +1,6 @@
 ---
-import Posts from "@/components/Posts.astro";
 import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -31,7 +31,19 @@ const title = humanize(tag || "");
     <div class="container">
       <p class="text-center text-2xl mb-4">Showing Posts From</p>
       <h1 class="h2 mb-16 text-center text-primary">{title}</h1>
-      <Posts posts={sortedPosts} fluid={false} />
+
+      <!-- Posts Grid using your original PostCard design -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.length > 0 ? (
+          sortedPosts.map(post => (
+            <PostCard post={post} />
+          ))
+        ) : (
+          <p class="col-span-full text-center text-gray-500 py-12">
+            No posts found with this tag.
+          </p>
+        )}
+      </div>
     </div>
   </div>
 </Base>

@@ -8,9 +8,8 @@ heroImageAlt: "A magnifying glass icon over a website address bar with a shield 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["ScamAdviser", "DeFi Security", "Crypto Scams", "Beginner Guide", "Privacy", "Security", "Web3 Safety", "Due Diligence"]
-categories:
-  - "security-privacy"
-  - "security-privacy/scam-prevention"
+category: "security-privacy"
+subcategory: "scam-prevention"
   # Keep: "security", "beginner", "awareness"
 draft: true
 ---

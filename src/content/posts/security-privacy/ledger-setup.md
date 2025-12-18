@@ -8,9 +8,8 @@ heroImageAlt: "A Ledger Nano device on a desk next to a paper sheet with the 24-
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Ledger", "Cold Storage", "Hardware Wallet", "Security", "Seed Phrase", "BIP39", "Crypto Safety", "Cryptocurrency", "Blockchain", "Self-Custody"]
-categories:
-  - "security-privacy"
-  - "security-privacy/hardware-wallets"
+category: "security-privacy"
+subcategory: "hardware-wallets"
   # Keep: "Security", "Beginner", "Guides", "Cryptocurrency"
 draft: false
 ---

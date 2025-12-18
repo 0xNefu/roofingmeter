@@ -8,9 +8,8 @@ heroImageAlt: "Aster perpetuals funding rate chart showing +0.076% paid to short
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Aster", "Funding Rate", "Delta Neutral", "Yield", "DeFi", "Solana", "Perps", "Arbitrage"]
-categories:
-  - "trading-investing"
-  - "trading-investing/perpetuals-derivatives"
+category: "trading-investing"
+subcategory: "perpetuals-derivatives"
   # Keep: "aster" if it's a tag
 draft: false
 ---

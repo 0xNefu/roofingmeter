@@ -8,9 +8,8 @@ heroImageAlt: "NordVPN connected to New York server with Hyperliquid dashboard o
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["NordVPN", "Hyperliquid", "Arbitrum", "Perps", "DeFi Security", "Privacy", "VPN", "Anonymity", "Trading Guide"]
-categories:
-  - "defi-yield"
-  - "defi-yield/yield-aggregators"
+category: "defi-yield"
+subcategory: "yield-aggregators"
   # Keep: "defi", "research", "solana", "evm"
 draft: false
 ---

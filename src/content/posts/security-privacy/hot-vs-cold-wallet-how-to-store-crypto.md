@@ -8,9 +8,8 @@ heroImageAlt: "A physical hardware wallet (cold storage) next to a computer scre
 authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["Wallet Security", "Hardware Wallet", "Cold Storage", "Solana", "Phantom", "Solflare", "Ledger", "Trezor", "Keystone", "Tangem"]
-categories:
-  - "security-privacy"
-  - "security-privacy/basics"
+category: "security-privacy"
+subcategory: "basics"
   # Keep: "security", "beginner"
 draft: true
 ---

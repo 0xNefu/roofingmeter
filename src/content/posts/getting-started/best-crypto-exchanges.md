@@ -9,9 +9,8 @@ authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["crypto exchanges 2026", "best place to buy bitcoin 2026", "buy altcoins 2026", "lowest fee crypto exchange", "binance referral bonus", "bybit bonus", "kucoin bonus", "kraken vs coinbase 2026", "us crypto exchanges", "best dex 2026", "uniswap", "raydium", "jupiter solana", "decentralized exchange"]
 sticky: true
-categories: 
-  - "getting-started"
-  - "getting-started/first-purchase"
+category: "getting-started"
+subcategory: "first-purchase"
   # Keep old: "tutorial", "exchanges", "defi" if you want
 draft: false
 ---

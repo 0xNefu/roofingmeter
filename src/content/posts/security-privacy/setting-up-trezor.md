@@ -8,9 +8,8 @@ heroImageAlt: "A Trezor hardware wallet connected to a computer running the Trez
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Trezor", "Cold Storage", "Hardware Wallet", "Security", "Seed Phrase", "Passphrase", "BIP39"]
-categories:
-  - "security-privacy"
-  - "security-privacy/hardware-wallets"
+category: "security-privacy"
+subcategory: "hardware-wallets"
   # Keep: "Security", "Beginner", "Guides", "Cryptocurrency"
 draft: true
 ---

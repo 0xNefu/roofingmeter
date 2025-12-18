@@ -9,8 +9,8 @@ authors: ["Nefu"]
 authorTwitter: "@nefutrades"
 tags: ["AlignerZ", "A26Z", "Launchpad", "IWO", "TVS", "Wallchain", "Airdrop", "Polygon", "AttentionFi"]
 sticky: true
-categories:
-  - "airdrop-farming"
+category: "airdrop-farming"
+subcategory: "points-systems"
   # Keep existing tags: "airdrop", "research", "defi", "speculation", "solana", "security"
 draft: false
 ---

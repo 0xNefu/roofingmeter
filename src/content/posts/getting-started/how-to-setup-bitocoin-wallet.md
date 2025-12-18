@@ -8,9 +8,8 @@ heroImageAlt: "Bitcoin hardware wallet (Ledger) connected to phone and laptop sh
 authors: ["Nefu"]
 authorTwitter: ""
 tags: ["bitcoin", "wallet", "self-custody", "dca", "dollar-cost-averaging", "ledger", "electrum", "coinbase", "kraken", "swan-bitcoin", "beginner-guide"]
-categories:
-  - "getting-started" 
-  - "getting-started/wallet-setup"
+category: "getting-started"
+subcategory: "wallet-setup"
   # Keep: "defi", "crypto" if relevant
 draft: false
 ---

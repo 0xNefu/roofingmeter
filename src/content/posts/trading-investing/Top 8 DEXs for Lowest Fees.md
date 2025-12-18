@@ -8,9 +8,8 @@ heroImageAlt: "Conceptual image of blockchain technology, coins, and charts repr
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["DEX", "DeFi", "Yield Farming", "Liquidity Pool", "Trading Fees", "Uniswap", "PancakeSwap", "Curve Finance"]
-categories:
-  - "trading-investing"
-  - "trading-investing/exchange-guides"
+category: "trading-investing"
+subcategory: "exchange-guides"
   # Keep: "defi", "evm", "tutorial", "guides"
 draft: false
 ---

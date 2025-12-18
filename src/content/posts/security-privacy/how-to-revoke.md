@@ -8,9 +8,8 @@ heroImageAlt: "A digital lock being broken by a computer interface, symbolizing 
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Security", "Wallet Hygiene", "Token Approvals", "Solana", "Scam Prevention", "Phantom"]
-categories:
-  - "security-privacy"
-  - "security-privacy/transaction-security"
+category: "security-privacy"
+subcategory: "transaction-security"
   # Keep: "security", "beginner"
 draft: true
 ---
