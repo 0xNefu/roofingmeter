@@ -13,11 +13,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@/components/*": ["src/components/*"],
-      "@/shortcodes/*": ["src/shortcodes/*"],
-      "@/helpers/*": ["src/helpers/*"],
-      "@/partials/*": ["src/layouts/partials/*"]   // ← THIS IS THE FIX
+      "@/*": ["src/*"]
+      // REMOVE all the specific paths below - they're causing conflicts
     }
   },
   "include": [

@@ -136,3 +136,19 @@ tags: [""]
 categories: ["", ""]
 draft: true
 ---
+
+
+---
+title: "{TITLE}"
+description: "{DESCRIPTION}"
+date: {YYYY-MM-DD}
+updatedDate: {YYYY-MM-DD} 
+image: "/images/posts/{IMAGE_NAME}"
+heroImageAlt: "{ALT_TEXT}"
+authors: ["{AUTHOR}"]
+authorTwitter: "{TWITTER_HANDLE}"
+tags: ["{TAG1}", "{TAG2}", "{TAG3}"]
+category: "{CATEGORY}"
+subcategory: "{SUBCATEGORY}"
+draft: false
+---

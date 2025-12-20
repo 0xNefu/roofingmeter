@@ -1,33 +1,57 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from "@/layouts/Base.astro";
-import PostCard from "@/components/PostCard.astro";
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 
 const latestPosts = allPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 9); // Adjust number as you like (your live site shows 9)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Base title="Txchyon Capital" description="Advanced crypto research, airdrop farming guides, and trading strategies.">
-  <div class="container mx-auto py-12 px-4">
+<Base title="Txchyon Capital">
+  <div class="container mx-auto py-12 px-4 max-w-4xl">
     <div class="text-center mb-16">
       <h1 class="text-5xl font-bold mb-6">Txchyon Capital</h1>
-      <p class="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+      <p class="text-xl text-gray-300 leading-relaxed">
         Advanced crypto research, airdrop farming guides, and trading strategies.
       </p>
     </div>
 
-    <h2 class="text-4xl font-bold text-center mb-12">Latest Research & Guides</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {latestPosts.length > 0 ? (
-        latestPosts.map(post => (
-          <PostCard post={post} />
-        ))
+    <div class="space-y-20">
+      {latestPosts.length === 0 ? (
+        <p class="text-center text-gray-500 py-12">No posts published yet.</p>
       ) : (
-        <p class="col-span-full text-center text-gray-500 py-12">No posts published yet.</p>
+        latestPosts.map((post) => {
+          const { title, description, date } = post.data;
+          const { slug } = post;
+
+          const formattedDate = new Date(date).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+          return (
+            <article class="border-b border-gray-200 dark:border-gray-800 pb-20 last:border-0 last:pb-0">
+              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
+                * NefuTrades * {formattedDate}
+              </p>
+              <h2 class="text-4xl font-bold mb-6">
+                <a href={`/posts/${slug}`} class="hover:text-primary transition-colors">
+                  {title}
+                </a>
+              </h2>
+              {description && (
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                  {description}
+                </p>
+              )}
+              <a href={`/posts/${slug}`} class="text-primary font-medium hover:underline">
+                Read the full guide →
+              </a>
+            </article>
+          );
+        })
       )}
     </div>
   </div>

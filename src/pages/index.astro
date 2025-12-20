@@ -1,30 +1,24 @@
----
-import config from "@/config/config.json";
+﻿---
+import { getCollection } from 'astro:content';
 import Base from "@/layouts/Base.astro";
-import PostCard from "@/components/PostCard.astro";
+import Posts from "@/layouts/components/Posts.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
-import { getSinglePage } from "@/lib/contentParser.astro";
-import { sortByDate } from "@/lib/utils/sortFunctions";
 
-const posts = await getSinglePage("posts");
-const sortedPosts = sortByDate(posts);
-const totalPages = Math.ceil(posts.length / config.settings.pagination);
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 
-// Show 7 latest posts on homepage (your preference)
+// Sort by date, newest first
+const sortedPosts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Show 7 latest posts
 const currentPosts = sortedPosts.slice(0, 7);
+const totalPages = Math.ceil(allPosts.length / 7); // Simple pagination
 ---
 
 <Base>
   <section class="section">
     <div class="container">
-      <!-- Latest Posts Grid using your original PostCard -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {currentPosts.map(post => (
-          <PostCard post={post} />
-        ))}
-      </div>
-
-      <!-- Pagination (kept exactly as before) -->
+      <Posts posts={currentPosts} className="mb-16" />
       <Pagination currentPage={1} totalPages={totalPages} />
     </div>
   </section>

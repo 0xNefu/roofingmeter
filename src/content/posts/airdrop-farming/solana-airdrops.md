@@ -1,16 +1,16 @@
 ---
 title: "🪂 The Solana Airdrop Snowball: 4 Confirmed Farm Strategies to Claim Free Tokens"
 description: "The Solana ecosystem is in an Airdrop Season. We break down the farm strategies for four confirmed token launches—Tensor, Parcl, Zeta Markets, and Pump.fun—with simple, step-by-step guides to ensure your wallet qualifies for major allocations."
-date: 2025-12-05
-updatedDate: 2025-12-05
-image: "/images/posts/solana_4_airdrop_snowball.jpg"
+date: 2025-12-19
+updatedDate: 2025-12-19
+image: "/images/posts/solana1.jpg"
 heroImageAlt: "Four different logos representing crypto projects on Solana (NFT, DeFi, Derivatives) arranged like a snowball"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
 tags: ["Airdrop", "Solana", "Tensor", "Pumpfun", "Farming Strategy", "Crypto Rewards", "Security"]
 category: airdrop-farming
 subcategory: points-systems   
-draft: true
+draft: false
 ---
 
 # 🚀 The Solana Airdrop Snowball: Your Guide to 4 High-Value Token Rewards

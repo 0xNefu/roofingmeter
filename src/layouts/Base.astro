@@ -1,19 +1,20 @@
-﻿---
+---
+import TwSizeIndicator from "@/components/TwSizeIndicator.astro";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import { plainify } from "@/lib/utils/textConverter";
 import Footer from "@/partials/Footer.astro";
 import Header from "@/partials/Header.astro";
+import FloatingBubble from "@/components/FloatingBubble.jsx";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
 import SEO from "@/components/SEO.astro";
 
-// Font setup
-const pf = theme.fonts?.font_family?.primary || "Inter";
-let fontPrimary: string | undefined;
-if (pf) {
-  fontPrimary = pf
+const pf = theme.fonts.font_family.primary;
+let fontPrimary;
+if (theme.fonts.font_family.primary) {
+  fontPrimary = theme.fonts.font_family.primary
     .replace(/\+/g, " ")
     .replace(/:[ital,]*[ital@]*[wght@]*[0-9,;]+/gi, "");
 }
@@ -27,27 +28,19 @@ export interface Props {
   canonical?: string;
 }
 
-const {
-  title,
-  meta_title,
-  description,
-  image,
-  noindex,
-  canonical,
-} = Astro.props;
+const { title, meta_title, description, image, noindex, canonical } = Astro.props;
 
 const finalTitle = plainify(meta_title ?? title ?? config.site.title);
-const finalDescription = plainify(description ?? config.metadata?.meta_description ?? "");
+const finalDescription = plainify(description ?? config.metadata.meta_description);
 const finalImage = image
   ? `${config.site.base_url}${image.startsWith("/") ? "" : "/"}${image}`
-  : `${config.site.base_url}${config.metadata?.meta_image ?? "/og-image.jpg"}`;
+  : `${config.site.base_url}${config.metadata.meta_image}`;
 const finalCanonical = canonical ?? `${config.site.base_url}${Astro.url.pathname}`;
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google Analytics GA4 -->
+    {/* GOOGLE ANALYTICS GA4 - LIVE */}
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W77T47Y58P"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -55,6 +48,9 @@ const finalCanonical = canonical ?? `${config.site.base_url}${Astro.url.pathname
       gtag('js', new Date());
       gtag('config', 'G-W77T47Y58P');
     </script>
+
+    {/* Google Search Console verification placeholder */}
+    {/* <meta name="google-site-verification" content="your-code-here" /> */}
 
     <link rel="shortcut icon" href={config.site.favicon} />
     <meta name="theme-name" content="bookworm-light-astro" />
@@ -64,22 +60,13 @@ const finalCanonical = canonical ?? `${config.site.base_url}${Astro.url.pathname
     <meta name="generator" content={Astro.generator} />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <!-- Font Awesome Brands (for social icons in footer) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/brands.min.css"
-      integrity="sha512-EJp2qTjF4DBYqjkMcyXayqffK0pQb3H6aXUt9Xslap2J+DZ8oZhyR2PaA+CO2f4QwY7p3kdQ6D5OcX6bZ8Z5Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
     <AstroFont
       config={[
         {
           src: [],
           preload: false,
           display: "swap",
-          name: fontPrimary ?? "Inter",
+          name: fontPrimary!,
           fallback: "sans-serif",
           cssVariable: "font-primary",
           googleFontsURL: `https://fonts.googleapis.com/css2?family=${pf}&display=swap`,
@@ -101,65 +88,72 @@ const finalCanonical = canonical ?? `${config.site.base_url}${Astro.url.pathname
     <link rel="alternate" type="application/feed+json" title="Txchyon JSON Feed" href="/feed.json" />
 
     <ClientRouter />
-    <meta name="author" content={config.metadata?.meta_author ?? "NefuTrades"} />
+    <meta name="author" content={config.metadata.meta_author} />
   </head>
 
   <body class="bg-body text-text font-primary font-normal leading-relaxed dark:bg-dark dark:text-light">
+    <TwSizeIndicator />
     <Header />
     <main id="main-content" class="min-h-[60vh]">
       <slot />
     </main>
     <Footer />
 
-    <!-- Alpine.js for any interactive components -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <FloatingBubble client:load />
+  
 
-    <!-- Dark Mode Toggle Script -->
-    <script is:global>
-      // Initialize theme
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      
-      // Apply initial theme
-      document.documentElement.setAttribute('data-theme', initialTheme);
-      if (initialTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-      
-      // Save if not already saved
-      if (!savedTheme) {
-        localStorage.setItem('theme', initialTheme);
-      }
-      
-      // Toggle function
-      function toggleDarkMode() {
-        const html = document.documentElement;
-        const isDark = html.classList.contains('dark');
-        const newTheme = isDark ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        html.classList.toggle('dark');
-        localStorage.setItem('theme', newTheme);
-      }
-      
-      // Add click listener when DOM loads
-      document.addEventListener('DOMContentLoaded', () => {
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (toggleBtn) {
-          toggleBtn.addEventListener('click', toggleDarkMode);
-        }
-      });
-      
-      // Re-attach listener on page navigation (for Astro View Transitions)
-      document.addEventListener('astro:page-load', () => {
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (toggleBtn) {
-          const newBtn = toggleBtn.cloneNode(true);
-          toggleBtn.replaceWith(newBtn);
-          newBtn.addEventListener('click', toggleDarkMode);
-        }
-      });
-    </script>
-  </body>
+
+<!-- SIMPLE DARK MODE SCRIPT -->
+<script is:global>
+  // Initialize theme
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+  
+  // Apply initial theme
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  if (initialTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+  
+  // Save if not already saved
+  if (!savedTheme) {
+    localStorage.setItem('theme', initialTheme);
+  }
+  
+  // Toggle function
+  function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    const newTheme = isDark ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    html.classList.toggle('dark');
+    localStorage.setItem('theme', newTheme);
+  }
+  
+  // Add click listener when DOM loads
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', toggleDarkMode);
+    }
+  });
+  
+  // Re-attach listener on page navigation (for Astro View Transitions)
+  document.addEventListener('astro:page-load', () => {
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+      // Remove existing listener and re-add
+      toggleBtn.replaceWith(toggleBtn.cloneNode(true));
+      document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+    }
+  });
+</script>
+</body>
 </html>
+
+
+
+

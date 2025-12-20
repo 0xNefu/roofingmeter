@@ -10,11 +10,33 @@ export async function getStaticPaths() {
   
   console.log('=== DEBUG getStaticPaths ===');
   console.log('Number of posts:', posts.length);
-  console.log('Post IDs:', posts.map(p => p.id));
+  
+  // Detailed debug for each post
+  posts.forEach((post, index) => {
+    console.log(`\n[Post ${index + 1}] ${post.data.title}`);
+    console.log(`  ID: "${post.id}"`);
+    console.log(`  Slug: "${post.slug}"`);
+    console.log(`  File path: ${post.id}.md`);
+    console.log(`  Category: "${post.data.category}"`);
+    console.log(`  Subcategory: "${post.data.subcategory}"`);
+    
+    // What URLs will this create?
+    console.log(`  Will create route: /blog/${post.id}`);
+    
+    // Check if file exists
+    console.log(`  Expected file: src/content/posts/${post.id}.md`);
+  });
   
   // Check for your example post
   const ourPost = posts.find(p => p.id === 'getting-started/how-to-buy-crypto');
-  console.log('Our post found?', ourPost ? 'YES' : 'NO');
+  console.log('\nOur post found?', ourPost ? 'YES' : 'NO');
+  
+  if (ourPost) {
+    console.log('Example post details:');
+    console.log('  Title:', ourPost.data.title);
+    console.log('  Full ID:', ourPost.id);
+    console.log('  Should be accessible at: /blog/getting-started/how-to-buy-crypto');
+  }
   
   return posts.map((post) => ({
     params: { slug: post.id }, // Handles nested like 'getting-started/how-to-buy-crypto'
@@ -23,16 +45,24 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-console.log('=== DEBUG Page Render ===');
+console.log('\n=== DEBUG Page Render ===');
 console.log('URL param "slug":', slug);
+console.log('Full URL:', Astro.url.pathname);
 
 const { post } = Astro.props;
 console.log('Post from props:', post ? post.id : 'UNDEFINED');
 
 if (!post) {
   console.log('ERROR: No post found, returning 404');
+  console.log('Requested slug:', slug);
+  console.log('Available posts:', (await getCollection("posts")).map(p => p.id));
   return Astro.redirect('/404');
 }
+
+console.log('Post found!');
+console.log('  Title:', post.data.title);
+console.log('  Category:', post.data.category);
+console.log('  Subcategory:', post.data.subcategory);
 
 const { title, meta_title, image, description } = post.data;
 ---

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('posts');
+const firstPost = posts[0];
+---
+
+<pre>
+Total posts: {posts.length}
+
+First post ID: {firstPost?.id}
+First post data keys: {JSON.stringify(Object.keys(firstPost?.data || {}))}
+First post full data: {JSON.stringify(firstPost?.data, null, 2)}
+</pre>

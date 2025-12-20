@@ -1,0 +1,72 @@
+﻿import { defineCollection, z } from 'astro:content';
+
+// Define the 11 category pillars
+const blogCategories = [
+  'getting-started',
+  'security-privacy', 
+  'trading-investing',
+  'defi-yield',
+  'airdrop-farming',
+  'infrastructure-tech',
+  'tools-automation',
+  'research-analysis',
+  'regulatory-tax',
+  'portfolio-management',
+  'prediction-markets'
+] as const;
+
+// Main blog collection
+const blogCollection = defineCollection({
+  type: 'content',
+  
+  // Keep the filter but also change image handling
+  filter: ({ data }) => {
+    return !data.draft;
+  },
+  
+  schema: z.object({  // REMOVE ({ image }) parameter
+    // Required fields
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    
+    // Category fields
+    category: z.enum(blogCategories).default('getting-started'),
+    subcategory: z.string().optional(),
+    
+    // Optional fields
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+    
+    // 🔥 CRITICAL CHANGE: Use string instead of image()
+    image: z.string().optional(), // Changed from image().optional()
+    
+    author: z.string().optional(),
+    updatedDate: z.coerce.date().optional(),
+    heroImageAlt: z.string().optional(),
+    authors: z.array(z.string()).optional(),
+    authorTwitter: z.string().optional(),
+  }),
+});
+
+// Simple collections to stop auto-generation warnings
+const simpleContentCollection = defineCollection({ type: 'content' });
+const simpleDataCollection = defineCollection({ type: 'data' });
+
+export const collections = {
+  'posts': blogCollection,
+  'pages': simpleContentCollection,
+  'authors': defineCollection({ 
+    type: 'data',
+    schema: z.object({ 
+      name: z.string(),
+      bio: z.string().optional(),
+    })
+  }),
+  'about': simpleContentCollection,
+  'contact': simpleContentCollection,
+  
+  // 🔥 ADD THESE TO STOP AUTO-GENERATION WARNINGS
+  'blog': simpleContentCollection,
+  'posts-backup': simpleContentCollection,
+};

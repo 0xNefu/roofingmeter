@@ -27,7 +27,7 @@ export default defineConfig({
   integrations: [
     react(),
 
-    // AutoImport MUST come BEFORE mdx() so shortcodes work in .mdx files
+    // ← AutoImport moved BEFORE mdx to fix the warning
     AutoImport({
       imports: [
         "@/shortcodes/Button",
@@ -40,14 +40,7 @@ export default defineConfig({
       ],
     }),
 
-    mdx(),  // ← Moved here, after AutoImport
-
-    // REMOVED: sitemap integration is replaced by a manual API endpoint (Step 2)
-    // sitemap({
-    //   changefreq: "weekly",
-    //   priority: 0.7,
-    //   lastmod: new Date(),
-    // }),
+    mdx(), // ← Now comes after AutoImport
   ],
 
   markdown: {
