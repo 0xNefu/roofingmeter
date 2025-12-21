@@ -1,8 +1,8 @@
 <!-- src/components/PostCard.astro -->
 ---
 const { post } = Astro.props;
-const { title, description, date, category, subcategory } = post.data;
-const { slug } = post;  // ← Use slug (clean, no .md)
+const { title, description, date, category, subcategory, image } = post.data;
+const { slug } = post;
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   month: 'short',
@@ -12,6 +12,22 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 ---
 
 <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+  <!-- HERO IMAGE SECTION - ADDED -->
+  {image && (
+    <div class="h-48 overflow-hidden">
+      <a href={`/blog/${slug}`}>
+        <img 
+          src={image.startsWith('/') ? image : `/${image}`} 
+          alt={title}
+          class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+          width="400"
+          height="192"
+        />
+      </a>
+    </div>
+  )}
+  
   <div class="p-6">
     <div class="mb-4">
       <span class="inline-block px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">

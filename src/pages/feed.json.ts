@@ -11,8 +11,8 @@ export const GET: APIRoute = async ({ site }) => {
 
   const items = posts
     .map((post) => {
-      // Use post.id for correct nested URL: getting-started/how-to-buy-crypto
-      const path = post.id.replace(/\.(md|mdx)$/, ''); // Clean extension if any
+      // Use post.slug for correct nested URL: getting-started/how-to-buy-crypto
+      const path = post.slug; // FIXED: Changed from post.id to post.slug
       const url = new URL(`/blog/${path}/`, site).href;
 
       const imageUrl = post.data.image

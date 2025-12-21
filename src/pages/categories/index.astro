@@ -37,7 +37,8 @@ const latestPosts = allPosts
                 * NefuTrades * {formattedDate}
               </p>
               <h2 class="text-4xl font-bold mb-6">
-                <a href={`/posts/${slug}`} class="hover:text-primary transition-colors">
+                <!-- FIXED: Changed /posts/ to /blog/ -->
+                <a href={`/blog/${slug}`} class="hover:text-primary transition-colors">
                   {title}
                 </a>
               </h2>
@@ -46,7 +47,8 @@ const latestPosts = allPosts
                   {description}
                 </p>
               )}
-              <a href={`/posts/${slug}`} class="text-primary font-medium hover:underline">
+              <!-- FIXED: Changed /posts/ to /blog/ -->
+              <a href={`/blog/${slug}`} class="text-primary font-medium hover:underline">
                 Read the full guide →
               </a>
             </article>
