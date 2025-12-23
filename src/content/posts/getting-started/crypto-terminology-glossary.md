@@ -1,8 +1,8 @@
 ---
 title: "Crypto Terminology Glossary: 100 Essential Terms for Beginners"
 description: "New to cryptocurrency? This comprehensive crypto glossary explains 100 key terms in simple language, from blockchain and Bitcoin to DeFi and wallets, helping beginners understand the essentials of crypto."
-date: 2025-12-22
-updatedDate: 2025-12-22
+date: 2025-12-21
+updatedDate: 2025-12-21
 image: "/images/posts/glossary1.jpg"
 heroImageAlt: "A clean digital illustration of interconnected blockchain nodes with key crypto terms floating around them"
 authors: ["Nefu"]
