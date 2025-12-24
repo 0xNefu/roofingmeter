@@ -1,8 +1,8 @@
 ---
 title: "Top 10 Cryptocurrencies Explained for Absolute Beginners"
 description: "New to crypto? This simple guide explains the top 10 cryptocurrencies by market cap in 2026, what they do, why they matter, and which ones beginners should know first — no hype, just clear facts."
-date: 2025-12-23
-updatedDate: 2025-12-23
+date: 2025-12-22
+updatedDate: 2025-12-22
 image: "/images/posts/top10crypto.jpg"
 heroImageAlt: "A clean grid layout showing the logos of the top 10 cryptocurrencies with simple icons representing their main use cases"
 authors: ["Nefu"]

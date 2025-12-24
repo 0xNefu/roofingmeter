@@ -1,25 +1,511 @@
 ﻿---
-import { getCollection } from 'astro:content';
+// src/pages/index.astro
+import { getCollection } from 'astro:content';  // ← THIS LINE IS CRITICAL!
 import Base from "@/layouts/Base.astro";
 import Posts from "@/layouts/components/Posts.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
 
-const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+// Helper function for automatic readTime calculation
+function calculateReadTime(content, wordsPerMinute = 130) {
+  if (!content) return 10; // Default fallback
+  
+  const plainText = content
+    .replace(/---[\s\S]*?---/, '') // Remove frontmatter
+    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/#{1,6}\s*/g, '') // Remove markdown headers
+    .replace(/[\[\]\(\)]/g, ' ') // Replace brackets with spaces
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+  
+  const wordCount = plainText.split(/\s+/).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  
+  return Math.max(1, Math.min(minutes, 60));
+}
+
+function getPostReadTime(post) {
+  // Use manual readTime if provided
+  if (post.data.readTime) {
+    return post.data.readTime;
+  }
+  
+  // Calculate from body content
+  if (post.body) {
+    return calculateReadTime(post.body);
+  }
+  
+  // Smart estimates based on content type
+  const estimates = {
+    'getting-started': 8,
+    'security-privacy': 10,
+    'airdrop-farming': 12,
+    'defi-yield': 15
+  };
+  
+  return estimates[post.data.pillar] || 10;
+}
+
+// Get all posts and add automatic readTime
+const allPostsRaw = await getCollection('posts', ({ data }) => !data.draft);
+
+const allPosts = allPostsRaw.map(post => ({
+  ...post,
+  data: {
+    ...post.data,
+    readTime: getPostReadTime(post)
+  }
+}));
 
 // Sort by date, newest first
-const sortedPosts = allPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 
-// Show 7 latest posts
-const currentPosts = sortedPosts.slice(0, 7);
-const totalPages = Math.ceil(allPosts.length / 7); // Simple pagination
+// Featured post (most recent - FIRST post)
+const featuredPost = sortedPosts[0];
+
+// LATEST POSTS: Skip the first one (featured) and take next 6
+const latestPosts = sortedPosts.slice(1, 7); // Changed from slice(0, 6) to slice(1, 7)
+
+// Get posts by pillar (exclude featured post from these lists too)
+const pillarPosts = {
+  'getting-started': sortedPosts
+    .filter(p => p.data.pillar === 'getting-started' && p.slug !== featuredPost.slug)
+    .slice(0, 3),
+  'security-privacy': sortedPosts
+    .filter(p => p.data.pillar === 'security-privacy' && p.slug !== featuredPost.slug)
+    .slice(0, 3),
+  'airdrop-farming': sortedPosts
+    .filter(p => p.data.pillar === 'airdrop-farming' && p.slug !== featuredPost.slug)
+    .slice(0, 3),
+  'defi-yield': sortedPosts
+    .filter(p => p.data.pillar === 'defi-yield' && p.slug !== featuredPost.slug)
+    .slice(0, 3)
+};
+
+// FIXED: Quick wins should also exclude featured post
+const gettingStartedPosts = sortedPosts
+  .filter(p => p.data.pillar === 'getting-started' && p.slug !== featuredPost.slug);
+
+const quickWins = gettingStartedPosts.length >= 4 
+  ? gettingStartedPosts.slice(0, 4)
+  : [...gettingStartedPosts, ...sortedPosts
+      .filter(p => p.data.pillar !== 'getting-started' && p.slug !== featuredPost.slug)]
+      .slice(0, 4);
+
+// Realistic metrics
+const realisticStats = {
+  guidesPublished: allPosts.length.toString(),
+  activeReaders: "1,200+",
+  protocolsCovered: "45+",
+  monthsActive: "1"
+};
 ---
 
-<Base>
-  <section class="section">
-    <div class="container">
-      <Posts posts={currentPosts} className="mb-16" />
-      <Pagination currentPage={1} totalPages={totalPages} />
+<Base title="Txchyon - Free DeFi Mastery | No Gatekeeping, Just Knowledge" 
+      description="Premium DeFi education that should cost thousands... but we're giving it away free. Because crypto knowledge should be accessible to everyone.">
+  
+  <!-- 🌟 HERO: Open Source Billionaire Vibe -->
+  <section class="relative min-h-[85vh] overflow-hidden bg-gradient-to-br from-gray-900 via-black to-blue-950">
+    <!-- Animated gradient background -->
+    <div class="absolute inset-0">
+      <div class="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl top-1/4 left-1/4 animate-pulse"></div>
+      <div class="absolute w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl bottom-1/4 right-1/4 animate-pulse animation-delay-2000"></div>
+    </div>
+    
+    <div class="container relative z-10 mx-auto px-4 pt-28 pb-16">
+      <div class="max-w-5xl mx-auto text-center">
+        
+        {/* Honest Badge */}
+        <div class="inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-cyan-500/30 rounded-full px-5 py-2.5 mb-8">
+          <span class="text-cyan-400">⚡</span>
+          <span class="text-cyan-300 font-medium text-sm">
+            FRESH LAUNCH • NO BULLSHIT • 100% FREE
+          </span>
+        </div>
+        
+        {/* Main Headline */}
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-center mb-8 leading-tight">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-gradient">
+            DeFi Knowledge
+          </span>
+          <br />
+          <span class="text-white text-3xl md:text-5xl lg:text-6xl">
+            Shouldn't Cost $5,000
+          </span>
+        </h1>
+        
+        {/* Subheadline - Honest & Direct */}
+        <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+          We're giving away what "gurus" charge thousands for. 
+          <span class="text-cyan-400 font-semibold"> Because in crypto, information wants to be free.</span>
+        </p>
+        
+        {/* CTA - Clear it's free */}
+        <div class="flex flex-col sm:flex-row gap-5 justify-center mb-12">
+          <a href="#start-learning" 
+             class="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-1 text-center text-lg">
+            <span class="relative z-10">START LEARNING FREE</span>
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 blur opacity-50 group-hover:opacity-70 transition-opacity"></div>
+          </a>
+          <a href="#why-free" 
+             class="px-8 py-4 bg-black/50 backdrop-blur-sm border-2 border-cyan-500/30 text-white font-bold rounded-xl hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 text-center text-lg">
+            🤔 WHY FREE?
+          </a>
+        </div>
+        
+        {/* Realistic Stats - Honest Numbers */}
+        <div class="bg-black/30 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 max-w-3xl mx-auto">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-white mb-2">{realisticStats.guidesPublished}</div>
+              <div class="text-gray-400 text-sm">GUIDES PUBLISHED</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-white mb-2">{realisticStats.activeReaders}</div>
+              <div class="text-gray-400 text-sm">ACTIVE READERS</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-white mb-2">{realisticStats.protocolsCovered}</div>
+              <div class="text-gray-400 text-sm">PROTOCOLS COVERED</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-white mb-2">$0</div>
+              <div class="text-green-400 text-sm">EVERYTHING COSTS</div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Trust Note */}
+        <p class="text-gray-500 text-sm mt-8 max-w-xl mx-auto">
+          ⚠️ <span class="text-gray-400">No upsells. No "premium tiers." Just knowledge.</span>
+        </p>
+      </div>
     </div>
   </section>
+
+  <!-- 🤔 "WHY FREE?" SECTION - Honest Explanation -->
+  <section id="why-free" class="py-20 bg-black">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+            Wait... Why Free?
+          </span>
+        </h2>
+        
+        <div class="bg-gray-900/50 backdrop-blur-sm rounded-3xl border border-cyan-500/30 p-8 mb-8">
+          <div class="text-6xl mb-6">🎯</div>
+          <h3 class="text-2xl font-bold text-white mb-4">The Open Source Philosophy</h3>
+          <p class="text-gray-300 text-lg mb-6">
+            Crypto was built on <span class="text-cyan-400">open source principles</span>. Knowledge should flow freely, not be locked behind paywalls.
+          </p>
+          <p class="text-gray-400">
+            We believe when more people understand DeFi, the entire ecosystem grows. 
+            <span class="text-green-400 font-medium"> That's our "investment."</span>
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+            <div class="text-3xl mb-4">⚡</div>
+            <h4 class="text-xl font-bold text-white mb-3">No Hidden Agenda</h4>
+            <p class="text-gray-400 text-sm">
+              We're not selling courses. Not promoting shitcoins. Just sharing what works.
+            </p>
+          </div>
+          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+            <div class="text-3xl mb-4">🔓</div>
+            <h4 class="text-xl font-bold text-white mb-3">Accessible to All</h4>
+            <p class="text-gray-400 text-sm">
+              Whether you have $100 or $100,000 - knowledge should be equally accessible.
+            </p>
+          </div>
+          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+            <div class="text-3xl mb-4">🌱</div>
+            <h4 class="text-xl font-bold text-white mb-3">Grow With Us</h4>
+            <p class="text-gray-400 text-sm">
+              We're building this in public. Your feedback shapes what we create next.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎯 FEATURED "MASTERCLASS" (But Free) -->
+  <section class="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20">
+    <div class="container mx-auto px-4">
+      <div class="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-xl rounded-3xl border border-purple-500/30 overflow-hidden shadow-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-8 lg:p-10">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-sm">
+                🔥 FEATURED DEEP DIVE
+              </div>
+              <div class="text-cyan-400 text-sm font-semibold">
+                ⭐ LATEST RELEASE
+              </div>
+            </div>
+            
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+              {featuredPost.data.title}
+            </h2>
+            
+            <p class="text-lg text-gray-300 mb-8">
+              {featuredPost.data.description}
+            </p>
+            
+            <div class="flex flex-wrap gap-3 mb-8">
+              {featuredPost.data.tags?.slice(0, 3).map(tag => (
+                <span class="px-3 py-1.5 bg-gray-800/50 rounded-lg text-sm text-gray-300 border border-gray-700">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            
+            <div class="space-y-4">
+              <a href={`/blog/${featuredPost.slug}`} 
+                 class="block w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl text-center hover:shadow-xl hover:shadow-purple-500/30 transition-all hover:scale-[1.02]">
+                👉 READ FREE DEEP DIVE
+              </a>
+              <div class="text-center text-gray-400 text-sm">
+                📖 Complete guide • ⏱️ {featuredPost.data.readTime} min read • 🆓 100% Free
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative min-h-[300px] lg:min-h-auto bg-gradient-to-br from-purple-900 to-pink-900">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f?auto=format&fit=crop&w=800')] opacity-10 bg-cover bg-center"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-8">
+              <div class="text-center">
+                <div class="text-7xl mb-6 opacity-30">📚</div>
+                <div class="bg-black/60 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                  <div class="text-xl font-bold text-white mb-2">PREMIUM QUALITY</div>
+                  <div class="text-green-400 font-medium">Zero Cost</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🚀 QUICK START SECTION -->
+  <section id="start-learning" class="py-20 bg-gradient-to-b from-black to-gray-900">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">
+            Start Here → Get Results
+          </span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          No fluff. Just actionable guides you can complete today.
+        </p>
+      </div>
+      
+      {/* Quick Wins - Now shows real posts! */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {quickWins.map((post, index) => (
+          <a href={`/blog/${post.slug}`} 
+             class="group bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1">
+            <div class="mb-4">
+              <span class="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-xs font-bold">
+                {post.data.readTime <= 5 ? '⚡ QUICK START' : '🎯 GET STARTED'}
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+              {post.data.title}
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              {post.data.description?.substring(0, 70)}...
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-cyan-400 text-sm font-medium">
+                READ NOW →
+              </span>
+              <span class="text-gray-500 text-xs">
+                {post.data.readTime} min
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 🗺️ LEARNING PATHS (Honest) -->
+  <section class="py-20 bg-black">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+            Choose Your Adventure
+          </span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          Different goals, different paths. All free.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {[
+          { 
+            pillar: 'getting-started', 
+            title: '🚀 New Here?', 
+            desc: 'Absolute beginner guides',
+            color: 'from-blue-500 to-cyan-500',
+            posts: pillarPosts['getting-started']
+          },
+          { 
+            pillar: 'security-privacy', 
+            title: '🔐 Security First', 
+            desc: 'Protect your assets',
+            color: 'from-red-500 to-pink-500',
+            posts: pillarPosts['security-privacy']
+          },
+          { 
+            pillar: 'airdrop-farming', 
+            title: '🪂 Find Airdrops', 
+            desc: 'Free crypto opportunities',
+            color: 'from-yellow-500 to-orange-500',
+            posts: pillarPosts['airdrop-farming']
+          },
+          { 
+            pillar: 'defi-yield', 
+            title: '💰 Grow Wealth', 
+            desc: 'Yield & investment strategies',
+            color: 'from-green-500 to-emerald-500',
+            posts: pillarPosts['defi-yield']
+          }
+        ].map((path) => (
+          <div class={`bg-gradient-to-br ${path.color}/10 to-black/50 rounded-2xl border border-gray-800 p-6 hover:border-white/30 transition-all`}>
+            <h3 class="text-xl font-bold text-white mb-4">{path.title}</h3>
+            <p class="text-gray-400 text-sm mb-6">{path.desc}</p>
+            
+            <div class="space-y-3 mb-6">
+              {path.posts.length > 0 ? path.posts.map(post => (
+                <a href={`/blog/${post.slug}`} 
+                   class="block p-3 bg-black/30 rounded-lg hover:bg-black/50 transition-colors group">
+                  <div class="text-white text-sm group-hover:text-cyan-400 transition-colors">
+                    {post.data.title}
+                  </div>
+                  <div class="text-gray-500 text-xs mt-1">
+                    {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </div>
+                </a>
+              )) : (
+                <div class="text-gray-600 text-sm italic">Guides coming soon...</div>
+              )}
+            </div>
+            
+            <!-- FIXED: Changed from /blog/category/ to /categories/ -->
+            <a href={`/categories/${path.pillar}`} 
+               class="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">
+              Explore all {path.pillar.replace('-', ' ')} guides →
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 📚 LATEST GUIDES SECTION -->
+  <section class="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold text-white">
+            Latest Deep Dives
+          </h2>
+          <p class="text-gray-400 mt-2">
+            Fresh research & analysis published regularly
+          </p>
+        </div>
+        <a href="/blog" 
+           class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-xl transition-colors flex items-center gap-2">
+          <span>📚</span> View All Guides
+        </a>
+      </div>
+      
+      <Posts posts={latestPosts} className="mb-12" />
+      
+      <div class="text-center">
+        <Pagination currentPage={1} totalPages={Math.ceil(allPosts.length / 6)} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 🎁 FINAL CTA - No Pressure -->
+  <section class="py-20 bg-gradient-to-r from-black via-purple-900/20 to-blue-900/20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="bg-black/40 backdrop-blur-sm rounded-3xl border border-cyan-500/30 p-8 lg:p-10">
+          <div class="text-5xl mb-6">🎁</div>
+          
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Seriously. It's All Free.
+          </h2>
+          
+          <p class="text-gray-300 text-lg mb-8">
+            No credit card. No "free trial" that expires. No premium tier waiting. 
+            <span class="text-cyan-400 font-medium"> Just quality DeFi education.</span>
+          </p>
+          
+          <div class="space-y-4">
+            <a href="/blog" 
+               class="block w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl text-lg hover:shadow-xl hover:shadow-cyan-500/30 transition-all">
+              BROWSE ALL FREE GUIDES
+            </a>
+            
+            <p class="text-gray-500 text-sm">
+              ⚡ Join {realisticStats.activeReaders} others learning DeFi the right way
+            </p>
+          </div>
+          
+          {/* Small, honest disclaimer */}
+          <div class="mt-8 pt-6 border-t border-gray-800">
+            <p class="text-gray-600 text-xs">
+              ⚠️ <span class="text-gray-500">Disclaimer: We're not financial advisors. DeFi has risks. 
+              We just believe knowledge should be free. Do your own research.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add the beautiful animations -->
+  <style>
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 4s ease infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .animate-pulse {
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    
+    /* Smooth hover effects */
+    * {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
 </Base>

@@ -12,7 +12,7 @@ category: "tools-automation"
 subcategory: "trading-bots"
 draft: true
 ---
-
+2
 ## Best Solana Trading Bots for Meme Coins and Sniping in 2026
 
 Solana has become the **home of meme coin trading**.

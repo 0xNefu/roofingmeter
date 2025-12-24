@@ -1,0 +1,129 @@
+---
+// src/pages/index.astro
+import { getCollection } from 'astro:content';
+import Base from "@/layouts/Base.astro";
+import Posts from "@/layouts/components/Posts.astro";
+import Pagination from "@/layouts/components/Pagination.astro";
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+
+// Sort by date, newest first
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// Show 7 latest posts on homepage
+const currentPosts = sortedPosts.slice(0, 7);
+const totalPages = Math.ceil(allPosts.length / 7);
+---
+
+<Base title="Txchyon - Master Crypto Step by Step">
+  <!-- Hero Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-b from-transparent to-gray-50 dark:to-darkmode-body">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-5xl lg:text-6xl font-bold text-text dark:text-light mb-6">
+        Master Crypto<br />Step by Step
+      </h1>
+      <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+        In-depth guides from beginner basics to advanced strategies — wallets, security, airdrops, DeFi, and beyond.
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured Pillars Section -->
+  <section class="section pb-16 lg:pb-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12 lg:mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-text dark:text-light">
+          Explore Core Pillars
+        </h2>
+        <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Start with the fundamentals and level up to pro-level tactics.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Getting Started -->
+        <a href="/categories/getting-started" class="group block">
+          <div class="bg-white dark:bg-darkmode-body border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col justify-between">
+            <div>
+              <div class="text-6xl mb-6">🚀</div>
+              <h3 class="text-2xl font-bold mb-3">Getting Started</h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Basics, wallet setup, first purchases, psychology & common mistakes
+              </p>
+            </div>
+            <span class="inline-block mt-8 text-primary font-medium group-hover:text-primary-dark">
+              Explore →
+            </span>
+          </div>
+        </a>
+
+        <!-- Security & Privacy -->
+        <a href="/categories/security-privacy" class="group block">
+          <div class="bg-white dark:bg-darkmode-body border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col justify-between">
+            <div>
+              <div class="text-6xl mb-6">🔐</div>
+              <h3 class="text-2xl font-bold mb-3">Security & Privacy</h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Hardware wallets, seed phrases, scam prevention & privacy tools
+              </p>
+            </div>
+            <span class="inline-block mt-8 text-primary font-medium group-hover:text-primary-dark">
+              Explore →
+            </span>
+          </div>
+        </a>
+
+        <!-- Airdrop Farming -->
+        <a href="/categories/airdrop-farming" class="group block">
+          <div class="bg-white dark:bg-darkmode-body border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col justify-between">
+            <div>
+              <div class="text-6xl mb-6">🎁</div>
+              <h3 class="text-2xl font-bold mb-3">Airdrop Farming</h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                Points systems, eligibility, gas optimization & retroactive drops
+              </p>
+            </div>
+            <span class="inline-block mt-8 text-primary font-medium group-hover:text-primary-dark">
+              Explore →
+            </span>
+          </div>
+        </a>
+
+        <!-- DeFi & Yield -->
+        <a href="/categories/defi-yield" class="group block">
+          <div class="bg-white dark:bg-darkmode-body border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col justify-between">
+            <div>
+              <div class="text-6xl mb-6">🏦</div>
+              <h3 class="text-2xl font-bold mb-3">DeFi & Yield</h3>
+              <p class="text-gray-600 dark:text-gray-400">
+                DEXs, lending, restaking, yield aggregators & cross-chain strategies
+              </p>
+            </div>
+            <span class="inline-block mt-8 text-primary font-medium group-hover:text-primary-dark">
+              Explore →
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/categories" class="text-lg text-primary hover:underline">
+          View all 11 pillars →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Posts Section -->
+  <section class="section pt-8 lg:pt-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12">
+        Latest Guides
+      </h2>
+      <Posts posts={currentPosts} className="mb-16" />
+      <Pagination currentPage={1} totalPages={totalPages} />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,560 @@
+---
+// src/pages/index.astro
+import { getCollection } from 'astro:content';
+import Base from "@/layouts/Base.astro";
+import Posts from "@/layouts/components/Posts.astro";
+import Pagination from "@/layouts/components/Pagination.astro";
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+
+// Sort by date, newest first
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// All posts for pillar teasers
+const gettingStartedPosts = sortedPosts.filter(post => post.data.pillar === 'getting-started').slice(0, 3);
+const securityPosts = sortedPosts.filter(post => post.data.pillar === 'security-privacy').slice(0, 3);
+const airdropPosts = sortedPosts.filter(post => post.data.pillar === 'airdrop-farming').slice(0, 3);
+const defiPosts = sortedPosts.filter(post => post.data.pillar === 'defi-yield').slice(0, 3);
+
+// Latest 7 for main feed
+const currentPosts = sortedPosts.slice(0, 7);
+const totalPages = Math.ceil(allPosts.length / 7);
+
+// Get trending posts (most visited - you'd integrate analytics here)
+const trendingPosts = sortedPosts.slice(0, 5);
+
+// Get featured post (most recent with featured tag)
+const featuredPost = sortedPosts.find(post => post.data.featured) || sortedPosts[0];
+---
+
+<Base title="Txchyon - Master DeFi Step by Step | Complete Beginner to Advanced Guides" 
+      description="Comprehensive DeFi education: wallet security, airdrop farming, yield strategies, and crypto fundamentals. Stay ahead in Web3 with expert guides.">
+  
+  <!-- Hero Section with Newsletter Signup -->
+  <section class="relative py-20 lg:py-28 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 dark:from-darkmode-body dark:via-purple-950 dark:to-blue-950 overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+      <div class="absolute bottom-10 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Badge for social proof -->
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
+          <span class="text-yellow-400">⭐</span>
+          <span class="text-sm font-medium text-white">Trusted by 10,000+ DeFi enthusiasts</span>
+        </div>
+        
+        <h1 class="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+          Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">DeFi</span><br />
+          <span class="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">Like a Pro</span>
+        </h1>
+        
+        <p class="text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto mb-10">
+          Step-by-step guides from absolute beginner to advanced strategies. No fluff, just actionable DeFi knowledge.
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a href="#latest-guides" 
+             class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 text-center">
+            Start Learning Free
+          </a>
+          <a href="#newsletter" 
+             class="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-center">
+            Get Weekly Alpha
+          </a>
+        </div>
+        
+        <!-- Social Proof Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">250+</div>
+            <div class="text-sm text-gray-300">Guides Published</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">50+</div>
+            <div class="text-sm text-gray-300">Protocols Covered</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">$2M+</div>
+            <div class="text-sm text-gray-300">Airdrops Found</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">100%</div>
+            <div class="text-sm text-gray-300">No Sponsor Bias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Post -->
+  {featuredPost && (
+    <section class="py-16 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-darkmode-body dark:to-blue-900/20">
+      <div class="container mx-auto px-4">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-2xl">
+          <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div class="p-10 lg:p-12">
+              <div class="inline-flex items-center gap-2 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-300 rounded-full px-4 py-2 mb-6">
+                <span>🔥</span>
+                <span class="text-sm font-semibold">Featured Guide</span>
+              </div>
+              <h2 class="text-3xl lg:text-4xl font-bold text-text dark:text-light mb-6">
+                {featuredPost.data.title}
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">
+                {featuredPost.data.description}
+              </p>
+              <div class="flex flex-wrap gap-4 mb-8">
+                {featuredPost.data.tags?.slice(0, 3).map(tag => (
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <a href={`/posts/${featuredPost.slug}`} 
+                 class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300">
+                Read Featured Guide
+                <span class="text-xl">→</span>
+              </a>
+            </div>
+            <div class="bg-gradient-to-br from-purple-500 to-pink-500 relative min-h-[300px] lg:min-h-auto">
+              <div class="absolute inset-0 bg-cover bg-center opacity-20" 
+                   style={`background-image: url('${featuredPost.data.image || 'https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f'}')`}>
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center p-10">
+                <div class="text-white text-center">
+                  <div class="text-8xl mb-6">🎯</div>
+                  <p class="text-xl font-semibold">Most Popular This Week</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Trending Topics (SEO Boost) -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12">
+        🔥 Trending DeFi Topics Right Now
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+        {['Restaking', 'Layer 2 Airdrops', 'Real Yield', 'RWA', 'DeFi 2.0', 'MEV Protection', 'Cross-Chain', 'ZK Rollups', 'Liquid Staking', 'DeFi Security'].map(topic => (
+          <a href={`/search?q=${topic.toLowerCase().replace(' ', '-')}`}
+             class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 hover:border-cyan-500">
+            <div class="font-semibold text-text dark:text-light">{topic}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillar Section (Enhanced) -->
+  <section class="section pb-16 lg:pb-24 bg-gray-50 dark:bg-darkmode-body/30">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12 lg:mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-text dark:text-light">
+          Your DeFi Learning Path
+        </h2>
+        <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Follow our structured curriculum designed to take you from zero to hero.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Getting Started -->
+        <a href="/categories/getting-started" 
+           class="group block relative overflow-hidden rounded-3xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-blue-900/20 border border-gray-200 dark:border-gray-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+          <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            Beginner
+          </div>
+          <div class="p-8">
+            <div class="text-6xl mb-6 text-center">🚀</div>
+            <h3 class="text-2xl font-bold mb-4 text-center">Getting Started</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">
+              Master the fundamentals: wallets, first trades, and avoiding common pitfalls.
+            </p>
+            <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <div class="flex justify-between mb-1">
+                <span>Progress</span>
+                <span>{gettingStartedPosts.length}/10 guides</span>
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div class="bg-green-500 h-2 rounded-full" style={`width: ${(gettingStartedPosts.length/10)*100}%`}></div>
+              </div>
+            </div>
+            <div class="text-center">
+              <span class="inline-flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-medium group-hover:gap-3 transition-all">
+                Start Learning
+                <span class="text-xl">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Security & Privacy -->
+        <a href="/categories/security-privacy" 
+           class="group block relative overflow-hidden rounded-3xl bg-gradient-to-br from-white to-red-50 dark:from-gray-800 dark:to-red-900/20 border border-gray-200 dark:border-gray-700 hover:border-red-500 dark:hover:border-red-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+          <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            Essential
+          </div>
+          <div class="p-8">
+            <div class="text-6xl mb-6 text-center">🔐</div>
+            <h3 class="text-2xl font-bold mb-4 text-center">Security & Privacy</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">
+              Protect your assets: hardware wallets, scam prevention, and privacy tools.
+            </p>
+            <div class="text-center mt-8">
+              <span class="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-medium group-hover:gap-3 transition-all">
+                Secure Your Assets
+                <span class="text-xl">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Airdrop Farming -->
+        <a href="/categories/airdrop-farming" 
+           class="group block relative overflow-hidden rounded-3xl bg-gradient-to-br from-white to-yellow-50 dark:from-gray-800 dark:to-yellow-900/20 border border-gray-200 dark:border-gray-700 hover:border-yellow-500 dark:hover:border-yellow-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+          <div class="absolute top-4 right-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            Profitable
+          </div>
+          <div class="p-8">
+            <div class="text-6xl mb-6 text-center">🪂</div>
+            <h3 class="text-2xl font-bold mb-4 text-center">Airdrop Farming</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">
+              Find free money: points systems, eligibility, and gas optimization.
+            </p>
+            <div class="text-center mt-8">
+              <span class="inline-flex items-center gap-2 text-yellow-600 dark:text-yellow-400 font-medium group-hover:gap-3 transition-all">
+                Hunt Free Money
+                <span class="text-xl">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- DeFi & Yield -->
+        <a href="/categories/defi-yield" 
+           class="group block relative overflow-hidden rounded-3xl bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-purple-900/20 border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+          <div class="absolute top-4 right-4 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            Advanced
+          </div>
+          <div class="p-8">
+            <div class="text-6xl mb-6 text-center">🏦</div>
+            <h3 class="text-2xl font-bold mb-4 text-center">DeFi & Yield</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6 text-center">
+              Maximize returns: DEXs, lending, restaking, and cross-chain strategies.
+            </p>
+            <div class="text-center mt-8">
+              <span class="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 font-medium group-hover:gap-3 transition-all">
+                Maximize Returns
+                <span class="text-xl">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Guides Section -->
+  <section id="latest-guides" class="section pt-16 lg:pt-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold">
+            Latest Guides & Tutorials
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mt-2">
+            Fresh, actionable content published weekly
+          </p>
+        </div>
+        <div class="flex gap-4">
+          <a href="/categories" 
+             class="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl font-semibold hover:border-cyan-500 transition-colors">
+            View All Categories
+          </a>
+          <a href="/rss.xml" 
+             class="px-6 py-3 bg-gray-100 dark:bg-gray-800 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+            <span>📡</span> RSS Feed
+          </a>
+        </div>
+      </div>
+      
+      <Posts posts={currentPosts} className="mb-16" />
+      
+      <div class="text-center">
+        <Pagination currentPage={1} totalPages={totalPages} />
+        <p class="text-gray-500 dark:text-gray-400 mt-6">
+          New guides published every Monday, Wednesday, and Friday
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section (Audience Building) -->
+  <section id="newsletter" class="py-20 bg-gradient-to-r from-cyan-900 to-blue-900 dark:from-cyan-950 dark:to-blue-950">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
+          <span>💎</span>
+          <span class="text-sm font-medium text-white">Exclusive Alpha</span>
+        </div>
+        
+        <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+          Get Weekly DeFi Alpha
+        </h2>
+        
+        <p class="text-xl text-gray-200 mb-10">
+          Join 5,000+ subscribers who get early access to airdrop opportunities, 
+          yield strategies, and security tips before everyone else.
+        </p>
+        
+        <form class="space-y-4 max-w-2xl mx-auto" 
+              action="/api/subscribe" 
+              method="POST"
+              id="newsletter-form">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input 
+              type="email" 
+              name="email"
+              placeholder="Your best email address" 
+              required
+              class="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            />
+            <button 
+              type="submit"
+              class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-green-500 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 whitespace-nowrap">
+              Get Free Access →
+            </button>
+          </div>
+          <p class="text-sm text-gray-300">
+            No spam. Unsubscribe anytime. We respect your privacy.
+          </p>
+        </form>
+        
+        <!-- Social Proof -->
+        <div class="mt-12 pt-8 border-t border-white/20">
+          <p class="text-gray-300 mb-6">As featured in:</p>
+          <div class="flex flex-wrap justify-center gap-8 items-center opacity-80">
+            <div class="text-white font-bold text-xl">CoinGecko</div>
+            <div class="text-white font-bold text-xl">Bankless</div>
+            <div class="text-white font-bold text-xl">DeFi Llama</div>
+            <div class="text-white font-bold text-xl">The Defiant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Pillar Content -->
+  <section class="section py-16 lg:py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12">
+        Start With What Matters Most
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Getting Started -->
+        <div>
+          <div class="sticky top-6">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-2xl">
+                🚀
+              </div>
+              <h3 class="text-2xl font-bold">Getting Started</h3>
+            </div>
+            {gettingStartedPosts.length > 0 ? (
+              <div class="space-y-6">
+                {gettingStartedPosts.map(post => (
+                  <a href={`/posts/${post.slug}`} 
+                     class="block group">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500 transition-colors">
+                      <h4 class="font-semibold text-text dark:text-light group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p class="text-gray-500">Coming soon...</p>
+            )}
+            <a href="/categories/getting-started" 
+               class="inline-flex items-center gap-2 mt-6 text-green-600 dark:text-green-400 font-medium">
+              View all beginner guides
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Security & Privacy -->
+        <div>
+          <div class="sticky top-6">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-2xl">
+                🔐
+              </div>
+              <h3 class="text-2xl font-bold">Security</h3>
+            </div>
+            {securityPosts.length > 0 ? (
+              <div class="space-y-6">
+                {securityPosts.map(post => (
+                  <a href={`/posts/${post.slug}`} 
+                     class="block group">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-red-500 dark:hover:border-red-500 transition-colors">
+                      <h4 class="font-semibold text-text dark:text-light group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p class="text-gray-500">Coming soon...</p>
+            )}
+            <a href="/categories/security-privacy" 
+               class="inline-flex items-center gap-2 mt-6 text-red-600 dark:text-red-400 font-medium">
+              Protect your assets
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Airdrop Farming -->
+        <div>
+          <div class="sticky top-6">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-2xl">
+                🪂
+              </div>
+              <h3 class="text-2xl font-bold">Airdrops</h3>
+            </div>
+            {airdropPosts.length > 0 ? (
+              <div class="space-y-6">
+                {airdropPosts.map(post => (
+                  <a href={`/posts/${post.slug}`} 
+                     class="block group">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-yellow-500 dark:hover:border-yellow-500 transition-colors">
+                      <h4 class="font-semibold text-text dark:text-light group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p class="text-gray-500">Coming soon...</p>
+            )}
+            <a href="/categories/airdrop-farming" 
+               class="inline-flex items-center gap-2 mt-6 text-yellow-600 dark:text-yellow-400 font-medium">
+              Hunt free money
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- DeFi & Yield -->
+        <div>
+          <div class="sticky top-6">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-2xl">
+                🏦
+              </div>
+              <h3 class="text-2xl font-bold">DeFi & Yield</h3>
+            </div>
+            {defiPosts.length > 0 ? (
+              <div class="space-y-6">
+                {defiPosts.map(post => (
+                  <a href={`/posts/${post.slug}`} 
+                     class="block group">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-colors">
+                      <h4 class="font-semibold text-text dark:text-light group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p class="text-gray-500">Coming soon...</p>
+            )}
+            <a href="/categories/defi-yield" 
+               class="inline-flex items-center gap-2 mt-6 text-purple-600 dark:text-purple-400 font-medium">
+              Maximize returns
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="bg-gradient-to-r from-gray-900 to-blue-900 dark:from-gray-800 dark:to-blue-800 rounded-3xl p-8 lg:p-12 text-center">
+        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+          Ready to Master DeFi?
+        </h2>
+        <p class="text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+          Join thousands who've transformed their crypto journey with our step-by-step system.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/getting-started" 
+             class="px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-colors">
+            Start Your Journey
+          </a>
+          <a href="/about" 
+             class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-colors">
+            Why Trust Us?
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add custom CSS for animations -->
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Newsletter form success */
+    #newsletter-form:valid button {
+      background: linear-gradient(to right, #10b981, #059669);
+    }
+  </style>
+</Base>
