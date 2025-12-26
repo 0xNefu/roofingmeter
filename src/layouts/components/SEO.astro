@@ -16,7 +16,8 @@ const {
 // Simple, direct image URL - NO DOUBLE BASE_URL!
 const finalTitle = title ?? "Txchyon - On-Chain Research & DeFi Alpha";
 const finalDescription = description ?? "on-chain research + Defi alpha and Airdrops";
-const finalImage = "https://txchyon.com/images/tokens.jpg"; // HARDCODED to avoid issues
+// Use provided image OR fall back to default
+const finalImage = image ? image : "https://txchyon.com/images/tokens.jpg";
 
 // FIXED: Normalize canonical URL - remove trailing slash
 const cleanPath = Astro.url.pathname.replace(/\/$/, ""); // Remove trailing slash
@@ -68,3 +69,4 @@ const finalCanonical = canonical ?? `https://txchyon.com${cleanPath}`;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={finalCanonical} />
+
