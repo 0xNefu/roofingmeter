@@ -5,8 +5,8 @@
       "url": "/categories/getting-started"
     },
     {
-      "name": "Trading",
-      "url": "/categories/trading-investing"
+      "name": "Airdrop",
+      "url": "/categories/airdrop-farming"
     },
     {
       "name": "DeFi & Yield",
@@ -24,8 +24,8 @@
       "name": "More",
       "dropdown": [
         {
-          "name": "Airdrop Farming",
-          "url": "/categories/airdrop-farming"
+          "name": "Trading",
+          "url": "/categories/trading-investing"
         },
         {
           "name": "Infrastructure",
@@ -46,6 +46,14 @@
         {
           "name": "Prediction Markets",
           "url": "/categories/prediction-markets"
+        },
+        {
+          "name": "Services",
+          "url": "/services"
+        },
+        {
+          "name": "Tools",
+          "url": "/tools"
         }
       ]
     }
@@ -54,6 +62,18 @@
     {
       "name": "Txchyon",
       "url": "/"
+    },
+    {
+      "name": "Services",
+      "url": "/services"
+    },
+    {
+      "name": "Tools",
+      "url": "/tools"
+    },
+    {
+      "name": "Newsletter",
+      "url": "/newsletter"
     },
     {
       "name": "Twitter",

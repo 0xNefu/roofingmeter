@@ -1,0 +1,103 @@
+---
+import Base from "@/layouts/Base.astro";
+---
+
+<Base title="Txchyon Newsletter - Crypto Alpha & Insights" 
+      description="Get exclusive DeFi insights, airdrop alerts, and crypto alpha directly to your inbox. Join our free newsletter.">
+  
+  <section class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-blue-950 py-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="bg-black/40 backdrop-blur-sm rounded-3xl border border-cyan-500/30 p-8 lg:p-10">
+          <div class="text-5xl mb-6">🚀</div>
+          
+          <h1 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Get the Free Top 5 Airdrop Guide
+          </h1>
+          
+          <!-- FIXED LINE: Just use 400+ directly -->
+          <p class="text-gray-300 text-lg mb-8">
+            Join 400+ crypto builders getting exclusive airdrop strategies & insights.
+            <span class="text-cyan-400 font-medium"> Zero spam. Unsubscribe anytime.</span>
+          </p>
+          
+          <div class="space-y-6 mb-10 text-left bg-black/30 p-6 rounded-2xl">
+            <div class="flex items-center gap-3">
+              <span class="text-cyan-400 text-xl">📥</span>
+              <div>
+                <div class="text-white font-medium">Instant PDF Download</div>
+                <div class="text-gray-400 text-sm">"Top 5 Airdrop Guide" sent immediately</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cyan-400 text-xl">⚡</span>
+              <div>
+                <div class="text-white font-medium">Weekly Alpha</div>
+                <div class="text-gray-400 text-sm">Early opportunities & actionable strategies</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cyan-400 text-xl">🔒</span>
+              <div>
+                <div class="text-white font-medium">100% Free & Private</div>
+                <div class="text-gray-400 text-sm">No credit card • We respect your privacy</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Beehiiv Embed Form -->
+          <div class="mb-8">
+            <div class="beehiiv-embed-container bg-transparent">
+              <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+              <iframe 
+                src="https://subscribe-forms.beehiiv.com/62d85daa-7878-4a83-a78a-a15f6226c516" 
+                class="beehiiv-embed" 
+                data-test-id="beehiiv-embed" 
+                frameborder="0" 
+                scrolling="no" 
+                style="width: 100%; max-width: 508px; height: 198px; margin: 0 auto; border-radius: 0px !important; background-color: transparent; box-shadow: none;">
+              </iframe>
+            </div>
+          </div>
+          
+          <p class="text-gray-500 text-sm mb-10">
+            By subscribing, you agree to our <a href="/privacy" class="text-cyan-400 hover:text-cyan-300">Privacy Policy</a>
+          </p>
+          
+          <div class="mt-12 pt-8 border-t border-gray-800">
+            <p class="text-gray-400 mb-4">Want to explore more first?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/" 
+                 class="px-6 py-3 border border-gray-700 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-center">
+                ← Back to Home
+              </a>
+              <a href="/blog" 
+                 class="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-center">
+                📚 Read Free Guides
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .beehiiv-embed-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+    
+    .beehiiv-embed iframe {
+      background-color: transparent !important;
+    }
+    
+    @media (min-width: 768px) {
+      .beehiiv-embed iframe {
+        max-width: 508px;
+      }
+    }
+  </style>
+</Base>
