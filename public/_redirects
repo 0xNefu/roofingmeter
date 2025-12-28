@@ -240,3 +240,21 @@
 /trading-investing /blog/trading-investing 301
 /tutorials /categories/getting-started 301
 /wallet /categories/security-privacy 301
+
+# Missing redirects found during testing
+/blog/polymarket /blog/prediction-markets/what-is-polymarket 301
+/blog/polymarket/ /blog/prediction-markets/what-is-polymarket 301
+
+/blog/setting-up-ledger /blog/security-privacy/ledger-setup 301
+/blog/setting-up-ledger/ /blog/security-privacy/ledger-setup 301
+
+# Also check if these variations exist
+/blog/set-up-ledger /blog/security-privacy/ledger-setup 301
+/blog/ledger-nano-setup /blog/security-privacy/ledger-setup 301
+/blog/ledger-nano /blog/security-privacy/ledger-setup 301
+
+
+# Category page redirects
+/categories/airdrop/ /categories/airdrop-farming 301
+/categories/airdrop/* /categories/airdrop-farming/:splat 301
+
