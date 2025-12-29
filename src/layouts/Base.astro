@@ -8,7 +8,7 @@ import FloatingBubble from "@/components/FloatingBubble.jsx";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
-import SEO from "@/layouts/components/SEO.astro";  // <-- ADD THIS BACK
+import SEO from "@/layouts/components/SEO.astro";
 
 const pf = theme.fonts.font_family.primary;
 let fontPrimary;
@@ -123,6 +123,19 @@ const finalCanonical = canonical ?? `${config.site.base_url}${cleanPath}`;
 
     <ClientRouter />
     <meta name="author" content={config.metadata.meta_author} />
+    
+    <!-- Critical theme CSS -->
+    <style>
+      /* Initialize with dark mode by default to prevent flash */
+      :root {
+        color-scheme: light dark;
+      }
+      
+      /* Smooth transitions */
+      * {
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      }
+    </style>
   </head>
 
   <body class="bg-body text-text font-primary font-normal leading-relaxed dark:bg-dark dark:text-light">
@@ -136,50 +149,136 @@ const finalCanonical = canonical ?? `${config.site.base_url}${cleanPath}`;
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <FloatingBubble client:load />
   
-    <!-- SIMPLE DARK MODE SCRIPT -->
+    <!-- FIXED THEME PERSISTENCE SCRIPT -->
     <script is:global>
-      // Initialize theme
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      // ============================================
+      // FIXED: Theme Persistence Script
+      // ============================================
       
-      // Apply initial theme
-      document.documentElement.setAttribute('data-theme', initialTheme);
-      if (initialTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-      
-      // Save if not already saved
-      if (!savedTheme) {
-        localStorage.setItem('theme', initialTheme);
-      }
-      
-      // Toggle function
-      function toggleDarkMode() {
+      // Initialize theme immediately (no FOUC)
+      (function() {
+        const THEME_KEY = 'txchyon-theme';
         const html = document.documentElement;
-        const isDark = html.classList.contains('dark');
-        const newTheme = isDark ? 'light' : 'dark';
         
-        html.setAttribute('data-theme', newTheme);
-        html.classList.toggle('dark');
-        localStorage.setItem('theme', newTheme);
-      }
+        // Function to get saved theme
+        function getSavedTheme() {
+          try {
+            const saved = localStorage.getItem(THEME_KEY);
+            if (saved === 'dark' || saved === 'light') {
+              return saved;
+            }
+          } catch (e) {
+            // localStorage not available
+          }
+          
+          // Check system preference
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          return prefersDark ? 'dark' : 'light';
+        }
+        
+        // Function to apply theme
+        function applyTheme(theme) {
+          if (theme === 'dark') {
+            html.classList.add('dark');
+          } else {
+            html.classList.remove('dark');
+          }
+          html.setAttribute('data-theme', theme);
+          
+          // Update meta theme-color
+          const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+          if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+          }
+        }
+        
+        // Function to save theme
+        function saveTheme(theme) {
+          try {
+            localStorage.setItem(THEME_KEY, theme);
+          } catch (e) {
+            // localStorage not available
+          }
+        }
+        
+        // Initialize theme on page load
+        const savedTheme = getSavedTheme();
+        applyTheme(savedTheme);
+        saveTheme(savedTheme); // Save if not already saved
+        
+        // Global toggle function
+        window.toggleDarkMode = function() {
+          const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          applyTheme(newTheme);
+          saveTheme(newTheme);
+          
+          // Dispatch custom event for any listeners
+          window.dispatchEvent(new CustomEvent('themechange', { 
+            detail: { theme: newTheme } 
+          }));
+        };
+        
+        // Listen for system preference changes (only if user hasn't made a choice)
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+          const saved = localStorage.getItem(THEME_KEY);
+          if (!saved) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            applyTheme(newTheme);
+            saveTheme(newTheme);
+          }
+        });
+        
+        // Mark theme as initialized
+        html.classList.add('theme-initialized');
+      })();
       
-      // Add click listener when DOM loads
+      // ============================================
+      // Attach click handlers
+      // ============================================
       document.addEventListener('DOMContentLoaded', () => {
+        // Attach click handler to theme toggle button
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
-          toggleBtn.addEventListener('click', toggleDarkMode);
+          // Remove any existing listeners
+          const newToggleBtn = toggleBtn.cloneNode(true);
+          toggleBtn.parentNode.replaceChild(newToggleBtn, toggleBtn);
+          
+          // Add click listener
+          document.getElementById('theme-toggle').addEventListener('click', window.toggleDarkMode);
         }
+        
+        // Update theme toggle icon
+        function updateThemeIcon() {
+          const icon = document.getElementById('theme-icon');
+          if (icon) {
+            const isDark = document.documentElement.classList.contains('dark');
+            icon.textContent = isDark ? '🌙' : '☀️';
+          }
+        }
+        
+        // Update icon on load
+        updateThemeIcon();
+        
+        // Update icon on theme change
+        window.addEventListener('themechange', updateThemeIcon);
       });
       
       // Re-attach listener on page navigation (for Astro View Transitions)
       document.addEventListener('astro:page-load', () => {
+        // Re-attach theme toggle button listener
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
-          // Remove existing listener and re-add
-          toggleBtn.replaceWith(toggleBtn.cloneNode(true));
-          document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+          toggleBtn.addEventListener('click', window.toggleDarkMode);
+        }
+        
+        // Update theme icon
+        const icon = document.getElementById('theme-icon');
+        if (icon) {
+          const isDark = document.documentElement.classList.contains('dark');
+          icon.textContent = isDark ? '🌙' : '☀️';
         }
       });
     </script>

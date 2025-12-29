@@ -56,19 +56,19 @@ const categoryData = CATEGORY_HIERARCHY[category];
     <header class="mb-12">
       <div class="flex items-center gap-4 mb-4">
         <span class="text-4xl">{categoryData?.icon || '📁'}</span>
-        <h1 class="text-4xl font-bold">
+        <h1 class="text-4xl font-bold dark:text-white text-gray-900">
           {categoryData?.name || category}
         </h1>
       </div>
       
       {categoryData?.description && (
-        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
+        <p class="text-xl dark:text-gray-400 text-gray-600 max-w-3xl">
           {categoryData.description}
         </p>
       )}
       
       <div class="mt-8">
-        <p class="text-lg">
+        <p class="text-lg dark:text-white text-gray-900">
           <span class="font-semibold">{categoryPosts.length}</span> 
           {categoryPosts.length === 1 ? ' post' : ' posts'} in this category
         </p>
@@ -84,8 +84,8 @@ const categoryData = CATEGORY_HIERARCHY[category];
     ) : (
       <div class="text-center py-12">
         <div class="text-6xl mb-4">📭</div>
-        <h2 class="text-2xl font-semibold mb-2">No posts found</h2>
-        <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+        <h2 class="text-2xl font-semibold mb-2 dark:text-white text-gray-900">No posts found</h2>
+        <p class="dark:text-gray-400 text-gray-600 max-w-md mx-auto">
           No posts in the "{categoryData?.name || category}" category yet.
           Check back soon or browse other categories.
         </p>

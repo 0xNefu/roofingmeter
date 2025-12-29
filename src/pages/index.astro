@@ -1,10 +1,10 @@
 ﻿---
-// src/pages/index.astro - FIXED VERSION (with corrected template syntax)
+// src/pages/index.astro - FIXED VERSION with proper dark/light mode classes
 import { getCollection } from 'astro:content';
 import Base from "@/layouts/Base.astro";
 import Posts from "@/layouts/components/Posts.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
-import { CATEGORY_HIERARCHY } from '@/lib/categories'; // Import your categories
+import { CATEGORY_HIERARCHY } from '@/lib/categories';
 
 // Helper function for automatic readTime calculation
 function calculateReadTime(content, wordsPerMinute = 130) {
@@ -29,7 +29,6 @@ function getPostReadTime(post) {
   if (post.data.readTime) return post.data.readTime;
   if (post.body) return calculateReadTime(post.body);
   
-  // Estimates for all 11 categories
   const estimates = {
     'getting-started': 8,
     'security-privacy': 10,
@@ -47,9 +46,7 @@ function getPostReadTime(post) {
   return estimates[post.data.category] || 10;
 }
 
-// Get all posts and add automatic readTime
 const allPostsRaw = await getCollection('posts', ({ data }) => !data.draft);
-
 const allPosts = allPostsRaw.map(post => ({
   ...post,
   data: {
@@ -58,62 +55,41 @@ const allPosts = allPostsRaw.map(post => ({
   }
 }));
 
-// Sort by date, newest first
 const sortedPosts = allPosts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
-// Featured post (most recent - FIRST post)
 const featuredPost = sortedPosts[0];
-
-// LATEST POSTS: Skip the first one (featured) and take next 7
 const latestPosts = sortedPosts.slice(1, 8);
 
-// Get posts by all 11 categories WITH DEBUG
 const categoryPosts = {};
 const categoryPostCounts = {};
 
 Object.keys(CATEGORY_HIERARCHY).forEach(category => {
   const allPostsInCategory = sortedPosts.filter(p => p.data.category === category);
-  
-  // Store total count
   categoryPostCounts[category] = allPostsInCategory.length;
-  
-  // Store up to 3 posts (excluding featured post if it's in this category)
   categoryPosts[category] = allPostsInCategory
     .filter(p => p.slug !== featuredPost?.slug)
     .slice(0, 3);
 });
 
-// DEBUG: Check what we're finding
-console.log('=== DEBUG: Category Posts Counts ===');
-Object.keys(CATEGORY_HIERARCHY).forEach(category => {
-  console.log(`Category "${category}": ${categoryPostCounts[category]} total posts, ${categoryPosts[category]?.length || 0} display posts`);
-});
-
-// FIXED: Get "getting-started" posts for Quick Wins
 const gettingStartedPosts = sortedPosts
   .filter(p => p.data.category === 'getting-started' && p.slug !== featuredPost?.slug);
 
-// If we have enough getting-started posts, use them
 let quickWins;
 if (gettingStartedPosts.length >= 4) {
   quickWins = gettingStartedPosts.slice(0, 4);
 } else {
-  // Fallback: Get posts from any category, excluding featured
   const otherPosts = sortedPosts
     .filter(p => p.slug !== featuredPost?.slug)
     .slice(0, 4 - gettingStartedPosts.length);
-  
   quickWins = [...gettingStartedPosts, ...otherPosts].slice(0, 4);
 }
 
-// If still no posts (edge case), use latest posts
 if (!quickWins || quickWins.length === 0) {
   quickWins = sortedPosts.slice(0, 4);
 }
 
-// Realistic metrics
 const realisticStats = {
   guidesPublished: allPosts.length.toString(),
   activeReaders: "1,200+",
@@ -123,45 +99,45 @@ const realisticStats = {
 ---
 
 <Base title="Txchyon - Free DeFi Mastery | No Gatekeeping, Just Knowledge" 
-      description="Premium DeFi education that should cost thousands... but we're giving it away free. Because crypto knowledge should be accessible to everyone.">
+      description="Premium DeFi education that should cost thousands... but we're giving it away free. Because crypto knowledge should be accessible to everyone">
   
-  <!-- 🌟 HERO: Open Source Billionaire Vibe -->
-  <section class="relative min-h-[85vh] overflow-hidden bg-gradient-to-br from-gray-900 via-black to-blue-950">
+  <!-- 🌟 HERO SECTION -->
+  <section class="relative min-h-[85vh] overflow-hidden dark:bg-gradient-to-br dark:from-gray-900 dark:via-black dark:to-blue-950 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
     <!-- Animated gradient background -->
     <div class="absolute inset-0">
-      <div class="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl top-1/4 left-1/4 animate-pulse"></div>
-      <div class="absolute w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl bottom-1/4 right-1/4 animate-pulse animation-delay-2000"></div>
+      <div class="absolute w-[500px] h-[500px] dark:bg-cyan-500/10 bg-cyan-200/20 rounded-full blur-3xl top-1/4 left-1/4 animate-pulse"></div>
+      <div class="absolute w-[400px] h-[400px] dark:bg-purple-500/10 bg-purple-200/20 rounded-full blur-3xl bottom-1/4 right-1/4 animate-pulse animation-delay-2000"></div>
     </div>
     
     <div class="container relative z-10 mx-auto px-4 pt-28 pb-16">
       <div class="max-w-5xl mx-auto text-center">
         
         {/* Honest Badge */}
-        <div class="inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-cyan-500/30 rounded-full px-5 py-2.5 mb-8">
-          <span class="text-cyan-400">⚡</span>
-          <span class="text-cyan-300 font-medium text-sm">
+        <div class="inline-flex items-center gap-2 dark:bg-black/40 bg-white/80 backdrop-blur-sm dark:border border-cyan-500/30 border-cyan-400/30 rounded-full px-5 py-2.5 mb-8">
+          <span class="text-cyan-500 dark:text-cyan-400">⚡</span>
+          <span class="text-cyan-600 dark:text-cyan-300 font-medium text-sm">
             FRESH LAUNCH • NO BULLSHIT • 100% FREE
           </span>
         </div>
         
         {/* Main Headline */}
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-center mb-8 leading-tight">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-gradient">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 animate-gradient">
             DeFi Knowledge
           </span>
           <br />
-          <span class="text-white text-3xl md:text-5xl lg:text-6xl">
+          <span class="dark:text-white text-gray-900 text-3xl md:text-5xl lg:text-6xl">
             Shouldn't Cost $5,000
           </span>
         </h1>
         
-        {/* Subheadline - Honest & Direct */}
-        <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+        {/* Subheadline */}
+        <p class="text-xl md:text-2xl dark:text-gray-300 text-gray-700 mb-10 max-w-3xl mx-auto">
           We're giving away what "gurus" charge thousands for. 
-          <span class="text-cyan-400 font-semibold"> Because in crypto, information wants to be free.</span>
+          <span class="text-cyan-600 dark:text-cyan-400 font-semibold"> Because in crypto, information wants to be free.</span>
         </p>
         
-        {/* CTA - Clear it's free */}
+        {/* CTA */}
         <div class="flex flex-col sm:flex-row gap-5 justify-center mb-12">
           <a href="#start-learning" 
              class="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:-translate-y-1 text-center text-lg">
@@ -169,82 +145,82 @@ const realisticStats = {
             <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 blur opacity-50 group-hover:opacity-70 transition-opacity"></div>
           </a>
           <a href="#why-free" 
-             class="px-8 py-4 bg-black/50 backdrop-blur-sm border-2 border-cyan-500/30 text-white font-bold rounded-xl hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 text-center text-lg">
+             class="px-8 py-4 dark:bg-black/50 bg-white/50 backdrop-blur-sm border-2 border-cyan-500/30 dark:text-white text-gray-900 font-bold rounded-xl hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 text-center text-lg">
             🤔 WHY FREE?
           </a>
         </div>
         
-        {/* Realistic Stats - Honest Numbers */}
-        <div class="bg-black/30 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 max-w-3xl mx-auto">
+        {/* Realistic Stats */}
+        <div class="dark:bg-black/30 bg-white/50 backdrop-blur-sm rounded-2xl dark:border border-gray-800 border-gray-200 p-6 max-w-3xl mx-auto">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div class="text-center">
-              <div class="text-3xl font-bold text-white mb-2">{realisticStats.guidesPublished}</div>
-              <div class="text-gray-400 text-sm">GUIDES PUBLISHED</div>
+              <div class="text-3xl font-bold dark:text-white text-gray-900 mb-2">{realisticStats.guidesPublished}</div>
+              <div class="dark:text-gray-400 text-gray-600 text-sm">GUIDES PUBLISHED</div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-white mb-2">{realisticStats.activeReaders}</div>
-              <div class="text-gray-400 text-sm">ACTIVE READERS</div>
+              <div class="text-3xl font-bold dark:text-white text-gray-900 mb-2">{realisticStats.activeReaders}</div>
+              <div class="dark:text-gray-400 text-gray-600 text-sm">ACTIVE READERS</div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-white mb-2">{realisticStats.protocolsCovered}</div>
-              <div class="text-gray-400 text-sm">PROTOCOLS COVERED</div>
+              <div class="text-3xl font-bold dark:text-white text-gray-900 mb-2">{realisticStats.protocolsCovered}</div>
+              <div class="dark:text-gray-400 text-gray-600 text-sm">PROTOCOLS COVERED</div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-white mb-2">$0</div>
-              <div class="text-green-400 text-sm">EVERYTHING COSTS</div>
+              <div class="text-3xl font-bold dark:text-white text-gray-900 mb-2">$0</div>
+              <div class="text-green-500 dark:text-green-400 text-sm">EVERYTHING COSTS</div>
             </div>
           </div>
         </div>
         
         {/* Trust Note */}
-        <p class="text-gray-500 text-sm mt-8 max-w-xl mx-auto">
-          ⚠️ <span class="text-gray-400">No upsells. No "premium tiers." Just knowledge.</span>
+        <p class="dark:text-gray-500 text-gray-600 text-sm mt-8 max-w-xl mx-auto">
+          ⚠️ <span class="dark:text-gray-400 text-gray-700">No upsells. No "premium tiers." Just knowledge.</span>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- 🤔 "WHY FREE?" SECTION - Honest Explanation -->
-  <section id="why-free" class="py-20 bg-black">
+  <!-- 🤔 "WHY FREE?" SECTION -->
+  <section id="why-free" class="py-20 dark:bg-black bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+        <h2 class="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-12">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-purple-500 dark:from-cyan-400 dark:to-purple-400">
             Wait... Why Free?
           </span>
         </h2>
         
-        <div class="bg-gray-900/50 backdrop-blur-sm rounded-3xl border border-cyan-500/30 p-8 mb-8">
+        <div class="dark:bg-gray-900/50 bg-gray-100/50 backdrop-blur-sm rounded-3xl dark:border border-cyan-500/30 border-cyan-400/30 p-8 mb-8">
           <div class="text-6xl mb-6">🎯</div>
-          <h3 class="text-2xl font-bold text-white mb-4">The Open Source Philosophy</h3>
-          <p class="text-gray-300 text-lg mb-6">
-            Crypto was built on <span class="text-cyan-400">open source principles</span>. Knowledge should flow freely, not be locked behind paywalls.
+          <h3 class="text-2xl font-bold dark:text-white text-gray-900 mb-4">The Open Source Philosophy</h3>
+          <p class="dark:text-gray-300 text-gray-700 text-lg mb-6">
+            Crypto was built on <span class="text-cyan-600 dark:text-cyan-400">open source principles</span>. Knowledge should flow freely, not be locked behind paywalls.
           </p>
-          <p class="text-gray-400">
+          <p class="dark:text-gray-400 text-gray-600">
             We believe when more people understand DeFi, the entire ecosystem grows. 
-            <span class="text-green-400 font-medium"> That's our "investment."</span>
+            <span class="text-green-600 dark:text-green-400 font-medium"> That's our "investment."</span>
           </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+          <div class="dark:bg-gray-900/30 bg-gray-100/50 rounded-2xl p-6 dark:border border-gray-800 border-gray-200">
             <div class="text-3xl mb-4">⚡</div>
-            <h4 class="text-xl font-bold text-white mb-3">No Hidden Agenda</h4>
-            <p class="text-gray-400 text-sm">
+            <h4 class="text-xl font-bold dark:text-white text-gray-900 mb-3">No Hidden Agenda</h4>
+            <p class="dark:text-gray-400 text-gray-600 text-sm">
               We're not selling courses. Not promoting shitcoins. Just sharing what works.
             </p>
           </div>
-          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+          <div class="dark:bg-gray-900/30 bg-gray-100/50 rounded-2xl p-6 dark:border border-gray-800 border-gray-200">
             <div class="text-3xl mb-4">🔓</div>
-            <h4 class="text-xl font-bold text-white mb-3">Accessible to All</h4>
-            <p class="text-gray-400 text-sm">
+            <h4 class="text-xl font-bold dark:text-white text-gray-900 mb-3">Accessible to All</h4>
+            <p class="dark:text-gray-400 text-gray-600 text-sm">
               Whether you have $100 or $100,000 - knowledge should be equally accessible.
             </p>
           </div>
-          <div class="bg-gray-900/30 rounded-2xl p-6 border border-gray-800">
+          <div class="dark:bg-gray-900/30 bg-gray-100/50 rounded-2xl p-6 dark:border border-gray-800 border-gray-200">
             <div class="text-3xl mb-4">🌱</div>
-            <h4 class="text-xl font-bold text-white mb-3">Grow With Us</h4>
-            <p class="text-gray-400 text-sm">
+            <h4 class="text-xl font-bold dark:text-white text-gray-900 mb-3">Grow With Us</h4>
+            <p class="dark:text-gray-400 text-gray-600 text-sm">
               We're building this in public. Your feedback shapes what we create next.
             </p>
           </div>
@@ -253,33 +229,33 @@ const realisticStats = {
     </div>
   </section>
 
-  <!-- 🎯 FEATURED "MASTERCLASS" (But Free) -->
-  <section class="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20">
+  <!-- 🎯 FEATURED POST -->
+  <section class="py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 bg-gradient-to-br from-blue-50 via-purple-50/20 to-cyan-50/20">
     <div class="container mx-auto px-4">
-      <div class="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-xl rounded-3xl border border-purple-500/30 overflow-hidden shadow-xl">
+      <div class="dark:bg-gradient-to-r dark:from-black/80 dark:to-gray-900/80 bg-gradient-to-r from-white/80 to-gray-100/80 backdrop-blur-xl rounded-3xl dark:border border-purple-500/30 border-purple-400/30 overflow-hidden shadow-xl">
         <div class="grid grid-cols-1 lg:grid-cols-2">
           <div class="p-8 lg:p-10">
             <div class="inline-flex items-center gap-2 mb-6">
               <div class="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-sm">
                 🔥 FEATURED DEEP DIVE
               </div>
-              <div class="text-cyan-400 text-sm font-semibold">
+              <div class="text-cyan-500 dark:text-cyan-400 text-sm font-semibold">
                 ⭐ LATEST RELEASE
               </div>
             </div>
             
-            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+            <h2 class="text-3xl lg:text-4xl font-bold dark:text-white text-gray-900 mb-6">
               {featuredPost?.data?.title || "Latest Deep Dive"}
             </h2>
             
-            <p class="text-lg text-gray-300 mb-8">
+            <p class="text-lg dark:text-gray-300 text-gray-700 mb-8">
               {featuredPost?.data?.description || "Our most recent premium guide, completely free."}
             </p>
             
             {featuredPost?.data?.tags && featuredPost.data.tags.length > 0 && (
               <div class="flex flex-wrap gap-3 mb-8">
                 {featuredPost.data.tags.slice(0, 3).map(tag => (
-                  <span class="px-3 py-1.5 bg-gray-800/50 rounded-lg text-sm text-gray-300 border border-gray-700">
+                  <span class="px-3 py-1.5 dark:bg-gray-800/50 bg-gray-200/50 rounded-lg text-sm dark:text-gray-300 text-gray-700 dark:border border-gray-700 border-gray-300">
                     #{tag}
                   </span>
                 ))}
@@ -293,26 +269,26 @@ const realisticStats = {
                      class="block w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl text-center hover:shadow-xl hover:shadow-purple-500/30 transition-all hover:scale-[1.02]">
                     👉 READ FREE DEEP DIVE
                   </a>
-                  <div class="text-center text-gray-400 text-sm">
+                  <div class="text-center dark:text-gray-400 text-gray-600 text-sm">
                     📖 Complete guide • ⏱️ {featuredPost.data.readTime} min read • 🆓 100% Free
                   </div>
                 </>
               ) : (
                 <div class="text-center py-8">
-                  <p class="text-gray-400">No posts published yet. Check back soon!</p>
+                  <p class="dark:text-gray-400 text-gray-600">No posts published yet. Check back soon!</p>
                 </div>
               )}
             </div>
           </div>
           
-          <div class="relative min-h-[300px] lg:min-h-auto bg-gradient-to-br from-purple-900 to-pink-900">
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f?auto=format&fit=crop&w=800')] opacity-10 bg-cover bg-center"></div>
+          <div class="relative min-h-[300px] lg:min-h-auto dark:bg-gradient-to-br dark:from-purple-900 dark:to-pink-900 bg-gradient-to-br from-purple-200 to-pink-200">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f?auto=format&fit=crop&w=800')] opacity-10 dark:opacity-20 bg-cover bg-center"></div>
             <div class="absolute inset-0 flex items-center justify-center p-8">
               <div class="text-center">
                 <div class="text-7xl mb-6 opacity-30">📚</div>
-                <div class="bg-black/60 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <div class="text-xl font-bold text-white mb-2">PREMIUM QUALITY</div>
-                  <div class="text-green-400 font-medium">Zero Cost</div>
+                <div class="dark:bg-black/60 bg-white/60 backdrop-blur-sm rounded-2xl p-6 dark:border border-white/10 border-gray-300">
+                  <div class="text-xl font-bold dark:text-white text-gray-900 mb-2">PREMIUM QUALITY</div>
+                  <div class="text-green-600 dark:text-green-400 font-medium">Zero Cost</div>
                 </div>
               </div>
             </div>
@@ -323,134 +299,134 @@ const realisticStats = {
   </section>
 
   <!-- 🚀 QUICK START SECTION -->
-  <section id="start-learning" class="py-20 bg-gradient-to-b from-black to-gray-900">
+  <section id="start-learning" class="py-20 dark:bg-gradient-to-b dark:from-black dark:to-gray-900 bg-gradient-to-b from-white to-gray-100">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">
+        <h2 class="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-6">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-cyan-500 dark:from-green-400 dark:to-cyan-400">
             Start Here → Get Results
           </span>
         </h2>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        <p class="text-xl dark:text-gray-400 text-gray-600 max-w-2xl mx-auto">
           No fluff. Just actionable guides you can complete today.
         </p>
       </div>
       
-      {/* Quick Wins - Shows actual posts */}
+      {/* Quick Wins */}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {quickWins && quickWins.length > 0 ? quickWins.map((post, index) => (
           <a href={`/blog/${post.slug}`} 
-             class="group bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1">
+             class="group dark:bg-gradient-to-br dark:from-gray-900 dark:to-black bg-gradient-to-br from-white to-gray-50 dark:border border-gray-800 border-gray-200 rounded-2xl p-6 hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1">
             <div class="mb-4">
-              <span class="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-xs font-bold">
+              <span class="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 rounded-full text-xs font-bold">
                 {post.data.readTime <= 5 ? '⚡ QUICK START' : '🎯 GET STARTED'}
               </span>
             </div>
-            <h3 class="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+            <h3 class="text-lg font-bold dark:text-white text-gray-900 mb-3 group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">
               {post.data.title}
             </h3>
-            <p class="text-gray-400 text-sm mb-4">
+            <p class="dark:text-gray-400 text-gray-600 text-sm mb-4">
               {post.data.description?.substring(0, 70) || 'Actionable guide to get started...'}
               {post.data.description?.length > 70 ? '...' : ''}
             </p>
             <div class="flex items-center justify-between">
-              <span class="text-cyan-400 text-sm font-medium">
+              <span class="text-cyan-500 dark:text-cyan-400 text-sm font-medium">
                 READ NOW →
               </span>
-              <span class="text-gray-500 text-xs">
+              <span class="dark:text-gray-500 text-gray-400 text-xs">
                 {post.data.readTime} min
               </span>
             </div>
           </a>
         )) : (
           <div class="col-span-4 text-center py-12">
-            <div class="text-4xl mb-4 text-gray-700">📚</div>
-            <h3 class="text-xl font-bold text-gray-400">No posts yet</h3>
-            <p class="text-gray-500 mt-2">Check back soon for our first guides!</p>
+            <div class="text-4xl mb-4 dark:text-gray-700 text-gray-300">📚</div>
+            <h3 class="text-xl font-bold dark:text-gray-400 text-gray-500">No posts yet</h3>
+            <p class="dark:text-gray-500 text-gray-400 mt-2">Check back soon for our first guides!</p>
           </div>
         )}
       </div>
     </div>
   </section>
 
-  <!-- 🗺️ 11 CATEGORIES SECTION (Black boxes with color gradients) -->
-  <section class="py-20 bg-black">
+  <!-- 🗺️ CATEGORIES SECTION -->
+  <section class="py-20 dark:bg-black bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+        <h2 class="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-6">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400">
             Explore All 11 Learning Paths
           </span>
         </h2>
-        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        <p class="text-xl dark:text-gray-400 text-gray-600 max-w-3xl mx-auto">
           Comprehensive coverage of every crypto niche. All free.
         </p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {Object.entries(CATEGORY_HIERARCHY).slice(0, 8).map(([category, data]) => (
-          <div class="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 hover:border-cyan-500/30 transition-all hover:-translate-y-1">
+          <div class="dark:bg-gradient-to-br dark:from-gray-900 dark:to-black bg-gradient-to-br from-white to-gray-50 dark:border border-gray-800 border-gray-200 rounded-2xl p-6 hover:border-cyan-500/30 transition-all hover:-translate-y-1">
             <div class="flex items-start gap-4 mb-4">
               <div class="text-2xl">{data.icon}</div>
               <div>
-                <h3 class="text-lg font-bold text-white mb-1">{data.name}</h3>
-                <p class="text-gray-400 text-xs">{categoryPostCounts[category] || 0} guides</p>
+                <h3 class="text-lg font-bold dark:text-white text-gray-900 mb-1">{data.name}</h3>
+                <p class="dark:text-gray-400 text-gray-600 text-xs">{categoryPostCounts[category] || 0} guides</p>
               </div>
             </div>
             
-            <p class="text-gray-400 text-sm mb-6">
+            <p class="dark:text-gray-400 text-gray-600 text-sm mb-6">
               {data.description}
             </p>
             
             <div class="space-y-3 mb-6">
               {categoryPosts[category] && categoryPosts[category].length > 0 ? categoryPosts[category].slice(0, 2).map(post => (
                 <a href={`/blog/${post.slug}`} 
-                   class="block p-3 bg-black/30 rounded-lg hover:bg-black/50 transition-colors group">
-                  <div class="text-white text-sm group-hover:text-cyan-400 transition-colors line-clamp-1">
+                   class="block p-3 dark:bg-black/30 bg-gray-100/50 rounded-lg hover:dark:bg-black/50 hover:bg-gray-200/50 transition-colors group">
+                  <div class="dark:text-white text-gray-900 text-sm group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors line-clamp-1">
                     {post.data.title}
                   </div>
-                  <div class="text-gray-500 text-xs mt-1 flex justify-between">
+                  <div class="dark:text-gray-500 text-gray-400 text-xs mt-1 flex justify-between">
                     <span>{post.data.readTime} min</span>
                     <span>{new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                   </div>
                 </a>
               )) : (
-                <div class="text-gray-600 text-sm italic p-3 bg-black/20 rounded-lg">
+                <div class="dark:text-gray-600 text-gray-400 text-sm italic p-3 dark:bg-black/20 bg-gray-100/30 rounded-lg">
                   Guides coming soon...
                 </div>
               )}
             </div>
             
             <a href={`/categories/${category}`} 
-               class="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">
+               class="inline-flex items-center gap-2 text-sm font-medium dark:text-white text-gray-900 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
               Explore all {data.name.toLowerCase()} guides →
             </a>
           </div>
         ))}
       </div>
       
-      {/* Show remaining 3 categories in a separate row - FIXED SYNTAX */}
+      {/* Show remaining 3 categories */}
       {Object.entries(CATEGORY_HIERARCHY).slice(8, 11).length > 0 && (
         <div class="mt-12 max-w-4xl mx-auto">
-          <h3 class="text-2xl font-bold text-white mb-8 text-center">More Specialized Areas</h3>
+          <h3 class="text-2xl font-bold dark:text-white text-gray-900 mb-8 text-center">More Specialized Areas</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {Object.entries(CATEGORY_HIERARCHY).slice(8, 11).map(([category, data]) => (
               <a href={`/categories/${category}`}
-                 class="group bg-gradient-to-br from-gray-900/50 to-black/50 border border-gray-800 rounded-2xl p-6 hover:border-purple-500/30 transition-all hover:-translate-y-1">
+                 class="group dark:bg-gradient-to-br dark:from-gray-900/50 dark:to-black/50 bg-gradient-to-br from-white/50 to-gray-50/50 dark:border border-gray-800 border-gray-200 rounded-2xl p-6 hover:border-purple-500/30 transition-all hover:-translate-y-1">
                 <div class="flex items-center gap-3 mb-4">
                   <div class="text-2xl">{data.icon}</div>
-                  <h4 class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">
+                  <h4 class="text-lg font-bold dark:text-white text-gray-900 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">
                     {data.name}
                   </h4>
                 </div>
-                <p class="text-gray-400 text-sm mb-4">
+                <p class="dark:text-gray-400 text-gray-600 text-sm mb-4">
                   {data.description.substring(0, 80)}...
                 </p>
                 <div class="flex items-center justify-between">
-                  <span class="text-purple-400 text-sm font-medium">
+                  <span class="text-purple-500 dark:text-purple-400 text-sm font-medium">
                     Explore →
                   </span>
-                  <span class="text-gray-500 text-xs">
+                  <span class="dark:text-gray-500 text-gray-400 text-xs">
                     {categoryPostCounts[category] || 0} guides
                   </span>
                 </div>
@@ -463,19 +439,19 @@ const realisticStats = {
   </section>
 
   <!-- 📚 LATEST GUIDES SECTION -->
-  <section class="py-20 bg-gradient-to-b from-gray-900 to-black">
+  <section class="py-20 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black bg-gradient-to-b from-gray-100 to-white">
     <div class="container mx-auto px-4">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6">
         <div>
-          <h2 class="text-3xl lg:text-4xl font-bold text-white">
+          <h2 class="text-3xl lg:text-4xl font-bold dark:text-white text-gray-900">
             Latest Deep Dives
           </h2>
-          <p class="text-gray-400 mt-2">
+          <p class="dark:text-gray-400 text-gray-600 mt-2">
             Fresh research & analysis published regularly
           </p>
         </div>
         <a href="/blog" 
-           class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-xl transition-colors flex items-center gap-2">
+           class="px-6 py-3 dark:bg-gray-800 bg-gray-200 dark:hover:bg-gray-700 hover:bg-gray-300 dark:text-white text-gray-900 font-semibold rounded-xl transition-colors flex items-center gap-2">
           <span>📚</span> View All Guides
         </a>
       </div>
@@ -489,28 +465,28 @@ const realisticStats = {
         </>
       ) : (
         <div class="text-center py-16">
-          <div class="text-5xl mb-6 text-gray-700">📖</div>
-          <h3 class="text-2xl font-bold text-gray-400 mb-4">No posts yet</h3>
-          <p class="text-gray-500">Our first guides will be published soon!</p>
+          <div class="text-5xl mb-6 dark:text-gray-700 text-gray-300">📖</div>
+          <h3 class="text-2xl font-bold dark:text-gray-400 text-gray-500 mb-4">No posts yet</h3>
+          <p class="dark:text-gray-500 text-gray-400">Our first guides will be published soon!</p>
         </div>
       )}
     </div>
   </section>
 
-  <!-- 🎁 FINAL CTA - No Pressure -->
-  <section class="py-20 bg-gradient-to-r from-black via-purple-900/20 to-blue-900/20">
+  <!-- 🎁 FINAL CTA -->
+  <section class="py-20 dark:bg-gradient-to-r dark:from-black dark:via-purple-900/20 dark:to-blue-900/20 bg-gradient-to-r from-white via-purple-50/20 to-blue-50/20">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <div class="bg-black/40 backdrop-blur-sm rounded-3xl border border-cyan-500/30 p-8 lg:p-10">
+        <div class="dark:bg-black/40 bg-white/40 backdrop-blur-sm rounded-3xl dark:border border-cyan-500/30 border-cyan-400/30 p-8 lg:p-10">
           <div class="text-5xl mb-6">🎁</div>
           
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 class="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-6">
             Seriously. It's All Free.
           </h2>
           
-          <p class="text-gray-300 text-lg mb-8">
+          <p class="dark:text-gray-300 text-gray-700 text-lg mb-8">
             No credit card. No "free trial" that expires. No premium tier waiting. 
-            <span class="text-cyan-400 font-medium"> Just quality DeFi education.</span>
+            <span class="text-cyan-600 dark:text-cyan-400 font-medium"> Just quality DeFi education.</span>
           </p>
           
           <div class="space-y-4">
@@ -519,15 +495,15 @@ const realisticStats = {
               BROWSE ALL FREE GUIDES
             </a>
             
-            <p class="text-gray-500 text-sm">
+            <p class="dark:text-gray-500 text-gray-600 text-sm">
               ⚡ Join {realisticStats.activeReaders} others learning DeFi the right way
             </p>
           </div>
           
-          {/* Small, honest disclaimer */}
-          <div class="mt-8 pt-6 border-t border-gray-800">
-            <p class="text-gray-600 text-xs">
-              ⚠️ <span class="text-gray-500">Disclaimer: We're not financial advisors. DeFi has risks. 
+          {/* Disclaimer */}
+          <div class="mt-8 pt-6 dark:border-t border-gray-800 border-gray-200">
+            <p class="dark:text-gray-600 text-gray-500 text-xs">
+              ⚠️ <span class="dark:text-gray-500 text-gray-600">Disclaimer: We're not financial advisors. DeFi has risks. 
               We just believe knowledge should be free. Do your own research.</span>
             </p>
           </div>
@@ -536,7 +512,7 @@ const realisticStats = {
     </div>
   </section>
 
-  <!-- NEWSLETTER POPUP - Fixed centering and improved scroll detection -->
+  <!-- NEWSLETTER POPUP -->
 <dialog id="subscribe-popup" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border: none; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px; width: 90%; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; z-index: 9999; margin: 0;">
   <div style="text-align: center; padding: 20px;">
     <div style="font-size: 48px; margin-bottom: 16px;">🚀</div>
@@ -590,12 +566,6 @@ const realisticStats = {
       return scrollPercent;
     }
     
-    // Debug scroll position
-    function debugScroll() {
-      const percent = getScrollPercent();
-      console.log(`Scroll: ${Math.round(percent)}%`);
-    }
-    
     // Function to show popup
     function showPopup() {
       if (!popupShown && !localStorage.getItem('popupShownToday')) {
@@ -617,7 +587,6 @@ const realisticStats = {
     // Check scroll position
     function checkScrollForPopup() {
       const scrollPercent = getScrollPercent();
-      debugScroll(); // Remove this in production
       
       if (scrollPercent >= 50 && !popupShown) {
         console.log('50% scroll reached, showing popup');
@@ -676,12 +645,6 @@ const realisticStats = {
         console.log('Cleared 24-hour popup restriction');
       }
     }
-    
-    // Debug: Force show for testing (remove in production)
-    // setTimeout(() => {
-    //   console.log('Debug: Forcing popup show');
-    //   showPopup();
-    // }, 2000);
   });
 </script>
 
@@ -723,7 +686,7 @@ const realisticStats = {
     -webkit-line-clamp: 1;
   }
   
-  /* Newsletter popup styles - FIXED CENTERING */
+  /* Newsletter popup styles */
   #subscribe-popup {
     position: fixed !important;
     top: 50% !important;

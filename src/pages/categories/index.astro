@@ -11,15 +11,15 @@ const latestPosts = allPosts
 <Base title="Txchyon Capital">
   <div class="container mx-auto py-12 px-4 max-w-4xl">
     <div class="text-center mb-16">
-      <h1 class="text-5xl font-bold mb-6">Txchyon Capital</h1>
-      <p class="text-xl text-gray-300 leading-relaxed">
+      <h1 class="text-5xl font-bold mb-6 dark:text-white text-gray-900">Txchyon Capital</h1>
+      <p class="text-xl dark:text-gray-300 text-gray-700 leading-relaxed">
         Advanced crypto research, airdrop farming guides, and trading strategies.
       </p>
     </div>
 
     <div class="space-y-20">
       {latestPosts.length === 0 ? (
-        <p class="text-center text-gray-500 py-12">No posts published yet.</p>
+        <p class="text-center dark:text-gray-500 text-gray-400 py-12">No posts published yet.</p>
       ) : (
         latestPosts.map((post) => {
           const { title, description, date } = post.data;
@@ -32,18 +32,18 @@ const latestPosts = allPosts
           });
 
           return (
-            <article class="border-b border-gray-200 dark:border-gray-800 pb-20 last:border-0 last:pb-0">
-              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
+            <article class="border-b dark:border-gray-800 border-gray-200 pb-20 last:border-0 last:pb-0">
+              <p class="dark:text-gray-400 text-gray-600 text-sm mb-4">
                 * NefuTrades * {formattedDate}
               </p>
-              <h2 class="text-4xl font-bold mb-6">
+              <h2 class="text-4xl font-bold mb-6 dark:text-white text-gray-900">
                 <!-- FIXED: Changed /posts/ to /blog/ -->
-                <a href={`/blog/${slug}`} class="hover:text-primary transition-colors">
+                <a href={`/blog/${slug}`} class="dark:hover:text-primary hover:text-primary transition-colors">
                   {title}
                 </a>
               </h2>
               {description && (
-                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                <p class="text-lg dark:text-gray-400 text-gray-600 leading-relaxed mb-8">
                   {description}
                 </p>
               )}
