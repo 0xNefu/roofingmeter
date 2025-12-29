@@ -90,7 +90,7 @@ Crypto scams are common, especially for beginners. Protect yourself by learning:
 - **Approval Drainers:** Avoid giving unlimited approvals on tokens.  
 
 - **Internal Link:**  
-  For a deeper dive, see [Crypto Scams Explained: How Beginners Actually Get Wiped](/blog/getting-started/crypto-scams-explained-how-beginners-actually-get-wiped/).
+  For a deeper dive, see [Crypto Scams Explained: How Beginners Actually Get Wiped](/blog/getting-started/crypto-scams-explained/).
 
 ---
 
