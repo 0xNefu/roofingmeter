@@ -148,31 +148,7 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '/index.
             ))}
           </ul>
         </div>
-      ))}
-    </div>
-    
-    {/* Newsletter Section - Only on home page */}
-    {isHomePage && (
-      <div class="mb-8 max-w-md mx-auto">
-        <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-        <iframe 
-          src="https://subscribe-forms.beehiiv.com/62d85daa-7878-4a83-a78a-a15f6226c516" 
-          class="beehiiv-embed"
-          frameborder="0" 
-          scrolling="no"
-          style="
-            width: 100%;
-            max-width: 400px;
-            height: 150px;
-            margin: 0 auto;
-            border-radius: 0;
-            background-color: transparent;
-            border: none;
-          "
-        ></iframe>
-      </div>
-    )}
-    
+      ))}    
     {/* Divider */}
     <div class="border-t dark:border-gray-800 border-gray-200 my-8"></div>
     
