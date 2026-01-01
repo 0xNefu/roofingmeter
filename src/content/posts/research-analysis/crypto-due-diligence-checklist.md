@@ -1,9 +1,9 @@
 ---
 title: "The Crypto Due Diligence Checklist"
 description: "A comprehensive, printable checklist for performing repeatable crypto due diligence, covering tokens, teams, on-chain data, and risks before investing."
-date: 2025-12-27
-updatedDate: 2025-12-27
-image: "/images/posts/crypto-due-diligence-checklist.jpg"
+date: 2026-1-1
+updatedDate: 2026-1-1
+image: "/images/posts/checklist.jpg"
 heroImageAlt: "Crypto investor checking a detailed due diligence checklist"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
@@ -15,7 +15,7 @@ tags:
   - Risk Assessment
 category: "research-analysis"
 subcategory: "due-diligence-framework"
-draft: true
+draft: false
 ---
 
 ## Introduction: Why a Checklist Matters

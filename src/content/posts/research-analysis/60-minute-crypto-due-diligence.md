@@ -1,9 +1,9 @@
 ---
 title: "How to Perform Due Diligence on a Crypto Project in Under 60 Minutes"
 description: "A fast, practical guide to performing crypto due diligence in under an hour, covering key metrics, tokenomics, team evaluation, and on-chain signals."
-date: 2025-12-27
-updatedDate: 2025-12-27
-image: "/images/posts/60-minute-due-diligence.jpg"
+date: 2026-1-1
+updatedDate: 2026-1-1
+image: "/images/posts/60minutes.jpg"
 heroImageAlt: "Crypto investor quickly analyzing project fundamentals and token metrics"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
@@ -15,7 +15,7 @@ tags:
   - Crypto Research
 category: "research-analysis"
 subcategory: "due-diligence-framework"
-draft: true
+draft: false
 ---
 
 ## Introduction: Why Fast Due Diligence Matters

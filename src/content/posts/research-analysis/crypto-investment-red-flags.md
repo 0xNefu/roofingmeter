@@ -1,9 +1,9 @@
 ---
 title: "Red Flags That Kill Crypto Investments (Before You Lose Money)"
 description: "A comprehensive guide to spotting warning signs in crypto projects, including tokenomics, team behavior, liquidity, and market red flags."
-date: 2025-12-27
-updatedDate: 2025-12-27
-image: "/images/posts/crypto-red-flags.jpg"
+date: 2026-1-1
+updatedDate: 2026-1-1
+image: "/images/posts/cryptoredflags.jpg"
 heroImageAlt: "Crypto investor reviewing red flags and warning signs before investing"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
@@ -15,7 +15,7 @@ tags:
   - Crypto Investing
 category: "research-analysis"
 subcategory: "due-diligence-framework"
-draft: true
+draft: false
 ---
 
 ## Introduction: Why Identifying Red Flags is Critical

@@ -1,9 +1,9 @@
 ---
 title: "The Ultimate Crypto Due Diligence Framework (Step-by-Step)"
 description: "A complete, repeatable crypto due diligence framework to evaluate tokens, teams, tokenomics, on-chain data, and risks before investing."
-date: 2025-12-25
-updatedDate: 2025-12-25
-image: "/images/posts/crypto-due-diligence.jpg"
+date: 2026-1-1
+updatedDate: 2026-1-1
+image: "/images/posts/framework.jpg"
 heroImageAlt: "Crypto investor analyzing blockchain data, token metrics, and on-chain activity"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
@@ -16,7 +16,7 @@ tags:
   - Blockchain Investing
 category: "research-analysis"
 subcategory: "due-diligence-framework"
-draft: true
+draft: false
 ---
 
 ## Introduction: Why Due Diligence Matters in Crypto

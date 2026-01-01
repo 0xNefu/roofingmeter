@@ -1,9 +1,9 @@
 ---
 title: "On-Chain Due Diligence: What Wallet Activity Reveals Before Price Moves"
 description: "Learn how to analyze wallet activity on-chain to identify investor behavior, whale movements, and market signals for smarter crypto investing."
-date: 2025-12-27
-updatedDate: 2025-12-27
-image: "/images/posts/on-chain-due-diligence.jpg"
+date: 2026-1-1
+updatedDate: 2026-1-1
+image: "/images/posts/onchaindd.jpg"
 heroImageAlt: "Crypto investor analyzing blockchain wallet data and token transactions"
 authors: ["Nefu"]
 authorTwitter: "@txchyon"
@@ -15,7 +15,7 @@ tags:
   - Token Metrics
 category: "research-analysis"
 subcategory: "due-diligence-framework"
-draft: true
+draft: false
 ---
 
 ## Introduction: Why Wallet Analysis Matters

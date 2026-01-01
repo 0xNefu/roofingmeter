@@ -91,7 +91,7 @@ To maximize earnings, you must understand the rules. Key programs run through at
 ## Advanced Strategies for Seasoned Providers
 
 *   **API Integration**: For consistent, high-volume provision, use **Kalshi's official API** to automate order placement and management.
-*   **Market Maker Program**: High-volume participants can apply for the formal Market Maker Program via `support@kalshi.com`, which offers reduced fees and higher limits.
+*   **Market Maker Program**: High-volume participants can apply for the formal Market Maker Program via support @kalshi.com, which offers reduced fees and higher limits.
 *   **Cross-Market Hedging**: Provide liquidity in correlated markets (e.g., different questions about the same election) to manage overall risk.
 
 ## Essential Risks and Final Best Practices
