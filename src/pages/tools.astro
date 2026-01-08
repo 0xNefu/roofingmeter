@@ -2,8 +2,8 @@
 // src/pages/tools.astro
 import Base from '../layouts/Base.astro';
 
-const title = "Crypto Toolkit - Every Tool I Actually Use";
-const description = "Complete list of platforms, wallets, and services I use with full transparency on referral earnings. Always updated.";
+const title = "Roofing Toolkit - Essential Tools & Resources for Homeowners";
+const description = "Complete list of roofing calculators, contractor finders, material guides, and essential resources for roofing projects. Full transparency on partnerships.";
 ---
 
 <Base title={title} description={description}>
@@ -11,18 +11,18 @@ const description = "Complete list of platforms, wallets, and services I use wit
     <!-- Hero Section -->
     <div class="text-center mb-12">
       <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        🧰 Complete Crypto Toolkit
+        🛠️ Roofing Toolkit & Resources
       </h1>
       <p class="text-xl text-gray-700 mb-6 max-w-3xl mx-auto">
-        Every single tool, exchange, and service I use for crypto trading, DeFi, and research.
-        <span class="font-semibold text-cyan-600"> Full affiliate transparency included.</span>
+        Essential tools, calculators, and resources for planning, budgeting, and executing roofing projects.
+        <span class="font-semibold text-blue-600"> Full partnership transparency included.</span>
       </p>
-      <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-xl p-4 max-w-2xl mx-auto">
+      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-4 max-w-2xl mx-auto">
         <p class="text-gray-800 flex items-start gap-2">
-          <span class="text-cyan-500 font-bold text-lg">⚠️</span>
+          <span class="text-blue-600 font-bold text-lg">ℹ️</span>
           <span>
-            Using my links <span class="font-semibold text-green-600">never costs you extra</span>.
-            You often get bonuses, and commissions support this free site.
+            Using our recommended tools <span class="font-semibold text-green-600">never costs you extra</span>.
+            Some provide exclusive discounts, and partnerships support this free resource.
           </span>
         </p>
       </div>
@@ -30,26 +30,23 @@ const description = "Complete list of platforms, wallets, and services I use wit
 
     <!-- Navigation Tabs -->
     <div class="flex flex-wrap gap-2 mb-8 justify-center" id="category-tabs">
-      <button class="category-tab px-4 py-2 rounded-lg bg-cyan-100 text-cyan-800 font-medium" data-category="all">
-        🔥 All Tools
+      <button class="category-tab px-4 py-2 rounded-lg bg-blue-100 text-blue-800 font-medium" data-category="all">
+        🔥 All Resources
       </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="trading">
-        📈 Trading
+      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="calculators">
+        📊 Calculators
       </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="wallets">
-        🔐 Wallets
+      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="contractor">
+        👷 Contractor Tools
       </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="cex">
-        🏦 CEX
+      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="materials">
+        🏠 Material Guides
       </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="defi">
-        🦄 DeFi
+      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="planning">
+        📋 Planning
       </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="tools">
-        🛠️ Tools
-      </button>
-      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="services">
-        💼 Services
+      <button class="category-tab px-4 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium" data-category="safety">
+        ⚠️ Safety
       </button>
     </div>
 
@@ -58,7 +55,7 @@ const description = "Complete list of platforms, wallets, and services I use wit
       <input 
         type="text" 
         placeholder="🔍 Search tools by name or category..." 
-        class="w-full max-w-md mx-auto block px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none shadow-sm"
+        class="w-full max-w-md mx-auto block px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm"
         id="tool-search"
       />
     </div>
@@ -66,334 +63,246 @@ const description = "Complete list of platforms, wallets, and services I use wit
     <!-- Tools Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
       {[
-        // Trading & Perpetuals
+        // Roofing Calculators
         {
-          name: "Axiom",
-          description: "Best for low-cap altcoin perps. Great UI, deep liquidity for emerging tokens.",
-          url: "https://tinyurl.com/tryaxiom",
-          category: "trading",
-          type: "Perp DEX",
-          status: "active",
-          bonus: "30% of L1 fees forever",
-          icon: "📊"
-        },
-        {
-          name: "Drift Protocol",
-          description: "Solana's best perpetual DEX. Fast, cheap, and constantly innovating.",
-          url: "https://tinyurl.com/driftnefu",
-          category: "trading",
-          type: "Perp DEX",
-          status: "active",
-          bonus: "15% lifetime fees",
-          icon: "⚡"
-        },
-        {
-          name: "Hyperliquid",
-          description: "High-performance perp exchange with its own L1. Professional trading.",
-          url: "https://tinyurl.com/hypeliqdm",
-          category: "trading",
-          type: "Perp Exchange",
-          status: "active",
-          bonus: "Up to 30% fee share",
-          icon: "🚀"
-        },
-        {
-          name: "Aster",
-          description: "New perp DEX with innovative features. Growing ecosystem.",
-          url: "https://tinyurl.com/asterperps",
-          category: "trading",
-          type: "Perp DEX",
-          status: "active",
-          bonus: "Standard affiliate",
-          icon: "🌟"
-        },
-        {
-          name: "Polymarket",
-          description: "Bet on real-world events. Liquid prediction markets.",
-          url: "https://tinyurl.com/polynefu",
-          category: "trading",
-          type: "Prediction Market",
-          status: "active",
-          bonus: "$10 bonus on first deposit",
-          icon: "🔮"
-        },
-        {
-          name: "TradingView",
-          description: "Best charting platform. Essential for technical analysis.",
-          url: "https://tinyurl.com/tradingview9",
-          category: "trading",
-          type: "Charting",
-          status: "active",
-          bonus: "Black Friday discounts",
-          icon: "📉"
-        },
-        {
-          name: "GMX v2",
-          description: "Top-tier perp trading on Arbitrum & Avalanche.",
+          name: "Roofing Cost Calculator",
+          description: "Accurate cost estimates for new roofs, replacements, and repairs based on your location and materials.",
           url: "#",
-          category: "trading",
-          type: "Perp DEX",
-          status: "pending",
-          bonus: "Coming soon",
-          icon: "📈"
-        },
-        {
-          name: "dYdX",
-          description: "Institutional-grade perp trading platform.",
-          url: "#",
-          category: "trading",
-          type: "Perp Exchange",
-          status: "pending",
-          bonus: "Coming soon",
-          icon: "🏛️"
-        },
-
-        // Centralized Exchanges
-        {
-          name: "Coinbase",
-          description: "Best US exchange for beginners. Regulatory compliant.",
-          url: "https://tinyurl.com/coinbnefu",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Signup bonus",
-          icon: "🔷"
-        },
-        {
-          name: "Binance",
-          description: "Largest global exchange. Massive liquidity, low fees.",
-          url: "https://tinyurl.com/bscnef",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Referral rewards",
+          category: "calculators",
+          type: "Cost Estimator",
+          status: "free",
+          bonus: "Free tool",
           icon: "💰"
         },
         {
-          name: "KuCoin",
-          description: "Best for altcoin discovery. Great for early listings.",
-          url: "https://tinyurl.com/kucoinlyf",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Standard affiliate",
-          icon: "💎"
+          name: "Material Calculator",
+          description: "Calculate exact material quantities for shingles, underlayment, flashing, and ventilation.",
+          url: "#",
+          category: "calculators",
+          type: "Material Estimator",
+          status: "free",
+          bonus: "Free tool",
+          icon: "📐"
         },
         {
-          name: "Bybit",
-          description: "Excellent derivatives platform. Great trading experience.",
-          url: "https://tinyurl.com/bybitnef",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Standard affiliate",
-          icon: "⚙️"
+          name: "Roof Pitch Calculator",
+          description: "Determine roof slope and pitch for proper material selection and installation.",
+          url: "#",
+          category: "calculators",
+          type: "Measurement Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "📐"
         },
         {
-          name: "OKX",
-          description: "Feature-rich exchange with Web3 wallet integration.",
-          url: "https://tinyurl.com/okxnefref",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Standard affiliate",
-          icon: "🌐"
-        },
-        {
-          name: "Robinhood",
-          description: "Easy stock & crypto trading. Free commission trades.",
-          url: "https://tinyurl.com/robinhoodG",
-          category: "cex",
-          type: "CEX",
-          status: "active",
-          bonus: "Free stock",
-          icon: "🔄"
+          name: "Project Timeline Estimator",
+          description: "Estimate how long your roofing project will take based on size, complexity, and weather.",
+          url: "#",
+          category: "calculators",
+          type: "Planning Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "⏱️"
         },
 
-        // Wallets
+        // Contractor Tools
         {
-          name: "Phantom Wallet",
-          description: "Best Solana wallet. Clean, secure, feature-rich.",
-          url: "https://phantom.app/download",
-          category: "wallets",
-          type: "Hot Wallet",
-          status: "no-affiliate",
-          bonus: "No affiliate",
-          icon: "👻"
+          name: "Contractor Verification Tool",
+          description: "Check contractor licenses, insurance, and complaint history in your area.",
+          url: "#",
+          category: "contractor",
+          type: "Verification",
+          status: "free",
+          bonus: "Free access",
+          icon: "✅"
         },
         {
-          name: "Ledger",
-          description: "Most popular hardware wallet. Secure cold storage.",
-          url: "https://tinyurl.com/ledgernef",
-          category: "wallets",
-          type: "Hardware Wallet",
-          status: "active",
-          bonus: "Shop discount",
-          icon: "🔒"
+          name: "Local Roofer Directory",
+          description: "Find pre-screened local roofing contractors with customer reviews and ratings.",
+          url: "#",
+          category: "contractor",
+          type: "Directory",
+          status: "partnership",
+          bonus: "Free estimates",
+          icon: "📍"
         },
         {
-          name: "Trezor",
-          description: "Open-source hardware wallet. Trusted by experts.",
-          url: "https://tinyurl.com/trezor99",
-          category: "wallets",
-          type: "Hardware Wallet",
-          status: "active",
-          bonus: "Shop discount",
-          icon: "💽"
+          name: "Bid Comparison Template",
+          description: "Professional template to compare multiple roofing quotes side-by-side.",
+          url: "#",
+          category: "contractor",
+          type: "Planning Tool",
+          status: "free",
+          bonus: "Free download",
+          icon: "📄"
         },
         {
-          name: "MetaMask",
-          description: "Essential Ethereum wallet. Most widely used.",
-          url: "https://tinyurl.com/mmnefu",
-          category: "wallets",
-          type: "Hot Wallet",
-          status: "active",
-          bonus: "Potential rewards",
-          icon: "🦊"
+          name: "Contract Review Checklist",
+          description: "Essential checklist for reviewing roofing contracts and warranties.",
+          url: "#",
+          category: "contractor",
+          type: "Legal Tool",
+          status: "free",
+          bonus: "Free checklist",
+          icon: "⚖️"
+        },
+
+        // Material Guides
+        {
+          name: "Material Comparison Guide",
+          description: "Compare asphalt, metal, tile, slate, and other roofing materials side-by-side.",
+          url: "/categories/material-comparisons",
+          category: "materials",
+          type: "Comparison Tool",
+          status: "free",
+          bonus: "Detailed guide",
+          icon: "🏠"
         },
         {
-          name: "Tangem Wallet",
-          description: "Card-style hardware wallet. Super portable.",
-          url: "https://tinyurl.com/tangemnefu",
-          category: "wallets",
-          type: "Hardware Wallet",
-          status: "active",
-          bonus: "Shop discount",
+          name: "Warranty Comparison Tool",
+          description: "Compare manufacturer warranties for different roofing materials.",
+          url: "#",
+          category: "materials",
+          type: "Research Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "📜"
+        },
+        {
+          name: "Color Visualizer",
+          description: "Visualize different roof colors on your home before making a decision.",
+          url: "#",
+          category: "materials",
+          type: "Visualization",
+          status: "demo",
+          bonus: "Free demo",
+          icon: "🎨"
+        },
+        {
+          name: "Lifespan Calculator",
+          description: "Estimate lifespan of different roofing materials in your climate.",
+          url: "#",
+          category: "materials",
+          type: "Estimator",
+          status: "free",
+          bonus: "Free tool",
+          icon: "📅"
+        },
+
+        // Planning Tools
+        {
+          name: "Insurance Claim Guide",
+          description: "Step-by-step guide to filing roofing insurance claims successfully.",
+          url: "/blog/roof-cost-estimates/insurance-claims-guide",
+          category: "planning",
+          type: "Guide",
+          status: "free",
+          bonus: "Free guide",
+          icon: "📋"
+        },
+        {
+          name: "Permit Requirements Tool",
+          description: "Check local permit requirements for roofing projects in your area.",
+          url: "#",
+          category: "planning",
+          type: "Research Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "🏛️"
+        },
+        {
+          name: "Financing Calculator",
+          description: "Calculate loan payments and financing options for roofing projects.",
+          url: "#",
+          category: "planning",
+          type: "Financial Tool",
+          status: "free",
+          bonus: "Free tool",
           icon: "💳"
         },
         {
-          name: "Keystone",
-          description: "Air-gapped hardware wallet. Advanced security.",
-          url: "https://tinyurl.com/keystonenef",
-          category: "wallets",
-          type: "Hardware Wallet",
-          status: "active",
-          bonus: "Shop discount",
-          icon: "🗝️"
+          name: "Seasonal Planner",
+          description: "Best times for roofing projects based on your location and climate.",
+          url: "#",
+          category: "planning",
+          type: "Planning Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "📅"
         },
 
-        // DeFi & Tools
+        // Safety Resources
         {
-          name: "Jupiter",
-          description: "Best swap aggregator on Solana. Always finds best prices.",
-          url: "https://tinyurl.com/jupnefu",
-          category: "defi",
-          type: "DEX Aggregator",
-          status: "active",
-          bonus: "50 bps fee share",
-          icon: "🪐"
+          name: "Roof Safety Checklist",
+          description: "Comprehensive safety checklist for DIY roof inspections and repairs.",
+          url: "/categories/maintenance-tips/safety-tips",
+          category: "safety",
+          type: "Safety Guide",
+          status: "free",
+          bonus: "Free checklist",
+          icon: "⚠️"
         },
         {
-          name: "Claim Free SOL",
-          description: "Get free SOL for gas fees. Useful for new users.",
-          url: "https://tinyurl.com/claimsolanafree",
-          category: "defi",
-          type: "Faucet",
-          status: "active",
-          bonus: "Free SOL",
-          icon: "🚰"
+          name: "Emergency Repair Guide",
+          description: "Quick guide for temporary emergency roof repairs after storm damage.",
+          url: "/blog/repair-vs-replace/emergency-roof-repair",
+          category: "safety",
+          type: "Emergency Guide",
+          status: "free",
+          bonus: "Free guide",
+          icon: "🚨"
         },
         {
-          name: "Xeet AI",
-          description: "AI-powered Twitter thread generator. Save hours.",
-          url: "https://tinyurl.com/xeetnef",
-          category: "tools",
-          type: "AI Tool",
-          status: "active",
-          bonus: "Free credits",
-          icon: "🤖"
+          name: "Weather Monitoring Tool",
+          description: "Track weather conditions for safe roofing project timing.",
+          url: "#",
+          category: "safety",
+          type: "Weather Tool",
+          status: "free",
+          bonus: "Free access",
+          icon: "⛈️"
         },
         {
-          name: "Tria",
-          description: "Social trading platform. Copy top traders.",
-          url: "https://tinyurl.com/trianef",
-          category: "trading",
-          type: "Social Trading",
-          status: "active",
-          bonus: "Access code",
-          icon: "👥"
-        },
-        {
-          name: "Wallchain",
-          description: "MEV protection & smart swaps.",
-          url: "https://tinyurl.com/quacknef",
-          category: "defi",
-          type: "MEV Protection",
-          status: "active",
-          bonus: "Standard affiliate",
-          icon: "🛡️"
-        },
-        {
-          name: "Cookie",
-          description: "Crypto gaming & rewards platform.",
-          url: "https://tinyurl.com/cookienef",
-          category: "tools",
-          type: "Gaming",
-          status: "active",
-          bonus: "Signup bonus",
-          icon: "🍪"
-        },
-        {
-          name: "Rally",
-          description: "Waitlist for upcoming crypto projects.",
-          url: "https://tinyurl.com/rallynef",
-          category: "tools",
-          type: "Alpha Access",
-          status: "active",
-          bonus: "Early access",
-          icon: "🎯"
-        },
-        {
-          name: "Moonshot",
-          description: "Crypto social platform with rewards.",
-          url: "https://tinyurl.com/moonshotnefu",
-          category: "tools",
-          type: "Social Platform",
-          status: "active",
-          bonus: "Signup bonus",
-          icon: "🌙"
-        },
-        {
-          name: "QuickNode",
-          description: "Reliable blockchain RPC nodes.",
-          url: "https://tinyurl.com/qnode",
-          category: "tools",
-          type: "Infrastructure",
-          status: "active",
-          bonus: "Credit",
-          icon: "🔗"
-        },
-        {
-          name: "NordVPN",
-          description: "Secure VPN for crypto trading.",
-          url: "https://tinyurl.com/nordnefu",
-          category: "tools",
-          type: "Security",
-          status: "active",
-          bonus: "Discount",
-          icon: "🛡️"
+          name: "DIY vs Pro Assessment",
+          description: "Tool to help decide if a roofing project is suitable for DIY.",
+          url: "/categories/repair-vs-replace/diy-vs-pro",
+          category: "safety",
+          type: "Assessment Tool",
+          status: "free",
+          bonus: "Free assessment",
+          icon: "🤔"
         },
 
-        // Services
+        // Additional Resources
         {
-          name: "Reply Guy Service",
-          description: "Professional Twitter engagement service.",
-          url: "https://tinyurl.com/thereplyguy",
-          category: "services",
-          type: "Service",
-          status: "active",
-          bonus: "Service discount",
-          icon: "💬"
+          name: "Maintenance Schedule",
+          description: "Seasonal roof maintenance checklist and schedule.",
+          url: "/categories/maintenance-tips/seasonal-maintenance",
+          category: "planning",
+          type: "Maintenance Tool",
+          status: "free",
+          bonus: "Free schedule",
+          icon: "🔧"
         },
         {
-          name: "Txchyon Newsletter",
-          description: "My free crypto newsletter with alpha.",
-          url: "https://tinyurl.com/txchyonnewsletter",
-          category: "services",
-          type: "Newsletter",
-          status: "active",
-          bonus: "Free subscription",
-          icon: "📧"
+          name: "Gutter Calculator",
+          description: "Calculate gutter size and downspout requirements for your roof.",
+          url: "#",
+          category: "calculators",
+          type: "Estimator",
+          status: "free",
+          bonus: "Free tool",
+          icon: "🌧️"
+        },
+        {
+          name: "Ventilation Calculator",
+          description: "Calculate proper attic ventilation requirements for your roof.",
+          url: "#",
+          category: "calculators",
+          type: "Technical Tool",
+          status: "free",
+          bonus: "Free tool",
+          icon: "💨"
         }
       ].map(tool => (
         <div 
@@ -415,13 +324,13 @@ const description = "Complete list of platforms, wallets, and services I use wit
             
             <span class={`
               px-3 py-1 rounded-full text-xs font-bold
-              ${tool.status === 'active' ? 'bg-green-100 text-green-800' : ''}
-              ${tool.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : ''}
-              ${tool.status === 'no-affiliate' ? 'bg-gray-100 text-gray-800' : ''}
+              ${tool.status === 'free' ? 'bg-green-100 text-green-800' : ''}
+              ${tool.status === 'partnership' ? 'bg-blue-100 text-blue-800' : ''}
+              ${tool.status === 'demo' ? 'bg-yellow-100 text-yellow-800' : ''}
             `}>
-              {tool.status === 'active' ? 'ACTIVE' : 
-               tool.status === 'pending' ? 'SOON' : 
-               'NO AFFILIATE'}
+              {tool.status === 'free' ? 'FREE' : 
+               tool.status === 'partnership' ? 'PARTNER' : 
+               'DEMO'}
             </span>
           </div>
           
@@ -436,14 +345,12 @@ const description = "Complete list of platforms, wallets, and services I use wit
             {tool.url !== '#' ? (
               <a 
                 href={tool.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-sm"
+                class="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all text-sm"
               >
-                Visit →
+                Access →
               </a>
             ) : (
-              <span class="text-gray-400 text-sm">Coming soon</span>
+              <span class="text-blue-600 text-sm font-medium">Coming Soon</span>
             )}
           </div>
         </div>
@@ -452,38 +359,38 @@ const description = "Complete list of platforms, wallets, and services I use wit
 
     <!-- Stats & Transparency -->
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-xl p-6 text-center">
-        <div class="text-3xl font-bold text-cyan-700 mb-2">40+</div>
-        <div class="text-gray-700 font-medium">Total Tools Listed</div>
+      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-blue-700 mb-2">25+</div>
+        <div class="text-gray-700 font-medium">Free Tools & Resources</div>
       </div>
       <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6 text-center">
-        <div class="text-3xl font-bold text-green-700 mb-2">30+</div>
-        <div class="text-gray-700 font-medium">Active Affiliates</div>
+        <div class="text-3xl font-bold text-green-700 mb-2">100%</div>
+        <div class="text-gray-700 font-medium">Homeowner-Focused</div>
       </div>
       <div class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6 text-center">
-        <div class="text-3xl font-bold text-purple-700 mb-2">100%</div>
-        <div class="text-gray-700 font-medium">Tools I Actually Use</div>
+        <div class="text-3xl font-bold text-purple-700 mb-2">No Cost</div>
+        <div class="text-gray-700 font-medium">Free Access Always</div>
       </div>
     </div>
 
     <!-- CTA -->
     <div class="text-center mt-12">
       <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-        Want me to add or review a specific tool? 
-        <a href="/contact" class="text-cyan-600 font-medium hover:underline">Send a suggestion</a>.
+        Need help with a specific roofing project or have tool suggestions?
+        <a href="/contact" class="text-blue-600 font-medium hover:underline"> Contact us for personalized help</a>.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
-          href="/blog" 
-          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+          href="/categories/roof-cost-estimates" 
+          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all"
         >
-          📚 Read My Tool Guides
+          📚 Cost Estimation Guides
         </a>
         <a 
-          href="/categories/tools-automation" 
+          href="/categories/contractor-guides" 
           class="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white font-bold rounded-xl transition-all"
         >
-          🛠️ More Tool Articles
+          👷 Contractor Resources
         </a>
       </div>
     </div>
@@ -492,8 +399,11 @@ const description = "Complete list of platforms, wallets, and services I use wit
     <div class="text-center mt-12 pt-8 border-t border-gray-200">
       <p class="text-sm text-gray-500">
         Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} • 
-        <a href="/disclaimer" class="text-gray-600 hover:underline ml-2">Not financial advice</a> • 
-        Always DYOR • Commissions support this free site
+        <a href="/disclaimer" class="text-gray-600 hover:underline ml-2">See our full disclaimer</a> • 
+        Always verify with professionals • Partnerships support this free resource
+      </p>
+      <p class="text-sm text-gray-400 mt-2">
+        A service of Txchyon Capital • Providing free roofing education to homeowners
       </p>
     </div>
   </main>
@@ -501,7 +411,7 @@ const description = "Complete list of platforms, wallets, and services I use wit
   <style>
     /* Active tab styling */
     .category-tab.active {
-      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
       color: white;
     }
     
@@ -511,7 +421,7 @@ const description = "Complete list of platforms, wallets, and services I use wit
     }
     
     .tool-card:hover {
-      border-color: #06b6d4;
+      border-color: #3b82f6;
     }
   </style>
 
@@ -523,12 +433,12 @@ const description = "Complete list of platforms, wallets, and services I use wit
         document.querySelectorAll('.category-tab').forEach(t => {
           t.classList.remove('active');
           t.classList.add('bg-gray-100', 'text-gray-700');
-          t.classList.remove('bg-cyan-100', 'text-cyan-800');
+          t.classList.remove('bg-blue-100', 'text-blue-800');
         });
         
         tab.classList.add('active');
         tab.classList.remove('bg-gray-100', 'text-gray-700');
-        tab.classList.add('bg-cyan-100', 'text-cyan-800');
+        tab.classList.add('bg-blue-100', 'text-blue-800');
         
         // Filter tools
         const category = tab.dataset.category;

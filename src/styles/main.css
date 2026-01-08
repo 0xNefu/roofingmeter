@@ -5,10 +5,22 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
+/* ROOFING COLOR THEME - Safe addition */
+:root {
+  /* Primary roofing colors */
+  --roofing-primary: #1e3a8a;      /* Trustworthy blue */
+  --roofing-accent: #f97316;       /* Action orange */
+  --roofing-neutral: #6b7280;      /* Shingle gray */
+  --roofing-light: #f8fafc;        /* Sky background */
+  --roofing-success: #10b981;      /* Eco green */
+  
+  /* For backward compatibility */
+  --primary: var(--roofing-primary);
+  --accent: var(--roofing-accent);
+}
+
 @import "./safe.css";
-
 @import "./utilities.css";
-
 
 @layer base {
   @import "./base.css";
@@ -19,10 +31,5 @@
   @import "./navigation.css";
   @import "./buttons.css";
 }
-
-
-
-
-
 
 @import "./dark-mode.css";

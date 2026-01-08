@@ -9,19 +9,19 @@ const {
   noindex = false,
   type = "website", // 'website' or 'article'
   publishedTime,
-  author = "NefuTrades",
-  section = "DeFi", // Changed from "Crypto" to "DeFi"
+  author = "RoofingMeter",
+  section = "Roofing", // Changed from "DeFi" to "Roofing"
 } = Astro.props;
 
-// Simple, direct image URL - NO DOUBLE BASE_URL!
-const finalTitle = title ?? "Txchyon - On-Chain Research & DeFi Alpha";
-const finalDescription = description && description !== "true" ? description : "on-chain research + Defi alpha and Airdrops";
-// Use provided image OR fall back to default
-const finalImage = image ? image : "https://txchyon.com/images/tchyasit.jpg";
+// Simple, direct image URL
+const finalTitle = title ?? "RoofingMeter - Professional Roofing Information & Guides";
+const finalDescription = description && description !== "true" ? description : "Free roofing cost calculators, material comparisons, contractor guides, and maintenance tips for homeowners";
+// Use provided image OR fall back to default roofing image
+const finalImage = image ? image : "https://roofingmeter.com/images/roofing-guide.jpg";
 
-// FIXED: Normalize canonical URL - remove trailing slash
+// Normalize canonical URL - remove trailing slash
 const cleanPath = Astro.url.pathname.replace(/\/$/, ""); // Remove trailing slash
-const finalCanonical = canonical ?? `https://txchyon.com${cleanPath}`;
+const finalCanonical = canonical ?? `https://roofingmeter.com${cleanPath}`;
 ---
 
 <!-- Simple, reliable social meta tags -->
@@ -42,7 +42,7 @@ const finalCanonical = canonical ?? `https://txchyon.com${cleanPath}`;
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={finalTitle} />
-<meta property="og:site_name" content="Txchyon" />
+<meta property="og:site_name" content="RoofingMeter" />
 
 <!-- Additional Open Graph tags for articles -->
 {type === 'article' && (
@@ -50,23 +50,22 @@ const finalCanonical = canonical ?? `https://txchyon.com${cleanPath}`;
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta property="article:author" content={author} />
     <meta property="article:section" content={section} />
-    <meta property="article:tag" content="DeFi" />
-    <meta property="article:tag" content="Crypto" />
-    <meta property="article:tag" content="Blockchain" />
-    <meta property="article:tag" content="Airdrops" />
+    <meta property="article:tag" content="Roofing" />
+    <meta property="article:tag" content="Home Improvement" />
+    <meta property="article:tag" content="Contractors" />
+    <meta property="article:tag" content="Home Maintenance" />
   </>
 )}
 
-<!-- Twitter - FIXED SYNTAX -->
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={finalCanonical} />
 <meta name="twitter:title" content={finalTitle} />
 <meta name="twitter:description" content={finalDescription} />
 <meta name="twitter:image" content={finalImage} />
 <meta name="twitter:image:alt" content={finalTitle} />
-<meta name="twitter:site" content="@NefuTrades" />
-<meta name="twitter:creator" content="@NefuTrades" />
+<meta name="twitter:site" content="@roofingmeter" />
+<meta name="twitter:creator" content="@roofingmeter" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={finalCanonical} />
-

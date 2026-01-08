@@ -1,14 +1,14 @@
 ﻿{
   "site": {
-    "title": "Txchyon",
-    "base_url": "https://txchyon.com",
+    "title": "RoofingMeter",
+    "base_url": "https://roofingmeter.com",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": false,
     "logo_width": "200",
     "logo_height": "34",
-    "logo_text": "Txchyon"
+    "logo_text": "RoofingMeter"
   },
 
   "settings": {
@@ -16,9 +16,9 @@
   },
 
   "metadata": {
-    "meta_author": "NefuTrades",
-    "meta_image": "/images/txchyafinal.jpg",
-    "meta_description": "Raw data. Real alpha. Live Aster positions and Solana infra bets."
+    "meta_author": "Roofing Experts",
+    "meta_image": "/images/roofing-expert.jpg",
+    "meta_description": "Accurate roof cost calculators, material comparisons, and trusted contractor guides. Get free estimates and make informed roofing decisions."
   },
 
   "google_tag_manager": {
@@ -28,35 +28,34 @@
 
   "params": {
     "contact_form_action": "https://formspree.io/f/xzznjdnr",
-    "copyright": "© 2025 Txchyon Capital"
+    "copyright": "© 2025 RoofingMeter. All rights reserved."
   },
 
   "contactinfo": {
-    "address": "Scottsdale, AZ",
-    "email": "contact@txchyon.com",
-    "phone": "+63 9613092580"
+    "address": "Nationwide Service",
+    "email": "contact@roofingmeter.com",
+    "phone": "+1 (888) 555-ROOF"
   },
 
   "social": {
-    "twitter": "https://twitter.com/txchyon",
-    "telegram": "https://t.me/txchyon",
-    "discord": "https://discord.gg/txchyon",
-    "github": "https://github.com/txchyon",
-    "linkedin": "",
-    "youtube": "",
-    "instagram": ""
+    "twitter": "https://twitter.com/roofingmeter",
+    "facebook": "https://facebook.com/roofingmeter",
+    "instagram": "https://instagram.com/roofingmeter",
+    "linkedin": "https://linkedin.com/company/roofingmeter",
+    "youtube": "https://youtube.com/@roofingmeter",
+    "pinterest": "https://pinterest.com/roofingmeter"
   },
 
   "author": {
-    "name": "NefuTrades",
-    "bio": "Trading, building, and writing in public.",
-    "avatar": "/images/avatar.jpg",
-    "twitter": "https://twitter.com/nefutrades"
+    "name": "Roofing Experts",
+    "bio": "Professional roofers providing accurate cost estimates and trusted advice.",
+    "avatar": "/images/roofing-expert-avatar.jpg",
+    "twitter": "https://twitter.com/roofingmeter"
   },
 
   "branding": {
-    "blog_name": "Txchyon",
-    "tagline": "Signal in the noise.",
-    "twitter_handle": "@txchyon"
+    "blog_name": "RoofingMeter Blog",
+    "tagline": "Your trusted guide to roofing costs and contractors.",
+    "twitter_handle": "@roofingmeter"
   }
 }

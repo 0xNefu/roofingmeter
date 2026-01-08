@@ -1,11 +1,12 @@
 ---
-// src/pages/blog.astro - Blog listing page
+// src/pages/blog.astro - Roofing Blog Listing Page
 import { getCollection } from 'astro:content';
 import Base from "@/layouts/Base.astro";
 import Posts from "@/layouts/components/Posts.astro";
 import Pagination from "@/layouts/components/Pagination.astro";
+import { CATEGORY_HIERARCHY } from '@/lib/categories';
 
-// Helper for readTime calculation (same as index.astro)
+// Helper for readTime calculation
 function calculateReadTime(content, wordsPerMinute = 130) {
   if (!content) return 10;
   const plainText = content
@@ -25,10 +26,14 @@ function getPostReadTime(post) {
   if (post.data.readTime) return post.data.readTime;
   if (post.body) return calculateReadTime(post.body);
   const estimates = {
-    'getting-started': 8, 'security-privacy': 10,
-    'airdrop-farming': 12, 'defi-yield': 15
+    'roof-cost-estimates': 8, 
+    'material-comparisons': 10,
+    'contractor-guides': 12, 
+    'repair-vs-replace': 15,
+    'maintenance-tips': 10,
+    'local-contractors': 12
   };
-  return estimates[post.data.pillar] || 10;
+  return estimates[post.data.category] || 10;
 }
 
 // Get all posts with readTime
@@ -48,79 +53,107 @@ const sortedPosts = allPosts.sort(
 
 // Pagination
 const pageSize = 12;
-const currentPage = 1; // You can add pagination logic later
+const currentPage = 1;
 const paginatedPosts = sortedPosts.slice(0, pageSize);
 const totalPages = Math.ceil(allPosts.length / pageSize);
 
-// === ADDED: Blog listing OG image ===
-// Use a specific image for the blog listing page
-const blogOgImage = "/images/blog-listing-og.jpg"; // Make sure this exists in public/images/
+// Calculate homeowner stats
+const homeownersHelped = allPosts.length > 0 ? `${allPosts.length * 100}+` : "500+";
+const moneySaved = allPosts.length > 0 ? `$${allPosts.length * 5000}+` : "$2.5M+";
 ---
 
 <Base 
-  title="All Free DeFi Guides | Txchyon" 
-  description="Browse all our premium-quality DeFi guides. 100% free. No gatekeeping, just actionable knowledge."
-  image={blogOgImage}  <!-- ADD THIS PROP -->
+  title="All Roofing Guides & Resources | RoofingMeter" 
+  description="Browse all our roofing guides, cost calculators, and contractor resources. Everything you need for your roofing project."
 >
-  <section class="min-h-screen dark:bg-gradient-to-b dark:from-black dark:to-gray-900 bg-gradient-to-b from-white to-gray-100 py-20">
+  <section class="min-h-screen bg-gradient-to-b from-white to-gray-50 py-16 md:py-20">
     <div class="container mx-auto px-4">
       {/* Hero Header */}
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center gap-2 dark:bg-black/40 bg-white/80 backdrop-blur-sm dark:border border-cyan-500/30 border-cyan-400/30 rounded-full px-6 py-3 mb-8">
-          <span class="text-cyan-500 dark:text-cyan-400">📚</span>
-          <span class="text-cyan-600 dark:text-cyan-300 font-medium">
-            ALL GUIDES • 100% FREE • NO SIGNUP REQUIRED
+      <div class="text-center mb-12 md:mb-16">
+        <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-6 py-3 mb-6 md:mb-8">
+          <span class="text-blue-600">🏠</span>
+          <span class="text-blue-700 font-medium">
+            ALL ROOFING GUIDES • FREE RESOURCES • NO SIGNUP
           </span>
         </div>
         
-        <h1 class="text-4xl md:text-6xl font-bold dark:text-white text-gray-900 mb-6">
-          Every Guide We've Published
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
+          Complete Roofing Resource Library
         </h1>
         
-        <p class="text-xl dark:text-gray-400 text-gray-600 max-w-3xl mx-auto">
-          No paywalls. No "premium content" hidden away. Everything we create is free, forever.
+        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10">
+          Everything you need to make smart decisions about your roof - cost estimates, material guides, contractor tips, and more.
         </p>
         
         {/* Stats */}
-        <div class="flex flex-wrap justify-center gap-8 mt-10">
-          <div class="text-center">
-            <div class="text-3xl font-bold dark:text-white text-gray-900">{allPosts.length}</div>
-            <div class="dark:text-gray-400 text-gray-600">Total Guides</div>
+        <div class="flex flex-wrap justify-center gap-6 md:gap-8 mt-8 md:mt-10">
+          <div class="text-center bg-white border border-gray-200 rounded-xl p-4 md:p-6">
+            <div class="text-2xl md:text-3xl font-bold text-gray-900">{allPosts.length}</div>
+            <div class="text-gray-600 text-sm md:text-base">Total Guides</div>
           </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold dark:text-white text-gray-900">1,200+</div>
-            <div class="dark:text-gray-400 text-gray-600">Active Readers</div>
+          <div class="text-center bg-white border border-gray-200 rounded-xl p-4 md:p-6">
+            <div class="text-2xl md:text-3xl font-bold text-gray-900">{homeownersHelped}</div>
+            <div class="text-gray-600 text-sm md:text-base">Homeowners Helped</div>
           </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold text-green-500 dark:text-green-400">$0</div>
-            <div class="dark:text-gray-400 text-gray-600">Everything Costs</div>
+          <div class="text-center bg-white border border-gray-200 rounded-xl p-4 md:p-6">
+            <div class="text-2xl md:text-3xl font-bold text-green-600">{moneySaved}</div>
+            <div class="text-green-600 text-sm md:text-base font-semibold">Estimated Savings</div>
           </div>
         </div>
       </div>
 
-      {/* Category Filter */}
-      <div class="flex flex-wrap gap-4 mb-12 justify-center">
-        <a href="/categories/getting-started" 
-           class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all">
-          🚀 Getting Started
-        </a>
-        <a href="/categories/security-privacy" 
-           class="px-5 py-2.5 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-red-500/30 transition-all">
-          🔐 Security & Privacy
-        </a>
-        <a href="/categories/airdrop-farming" 
-           class="px-5 py-2.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-yellow-500/30 transition-all">
-          🪂 Airdrop Farming
-        </a>
-        <a href="/categories/defi-yield" 
-           class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-green-500/30 transition-all">
-          💰 DeFi Yield
-        </a>
+      {/* Category Filter - Roofing Pillars */}
+      <div class="flex flex-wrap gap-3 md:gap-4 mb-12 justify-center">
+        {Object.entries(CATEGORY_HIERARCHY).map(([category, data]) => {
+          const postsInCategory = allPosts.filter(p => p.data.category === category);
+          if (postsInCategory.length === 0) return null;
+          
+          return (
+            <a href={`/categories/${category}`} 
+               class="group px-4 md:px-5 py-2.5 md:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1">
+              <span class="flex items-center gap-2">
+                <span class="text-lg">{data.icon}</span>
+                <span>{data.name}</span>
+                <span class="text-blue-200 text-xs bg-blue-800/30 px-2 py-0.5 rounded-full">
+                  {postsInCategory.length}
+                </span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+
+      {/* Search Bar */}
+      <div class="max-w-2xl mx-auto mb-12">
+        <div class="relative">
+          <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+            🔍
+          </div>
+          <input 
+            type="search" 
+            placeholder="Search roofing guides (cost estimates, materials, contractors...)" 
+            class="w-full pl-12 pr-4 py-3 md:py-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            id="blog-search"
+          />
+          <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-700">
+            Search
+          </button>
+        </div>
       </div>
 
       {/* Posts Grid */}
       <div class="mb-16">
-        <Posts posts={paginatedPosts} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
+        {paginatedPosts.length > 0 ? (
+          <Posts posts={paginatedPosts} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
+        ) : (
+          <div class="text-center py-16">
+            <div class="text-6xl mb-6 text-gray-300">🏠</div>
+            <h3 class="text-2xl font-bold text-gray-600 mb-4">No Roofing Guides Yet</h3>
+            <p class="text-gray-500 max-w-md mx-auto">
+              We're working on our first roofing guides! Check back soon for cost estimates, material comparisons, and contractor tips.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Pagination */}
@@ -130,18 +163,124 @@ const blogOgImage = "/images/blog-listing-og.jpg"; // Make sure this exists in p
         </div>
       )}
 
-      {/* CTA */}
-      <div class="dark:bg-gradient-to-r dark:from-gray-900/50 dark:to-black/50 bg-gradient-to-r from-white/50 to-gray-100/50 backdrop-blur-sm rounded-3xl dark:border border-cyan-500/30 border-cyan-400/30 p-8 max-w-2xl mx-auto text-center">
-        <h2 class="text-2xl font-bold dark:text-white text-gray-900 mb-4">Missing Something?</h2>
-        <p class="dark:text-gray-400 text-gray-600 mb-6">
-          Have a DeFi topic you want us to cover? We're building this in public and take community requests.
+      {/* Need More Help? */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
+        {/* Free Estimate CTA */}
+        <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 md:p-8 text-white">
+          <div class="text-4xl mb-4">💰</div>
+          <h2 class="text-xl md:text-2xl font-bold mb-4">Get a Free Roof Cost Estimate</h2>
+          <p class="text-blue-100 mb-6">
+            Use our interactive calculator to get a personalized estimate for your roofing project.
+          </p>
+          <a href="/free-estimate" 
+             class="inline-block px-6 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors">
+            CALCULATE NOW
+          </a>
+        </div>
+
+        {/* Find Contractors CTA */}
+        <div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-2xl p-6 md:p-8 text-white">
+          <div class="text-4xl mb-4">👷</div>
+          <h2 class="text-xl md:text-2xl font-bold mb-4">Find Local Roofing Contractors</h2>
+          <p class="text-amber-100 mb-6">
+            Browse verified contractors in your area with reviews, ratings, and free quotes.
+          </p>
+          <a href="/find-contractors" 
+             class="inline-block px-6 py-3 bg-white text-amber-700 font-bold rounded-lg hover:bg-amber-50 transition-colors">
+            FIND CONTRACTORS
+          </a>
+        </div>
+      </div>
+
+      {/* Newsletter Signup */}
+      <div class="bg-gradient-to-r from-blue-50 to-amber-50 rounded-2xl border border-blue-200 p-6 md:p-8 max-w-2xl mx-auto text-center">
+        <div class="text-4xl mb-4">📧</div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Get New Guides & Roofing Tips</h2>
+        <p class="text-gray-700 mb-6">
+          Join thousands of homeowners who get our latest roofing guides, cost calculators, 
+          and contractor discounts directly in their inbox.
         </p>
-        <a href="https://twitter.com/txchyon" target="_blank" 
-           class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-cyan-500/30 transition-all">
-          <span>🐦</span>
-          Suggest a Guide on Twitter
-        </a>
+        
+        <form class="max-w-md mx-auto">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input 
+              type="email" 
+              placeholder="your.email@example.com" 
+              class="flex-1 px-4 py-3 rounded-lg text-gray-900 border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+              required
+            />
+            <button 
+              type="submit"
+              class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
+          <p class="text-gray-600 text-xs mt-3">
+            No spam. Unsubscribe anytime. A Txchyon Capital property.
+          </p>
+        </form>
+      </div>
+
+      {/* Emergency Roofing Help */}
+      <div class="mt-12 bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl border border-red-200 p-6 max-w-2xl mx-auto">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl text-red-600">🚨</div>
+          <div>
+            <h4 class="text-lg font-bold text-gray-900 mb-2">Emergency Roofing Situation?</h4>
+            <p class="text-gray-700 text-sm mb-3">
+              If you have an active leak, storm damage, or urgent roofing issue, 
+              don't wait - contact a local roofing contractor immediately.
+            </p>
+            <a 
+              href="/find-contractors" 
+              class="inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-medium text-sm"
+            >
+              👷 Find Emergency Roofing Help →
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('blog-search');
+      const searchButton = searchInput.nextElementSibling;
+      
+      searchButton.addEventListener('click', () => {
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) {
+          window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+        }
+      });
+      
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const searchTerm = searchInput.value.trim();
+          if (searchTerm) {
+            window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+          }
+        }
+      });
+    });
+  </script>
+
+  <style>
+    /* Smooth transitions */
+    * {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Search input focus */
+    input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Button hover effects */
+    button:hover, a:hover {
+      transform: translateY(-2px);
+    }
+  </style>
 </Base>

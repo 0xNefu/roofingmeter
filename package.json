@@ -1,8 +1,10 @@
 {
-  "name": "bookworm-light-astro",
-  "version": "3.2.0",
+  "name": "roofingmeter",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
+  "description": "Roofing cost calculators, material comparisons, and contractor guides",
+  "keywords": ["roofing", "contractors", "cost-calculator", "home-improvement", "roof-repair"],
   "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "astro dev",
@@ -12,7 +14,8 @@
     "check": "astro check",
     "check:links": "node scripts/check-links.js",
     "check:links:preview": "astro preview & sleep 5 && node scripts/check-links.js http://localhost:4321",
-    "check:links:build": "astro build && astro preview & sleep 5 && node scripts/check-links.js http://localhost:4321"
+    "check:links:build": "astro build && astro preview & sleep 5 && node scripts/check-links.js http://localhost:4321",
+    "new:article": "node scripts/new-article.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

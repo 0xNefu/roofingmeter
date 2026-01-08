@@ -8,15 +8,14 @@ import remarkToc from "remark-toc";
 
 import config from "./src/config/config.json";
 
-// https://astro.build/config
 export default defineConfig({
-  site: "https://txchyon.com",
+  // Use localhost for development
+  site: "http://localhost:4321",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   
-  // FIX ADDED HERE
   build: {
-    format: "directory", // Forces clean URLs: /blog/post/ instead of /blog/post.md
+    format: "directory",
   },
   
   image: {

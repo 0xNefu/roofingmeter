@@ -1,92 +1,91 @@
 {
   "main": [
     {
-      "name": "Getting Started",
-      "url": "/categories/getting-started"
+      "name": "Roof Cost Estimates",
+      "url": "/categories/roof-cost-estimates"
     },
     {
-      "name": "Airdrop",
-      "url": "/categories/airdrop-farming"
+      "name": "Material Comparisons",
+      "url": "/categories/material-comparisons"
     },
     {
-      "name": "DeFi & Yield",
-      "url": "/categories/defi-yield"
+      "name": "Contractor Guides",
+      "url": "/categories/contractor-guides"
     },
     {
-      "name": "Security",
-      "url": "/categories/security-privacy"
+      "name": "Repair vs Replace",
+      "url": "/categories/repair-vs-replace"
     },
     {
-      "name": "Alpha",
-      "url": "/categories/alpha-insider"
-    },
-    {
-      "name": "Gaming",
-      "url": "/categories/web3-gaming-metaverse"
+      "name": "Maintenance Tips",
+      "url": "/categories/maintenance-tips"
     },
     {
       "name": "More",
       "dropdown": [
         {
-          "name": "Trading",
-          "url": "/categories/trading-investing"
+          "name": "Local Contractors",
+          "url": "/categories/local-contractors"
         },
         {
-          "name": "Infrastructure",
-          "url": "/categories/infrastructure-tech"
-        },
-        {
-          "name": "Portfolio",
-          "url": "/categories/portfolio-management"
-        },
-        {
-          "name": "Regulatory & Tax",
-          "url": "/categories/regulatory-tax"
-        },
-        {
-          "name": "Tools & Automation",
-          "url": "/categories/tools-automation"
-        },
-        {
-          "name": "Prediction Markets",
-          "url": "/categories/prediction-markets"
-        },
-        {
-          "name": "Research",
-          "url": "/categories/research-analysis"
-        },
-        {
-          "name": "Services",
-          "url": "/services"
-        },
-        {
-          "name": "Tools",
+          "name": "Roofing Tools",
           "url": "/tools"
+        },
+        {
+          "name": "Free Roofing Guides",
+          "url": "/guides"
+        },
+        {
+          "name": "Insurance Help",
+          "url": "/blog/roof-cost-estimates/insurance-claims-guide"
+        },
+        {
+          "name": "Emergency Repairs",
+          "url": "/blog/repair-vs-replace/emergency-roof-repair"
+        },
+        {
+          "name": "Find Local Roofers",
+          "url": "/blog/local-contractors/find-roofers-near-you"
+        },
+        {
+          "name": "Roofing Warranties",
+          "url": "/blog/contractor-guides/understanding-roofing-warranties"
+        },
+        {
+          "name": "DIY Roof Repair",
+          "url": "/blog/repair-vs-replace/diy-roof-repair-safety"
         }
       ]
     }
   ],
   "footer": [
     {
-      "name": "Txchyon",
+      "name": "Home",
       "url": "/"
     },
     {
-      "name": "Services",
-      "url": "/services"
+      "name": "About",
+      "url": "/about"
     },
     {
       "name": "Tools",
       "url": "/tools"
     },
     {
-      "name": "Newsletter",
-      "url": "/newsletter"
+      "name": "Guides",
+      "url": "/guides"
     },
     {
-      "name": "Twitter",
-      "url": "https://twitter.com/txchyon",
-      "external": true
+      "name": "Contact",
+      "url": "/contact"
+    },
+    {
+      "name": "Privacy",
+      "url": "/privacy"
+    },
+    {
+      "name": "Disclaimer",
+      "url": "/disclaimer"
     }
   ]
 }

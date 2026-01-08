@@ -263,3 +263,33 @@ console.log('🎯 GATE CONTROL:', {
   hardcoded: fromHardcoded,
   final: hasGatedContent
 });
+
+
+
+
+---
+title: "Complete Guide to Asphalt Shingle Installation"
+description: "Learn professional techniques for installing asphalt shingles"
+date: 2024-01-05
+updatedDate: 2024-01-05
+image: "/images/posts/asphalt-shingle-installation.jpg"
+heroImageAlt: "Roofing professional installing asphalt shingles"
+authors: ["Mike Johnson"]
+authorTwitter: "@roofpro_mike"
+tags:
+  - Installation Guide
+  - Asphalt Shingles
+  - DIY Roofing
+category: "roof-installation"
+subcategory: "professional"
+draft: false
+hasGatedContent: true
+isFullyGated: true  # KEPT THIS FIELD
+gateType: 'full'    # ADDED THIS FIELD
+# Optional fields you can use later:
+difficultyLevel: professional
+costRange: $$$
+timeEstimate: "2-3 days"
+hasCalculator: true
+calculatorSlug: "shingle-calculator"
+---

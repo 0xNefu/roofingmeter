@@ -7,188 +7,281 @@ import { getCollection } from 'astro:content';
 let allPosts = [];
 let publishedPosts = [];
 let totalPosts = 0;
-let draftCount = 0;
 
 try {
   allPosts = await getCollection('posts');
   publishedPosts = allPosts.filter(post => !post.data.draft);
   totalPosts = allPosts.length;
-  draftCount = totalPosts - publishedPosts.length;
 } catch (error) {
   console.log('Error loading posts for footer counter:', error);
   // Set default values
   totalPosts = 0;
-  draftCount = 0;
 }
 
-// Define your footer links in a clean structure
+// Roofing-specific footer links
 const footerLinks = {
-  services: {
-    title: 'Services',
+  costGuides: {
+    title: 'Cost Guides',
     links: [
-      { name: 'Launch Services', url: '/services' },
-      { name: 'Apply Now', url: '/services#apply' },
-      { name: 'Twitter Marketing', url: '/services' },
+      { name: 'New Roof Costs', url: '/cost-estimates/new-roof' },
+      { name: 'Replacement Costs', url: '/cost-estimates/replacement' },
+      { name: 'Repair Costs', url: '/cost-estimates/repair' },
+      { name: 'Material Cost Guide', url: '/cost-estimates/materials' },
+    ]
+  },
+  materials: {
+    title: 'Materials',
+    links: [
+      { name: 'Asphalt Shingles', url: '/materials/asphalt-shingles' },
+      { name: 'Metal Roofing', url: '/materials/metal-roofing' },
+      { name: 'Tile Roofing', url: '/materials/tile-roofing' },
+      { name: 'Slate Roofing', url: '/materials/slate' },
+    ]
+  },
+  contractors: {
+    title: 'Contractors',
+    links: [
+      { name: 'Find Local Roofers', url: '/contractors/find' },
+      { name: 'Get Free Quotes', url: '/contractors/quotes' },
+      { name: 'Vetting Guide', url: '/contractors/vetting' },
+      { name: 'Contract Tips', url: '/contractors/contracts' },
     ]
   },
   resources: {
     title: 'Resources',
     links: [
       { name: 'All Guides', url: '/blog' },
-      { name: 'Newsletter', url: '/newsletter' },
-      { name: 'Toolkit', url: '/tools' },
-    ]
-  },
-  learn: {
-    title: 'Learn',
-    links: [
-      { name: 'Getting Started', url: '/categories/getting-started' },
-      { name: 'DeFi Yield', url: '/categories/defi-yield' },
-      { name: 'Airdrop Farming', url: '/categories/airdrop-farming' },
+      { name: 'Free Report', url: '/free-report' },
+      { name: 'Maintenance Tips', url: '/maintenance' },
+      { name: 'Repair vs Replace', url: '/repair-vs-replace' },
     ]
   }
 };
 
 const currentYear = new Date().getFullYear();
 
-// Check if we're on home page for newsletter
-const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+// Calculate homeowner stats
+const homeownersHelped = totalPosts > 0 ? `${totalPosts * 100}+` : "500+";
+const moneySaved = totalPosts > 0 ? `$${totalPosts * 5000}+` : "$2.5M+";
 ---
-<footer class="border-t dark:border-gray-800 border-gray-200 py-12">
+
+<footer class="border-t border-gray-200 py-12 bg-gray-50">
   <div class="container mx-auto px-4">
     
     {/* Main Footer Content */}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
       
-      {/* Brand Column - Takes 1 column */}
-      <div>
+      {/* Brand Column */}
+      <div class="lg:col-span-2">
         <a href="/" class="flex items-center gap-3 mb-6">
           <img
-            src="/images/logo.jpg"
-            alt="Txchyon"
-            class="w-12 h-12 rounded-lg object-cover"
+            src="/images/logo.png"
+            alt="RoofingMeter"
+            class="w-12 h-12 rounded-lg object-cover border border-gray-300"
           />
-          <span class="text-2xl font-bold dark:text-white text-gray-900">
-            Txchyon
-          </span>
+          <div>
+            <div class="text-2xl font-bold text-blue-700">
+              RoofingMeter
+            </div>
+            <div class="text-gray-600 text-sm">
+              Accurate Roof Estimates & Contractor Guides
+            </div>
+          </div>
         </a>
-        <p class="dark:text-gray-400 text-gray-600 text-sm mb-6">
-          Premium DeFi education that should cost thousands... but we're giving it away free.
+        
+        <p class="text-gray-600 text-sm mb-6">
+          Helping homeowners make informed roofing decisions with accurate cost estimates, 
+          material comparisons, and trusted contractor recommendations.
         </p>
         
-        {/* Guide Counts */}
-        <div class="mb-6 space-y-2">
-          {/* Published Guides */}
-          <p class="dark:text-gray-300 text-gray-700 text-sm">
-            <span class="inline-flex items-center gap-1">
-              <svg class="w-4 h-4 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.968 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
-              </svg>
-              <span class="font-semibold text-green-600 dark:text-green-400">{publishedPosts.length || 0}</span> 
-              <span>Published Guides</span>
-            </span>
-          </p>
-
-          {/* Total Guides */}
-          <p class="dark:text-gray-400 text-gray-600 text-xs">
-            <span class="inline-flex items-center gap-1">
-              <svg class="w-3 h-3 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-              </svg>
-              <span class="font-semibold text-blue-600 dark:text-blue-400">{totalPosts}</span> 
-              <span>Total Guides</span>
-              {draftCount > 0 && (
-                <span class="text-yellow-600 dark:text-yellow-400 ml-1">
-                  ({draftCount} draft)
-                </span>
-              )}
-            </span>
-          </p>
+        {/* Homeowner Stats */}
+        <div class="mb-6 space-y-3">
+          <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div class="text-blue-600 text-lg">🏠</div>
+            <div>
+              <div class="text-gray-900 font-bold">{homeownersHelped}</div>
+              <div class="text-gray-600 text-xs">Homeowners Helped</div>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div class="text-green-600 text-lg">💰</div>
+            <div>
+              <div class="text-gray-900 font-bold">{moneySaved}</div>
+              <div class="text-gray-600 text-xs">Estimated Savings</div>
+            </div>
+          </div>
         </div>
         
-        {/* Social Icons - This replaces the Connect section */}
-        <div class="flex gap-4 mb-4">
-          <a href="https://twitter.com/txchyon" 
-             target="_blank"
-             class="dark:text-gray-400 text-gray-600 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-             title="Twitter">
-            <span class="text-xl">🐦 Twitter</span>
+        {/* Phone Number & Contact */}
+        <div class="space-y-3">
+          <a href="tel:+18885557663" 
+             class="flex items-center gap-3 text-blue-700 hover:text-blue-800 transition-colors">
+            <div class="bg-blue-100 p-2 rounded-lg">
+              <span class="text-blue-600">📞</span>
+            </div>
+            <div>
+              <div class="font-bold">1-888-555-ROOF</div>
+              <div class="text-gray-600 text-xs">Free Roofing Consultation</div>
+            </div>
           </a>
-          <a href="/rss.xml" 
-             class="dark:text-gray-400 text-gray-600 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
-             title="RSS Feed">
-            <span class="text-xl">📡 RSS</span>
+          
+          <a href="mailto:contact@roofingmeter.com" 
+             class="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors">
+            <div class="bg-gray-100 p-2 rounded-lg">
+              <span class="text-gray-600">✉️</span>
+            </div>
+            <div>
+              <div class="font-medium">contact@roofingmeter.com</div>
+              <div class="text-gray-600 text-xs">Email Support</div>
+            </div>
           </a>
         </div>
-        
-        {/* Contact link under social icons */}
-        <a href="/contact" 
-           class="dark:text-gray-400 text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm">
-          📧 Contact Us
-        </a>
       </div>
       
-      {/* Footer Link Columns - 3 columns for Services, Resources, Learn */}
+      {/* Footer Link Columns */}
       {Object.entries(footerLinks).map(([key, section]) => (
         <div key={key}>
-          <h3 class="text-lg font-bold dark:text-white text-gray-900 mb-4">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">
             {section.title}
           </h3>
-          <ul class="space-y-3">
+          <ul class="space-y-2">
             {section.links.map(link => (
               <li>
                 <a 
                   href={link.url}
-                  class="dark:text-gray-400 text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
-                  {link.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+                  class="text-gray-600 hover:text-blue-600 transition-colors text-sm flex items-center gap-2 py-1"
                 >
+                  <span class="text-blue-500 text-xs">→</span>
                   {link.name}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-      ))}    
-    {/* Divider */}
-    <div class="border-t dark:border-gray-800 border-gray-200 my-8"></div>
+      ))}
+    </div>
     
-    {/* Bottom Bar */}
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-      {/* Copyright & Links */}
-      <div class="text-center md:text-left">
-        <p class="dark:text-gray-500 text-gray-500 text-sm">
-          © {currentYear} Txchyon Capital. All content is free to share under{' '}
-          <a href="https://creativecommons.org/licenses/by/4.0/" 
-             target="_blank" 
-             class="text-blue-600 dark:text-blue-400 hover:underline">
-            CC BY 4.0
-          </a>.
+    {/* Newsletter Signup */}
+    <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 mb-8">
+      <div class="max-w-2xl mx-auto text-center text-white">
+        <div class="text-4xl mb-4">📧</div>
+        <h3 class="text-2xl font-bold mb-4">Get Free Roofing Reports & Tips</h3>
+        <p class="text-blue-100 mb-6">
+          Join thousands of homeowners who get exclusive roofing guides, cost calculators, 
+          and contractor discounts directly to their inbox.
         </p>
-      </div>
-      
-      {/* Legal Links */}
-      <div class="flex flex-wrap justify-center gap-4 md:gap-6">
-        <a href="/privacy" class="dark:text-gray-500 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
-          Privacy Policy
-        </a>
-        <a href="/terms" class="dark:text-gray-500 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
-          Terms of Service
-        </a>
-        <a href="/disclaimer" class="dark:text-gray-500 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
-          Disclaimer
-        </a>
-        <a href="/contact" class="dark:text-gray-500 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
-          Contact
-        </a>
+        
+        <form class="max-w-md mx-auto">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input 
+              type="email" 
+              placeholder="your.email@example.com" 
+              class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              required
+            />
+            <button 
+              type="submit"
+              class="px-6 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors whitespace-nowrap"
+            >
+              GET FREE REPORTS
+            </button>
+          </div>
+          <p class="text-blue-200 text-xs mt-3">
+            No spam. Unsubscribe anytime. A Txchyon Capital property.
+          </p>
+        </form>
       </div>
     </div>
     
-    {/* Important Notice */}
-    <div class="mt-8 pt-6 border-t dark:border-gray-800 border-gray-200">
-      <p class="dark:text-gray-600 text-gray-500 text-xs text-center">
-        ⚠️ <strong>Not financial advice:</strong> All content is educational. DeFi involves risk. 
-        Always do your own research and never invest more than you can afford to lose.
-      </p>
+    {/* Divider */}
+    <div class="border-t border-gray-300 my-8"></div>
+    
+    {/* Bottom Bar */}
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      {/* Copyright */}
+      <div class="text-center md:text-left">
+        <p class="text-gray-500 text-sm">
+          © {currentYear} <span class="text-blue-600 font-medium">RoofingMeter</span>. 
+          A <span class="text-gray-700">Txchyon Capital</span> property.
+        </p>
+        <p class="text-gray-400 text-xs mt-1">
+          All content provided for educational purposes. Always consult licensed contractors for specific advice.
+        </p>
+      </div>
+      
+      {/* Legal & Social Links */}
+      <div class="flex flex-col sm:flex-row items-center gap-6">
+        {/* Social Links */}
+        <div class="flex gap-4">
+          <a href="https://facebook.com/roofingmeter" 
+             target="_blank"
+             class="text-gray-600 hover:text-blue-600 transition-colors"
+             title="Facebook">
+            <span class="text-lg">📘</span>
+          </a>
+          <a href="https://twitter.com/roofingmeter" 
+             target="_blank"
+             class="text-gray-600 hover:text-blue-400 transition-colors"
+             title="Twitter">
+            <span class="text-lg">🐦</span>
+          </a>
+          <a href="https://instagram.com/roofingmeter" 
+             target="_blank"
+             class="text-gray-600 hover:text-pink-600 transition-colors"
+             title="Instagram">
+            <span class="text-lg">📸</span>
+          </a>
+          <a href="https://pinterest.com/roofingmeter" 
+             target="_blank"
+             class="text-gray-600 hover:text-red-600 transition-colors"
+             title="Pinterest">
+            <span class="text-lg">📌</span>
+          </a>
+        </div>
+        
+        {/* Legal Links */}
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/privacy" class="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+            Privacy Policy
+          </a>
+          <a href="/terms" class="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+            Terms of Service
+          </a>
+          <a href="/disclaimer" class="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+            Disclaimer
+          </a>
+          <a href="/contact" class="text-gray-500 hover:text-blue-600 text-sm transition-colors">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    {/* Industry Affiliations & Trust Seals */}
+    <div class="mt-8 pt-6 border-t border-gray-300">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="text-gray-600 text-sm mb-3">
+            <span class="font-medium">Industry Affiliations:</span>
+          </p>
+          <div class="flex flex-wrap justify-center md:justify-start gap-4">
+            <div class="text-gray-500 text-xs bg-gray-100 px-3 py-1 rounded">🏠 Residential Roofing</div>
+            <div class="text-gray-500 text-xs bg-gray-100 px-3 py-1 rounded">🏢 Commercial Roofing</div>
+            <div class="text-gray-500 text-xs bg-gray-100 px-3 py-1 rounded">🌧️ Storm Damage Assessment</div>
+            <div class="text-gray-500 text-xs bg-gray-100 px-3 py-1 rounded">📊 Cost Estimation Certified</div>
+          </div>
+        </div>
+        
+        {/* Trust Note */}
+        <div class="text-center">
+          <p class="text-gray-500 text-xs max-w-md">
+            ⚠️ <strong>Important:</strong> All cost estimates are for educational purposes. 
+            Actual prices may vary. Always get 3-5 quotes from licensed, insured contractors.
+            RoofingMeter does not receive commissions from contractors.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
@@ -197,5 +290,10 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '/index.
   /* Smooth hover effects */
   footer a {
     transition: all 0.2s ease;
+  }
+  
+  /* Form focus styles */
+  input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 </style>

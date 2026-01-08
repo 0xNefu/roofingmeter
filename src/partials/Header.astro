@@ -1,222 +1,273 @@
 ﻿---
 import menu from "@/config/menu.json";
 import { IoSearch } from "react-icons/io5";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const main = menu.main;
 ---
 
-<header class="py-4 md:py-6 border-b border-gray-200 dark:border-gray-800">
+<header class="py-4 md:py-6 border-b border-gray-200 bg-white">
   <div class="mx-auto px-4 md:px-6 lg:px-8 xl:px-12 max-w-7xl flex items-center justify-between gap-4 md:gap-6">
     
     <!-- LOGO + NAME -->
     <div class="flex-shrink-0">
       <a href="/" class="flex items-center space-x-2 md:space-x-3">
         <img
-          src="/images/logo.jpg"
-          alt="Txchyon"
+          src="/images/logo.png"
+          alt="RoofingMeter"
           class="w-8 h-8 md:w-10 md:h-10 rounded-lg object-cover"
         />
-        <span class="text-xl md:text-2xl font-bold text-black dark:text-white whitespace-nowrap">
-          Txchyon
-        </span>
+        <div>
+          <div class="text-lg md:text-xl font-bold text-blue-700 whitespace-nowrap">
+            RoofingMeter
+          </div>
+          <div class="text-xs text-gray-600 hidden md:block">
+            Accurate Roof Estimates & Guides
+          </div>
+        </div>
       </a>
     </div>
 
-    <!-- Desktop Navigation - Tighter spacing -->
-    <nav class="hidden md:flex items-center justify-center flex-1 max-w-2xl mx-4">
-      <div class="flex items-center space-x-4 lg:space-x-6">
-        {main.map(item => (
-          <div class="relative group">
-            {item.dropdown ? (
-              <button class="text-base font-bold text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition whitespace-nowrap flex items-center gap-1 px-1">
-                {item.name} <span class="text-xs">▼</span>
-              </button>
-            ) : (
-              (item.name === "Alpha") ? (
-                <a
-                  href={item.url}
-                  class="relative text-base font-bold text-white px-3 py-1 rounded-full transition whitespace-nowrap shadow-lg hover:shadow-xl group/alpha overflow-hidden"
-                >
-                  <!-- Animated gradient background -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 bg-[length:200%_100%] animate-gradient-shift rounded-full"></div>
-                  <!-- Pulsing effect -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-orange-400/30 to-yellow-400/30 rounded-full animate-pulse-slow"></div>
-                  <!-- Content -->
-                  <span class="relative z-10">{item.name}</span>
-                </a>
-              ) : (item.name === "Gaming") ? (
-                <a
-                  href={item.url}
-                  class="relative text-base font-bold text-white px-3 py-1 rounded-full transition whitespace-nowrap shadow-lg hover:shadow-xl group/gaming overflow-hidden"
-                >
-                  <!-- Animated gradient background -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 bg-[length:200%_100%] animate-gradient-shift rounded-full"></div>
-                  <!-- Pulsing effect -->
-                  <div class="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-pink-400/30 to-purple-400/30 rounded-full animate-pulse-slow"></div>
-                  <!-- Content -->
-                  <span class="relative z-10">{item.name}</span>
-                </a>
-              ) : (
-                <a
-                  href={item.url}
-                  class="text-base font-bold text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition whitespace-nowrap px-1"
-                >
-                  {item.name}
-                </a>
-              )
-            )}
-
-            {item.dropdown && (
-              <ul class="absolute left-1/2 -translate-x-1/2 mt-3 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pt-2">
-                {item.dropdown.map(sub => (
-                  <li>
-                    <a
-                      href={sub.url}
-                      class="block px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition whitespace-nowrap"
-                    >
-                      {sub.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
+    <!-- Desktop Navigation - Roofing Pillars -->
+    <nav class="hidden md:flex items-center justify-center flex-1 max-w-3xl mx-4">
+      <div class="flex items-center space-x-2 lg:space-x-4">
+        {main.map(item => {
+          if (item.dropdown) {
+            return (
+              <div class="relative group">
+                <button class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-blue-50">
+                  {item.name} <span class="text-xs text-blue-500">▼</span>
+                </button>
+                <ul class="absolute left-1/2 -translate-x-1/2 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pt-2 overflow-hidden">
+                  {item.dropdown.map(sub => (
+                    <li>
+                      <a
+                        href={sub.url}
+                        class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition whitespace-nowrap border-b border-gray-100 last:border-b-0"
+                      >
+                        <div class="flex items-center gap-3">
+                          <div class="text-blue-500">
+                            {sub.icon || "🏠"}
+                          </div>
+                          <div>
+                            <div class="font-medium">{sub.name}</div>
+                            {sub.description && (
+                              <div class="text-xs text-gray-500 mt-1">{sub.description}</div>
+                            )}
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          } else if (item.name === "Free Estimate") {
+            return (
+              <a
+                href={item.url}
+                class="relative text-sm font-bold text-white px-4 py-2 rounded-lg transition whitespace-nowrap shadow-md hover:shadow-lg overflow-hidden"
+              >
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg"></div>
+                <span class="relative z-10 flex items-center gap-2">
+                  💰 {item.name}
+                </span>
+              </a>
+            );
+          } else if (item.name === "Find Contractors") {
+            return (
+              <a
+                href={item.url}
+                class="relative text-sm font-bold text-white px-4 py-2 rounded-lg transition whitespace-nowrap shadow-md hover:shadow-lg overflow-hidden"
+              >
+                <div class="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg"></div>
+                <span class="relative z-10 flex items-center gap-2">
+                  👷 {item.name}
+                </span>
+              </a>
+            );
+          } else {
+            return (
+              <a
+                href={item.url}
+                class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition whitespace-nowrap px-2 py-1 rounded-lg hover:bg-blue-50"
+              >
+                {item.name}
+              </a>
+            );
+          }
+        })}
       </div>
     </nav>
 
-    <!-- Icons: RSS, Search, Theme + Mobile Hamburger - Tighter spacing -->
+    <!-- Icons: Phone, Search + Mobile Hamburger -->
     <div class="flex items-center gap-3 md:gap-4 lg:gap-5 flex-shrink-0">
-      <a href="/rss.xml" class="text-black dark:text-white hover:text-blue-600 transition p-1" title="RSS Feed">
-        <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6.18 15.64a2.18 2.18 0 1 1-4.36 0 2.18 2.18 0 0 1 4.36 0z"/>
-          <path d="M4 4.44A11.83 11.83 0 0 1 15.89 16.33h-2.3A9.51 9.51 0 0 0 4 6.75z"/>
-          <path d="M4 11.16a5.9 5.9 0 0 1 5.9 5.9h-2.3a3.6 3.6 0 0 0-3.6-3.6z"/>
-        </svg>
-      </a>
+      <!-- Phone Number - Desktop -->
+      <div class="hidden md:flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg">
+        <FaPhoneAlt class="w-4 h-4 text-blue-600" />
+        <a href="tel:+18885557663" class="text-blue-700 font-bold text-sm hover:text-blue-800 transition">
+          1-888-555-ROOF
+        </a>
+      </div>
       
-      <a href="/search" class="text-black dark:text-white hover:text-blue-600 transition p-1">
-        <IoSearch class="w-5 h-5 md:w-6 md:h-6" />
+      <!-- Search -->
+      <a href="/search" class="text-gray-700 hover:text-blue-600 transition p-2">
+        <IoSearch class="w-5 h-5 md:w-5 md:h-5" />
       </a>
-
-      <!-- Theme Toggle -->
-      <button
-        id="theme-toggle"
-        class="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-        title="Toggle theme"
-        aria-label="Toggle theme"
-      >
-        <svg id="theme-icon-sun" class="w-4 h-4 md:w-5 md:h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-3.05-.293l-.707-.707a1 1 0 00-1.414 1.414l.707.707a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
-        </svg>
-        <svg id="theme-icon-moon" class="w-4 h-4 md:w-5 md:h-5 text-yellow-400 hidden" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-        </svg>
-        <span class="sr-only">Toggle theme</span>
-      </button>
 
       <!-- Mobile Hamburger -->
-      <div class="md:hidden" x-data="{ open: false }">
-        <button @click="open = !open" class="text-black dark:text-white z-50 p-1">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path :class="{ 'hidden': open, 'block': !open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            <path :class="{ 'hidden': !open, 'block': open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      <div class="md:hidden">
+        <button id="mobile-menu-toggle" class="text-gray-700 z-50 p-1">
+          <svg id="menu-open-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menu-close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-
-        <!-- Mobile Menu -->
-        <div x-show="open" @click.away="open = false" x-transition class="fixed inset-0 top-16 bg-white dark:bg-gray-900 z-40 overflow-y-auto">
-          <div class="px-6 py-8 space-y-4">
-            {main.flatMap(item => item.dropdown ? [{ name: item.name, url: null, isHeader: true }, ...item.dropdown] : [item]).map(item => (
-              item.isHeader ? (
-                <div class="text-sm font-semibold text-gray-500 uppercase pt-4 border-t border-gray-200 dark:border-gray-700 first:border-t-0 first:pt-0">
-                  {item.name}
-                </div>
-              ) : (
-                (item.name === "Alpha") ? (
-                  <a
-                    href={item.url}
-                    class="relative block text-xl font-bold text-white px-4 py-2 rounded-full transition shadow-lg my-2 overflow-hidden"
-                    @click="open = false"
-                  >
-                    <!-- Animated gradient background -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 bg-[length:200%_100%] animate-gradient-shift rounded-full"></div>
-                    <!-- Pulsing effect -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-orange-400/30 to-yellow-400/30 rounded-full animate-pulse-slow"></div>
-                    <!-- Content -->
-                    <span class="relative z-10">{item.name}</span>
-                  </a>
-                ) : (item.name === "Gaming") ? (
-                  <a
-                    href={item.url}
-                    class="relative block text-xl font-bold text-white px-4 py-2 rounded-full transition shadow-lg my-2 overflow-hidden"
-                    @click="open = false"
-                  >
-                    <!-- Animated gradient background -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 bg-[length:200%_100%] animate-gradient-shift rounded-full"></div>
-                    <!-- Pulsing effect -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-pink-400/30 to-purple-400/30 rounded-full animate-pulse-slow"></div>
-                    <!-- Content -->
-                    <span class="relative z-10">{item.name}</span>
-                  </a>
-                ) : (
-                  <a
-                    href={item.url}
-                    class="block text-xl font-bold text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 py-2"
-                    @click="open = false"
-                  >
-                    {item.name}
-                  </a>
-                )
-              )
-            ))}
-
-            <a href="/contact" class="block text-xl font-bold text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 py-2 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4" @click="open = false">
-              Contact Us
-            </a>
-
-            <div class="pt-4 border-t border-gray-200 dark:border-gray-700 flex gap-6">
-              <a href="https://twitter.com/txchyon" class="text-black dark:text-white hover:text-blue-600">Twitter</a>
-              <a href="/newsletter" class="text-black dark:text-white hover:text-blue-600">Newsletter</a>
-            </div>
-          </div>
-        </div>
       </div>
-
     </div>
   </div>
 </header>
 
+<!-- Mobile Menu (Separate div for simplicity) -->
+<div id="mobile-menu" class="fixed inset-0 top-16 bg-white z-40 overflow-y-auto hidden">
+  <div class="px-6 py-8 space-y-1">
+    <div class="mb-6 p-4 bg-blue-50 rounded-xl">
+      <div class="flex items-center gap-3 mb-2">
+        <FaPhoneAlt class="w-5 h-5 text-blue-600" />
+        <a href="tel:+18885557663" class="text-blue-700 font-bold text-lg hover:text-blue-800 transition">
+          1-888-555-ROOF
+        </a>
+      </div>
+      <p class="text-sm text-gray-600">Call for free roofing consultation</p>
+    </div>
+    
+    {main.flatMap(item => {
+      const items = [];
+      if (item.dropdown) {
+        items.push({ name: item.name, url: null, isHeader: true });
+        items.push(...item.dropdown.map(sub => ({ ...sub, isHeader: false })));
+      } else {
+        items.push({ ...item, isHeader: false });
+      }
+      return items;
+    }).map(item => {
+      if (item.isHeader) {
+        return (
+          <div class="text-xs font-semibold text-blue-600 uppercase pt-6 pb-2 border-t border-gray-200 first:border-t-0 first:pt-0">
+            {item.name}
+          </div>
+        );
+      } else if (item.name === "Free Estimate") {
+        return (
+          <a
+            href={item.url}
+            class="relative block text-lg font-bold text-white px-6 py-4 rounded-xl transition shadow-lg my-2 overflow-hidden"
+            onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl"></div>
+            <span class="relative z-10 flex items-center justify-center gap-3">
+              💰 {item.name}
+            </span>
+          </a>
+        );
+      } else if (item.name === "Find Contractors") {
+        return (
+          <a
+            href={item.url}
+            class="relative block text-lg font-bold text-white px-6 py-4 rounded-xl transition shadow-lg my-2 overflow-hidden"
+            onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl"></div>
+            <span class="relative z-10 flex items-center justify-center gap-3">
+              👷 {item.name}
+            </span>
+          </a>
+        );
+      } else {
+        return (
+          <a
+            href={item.url}
+            class="block text-lg font-semibold text-gray-800 hover:text-blue-600 py-3 px-4 hover:bg-blue-50 rounded-lg transition"
+            onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+          >
+            <div class="flex items-center gap-3">
+              <div class="text-blue-500 text-lg">
+                {item.icon || "🏠"}
+              </div>
+              <div>{item.name}</div>
+            </div>
+          </a>
+        );
+      }
+    })}
+
+    <div class="pt-6 border-t border-gray-200 mt-4">
+      <a 
+        href="/contact" 
+        class="block text-lg font-semibold text-gray-800 hover:text-blue-600 py-3"
+        onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+      >
+        Contact Us
+      </a>
+    </div>
+
+    <div class="pt-4 border-t border-gray-200 flex flex-col gap-4">
+      <div class="text-sm text-gray-600">Follow Us:</div>
+      <div class="flex gap-6">
+        <a href="https://facebook.com/roofingmeter" class="text-blue-600 hover:text-blue-700">Facebook</a>
+        <a href="https://twitter.com/roofingmeter" class="text-blue-600 hover:text-blue-700">Twitter</a>
+        <a href="https://instagram.com/roofingmeter" class="text-blue-600 hover:text-blue-700">Instagram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOpenIcon = document.getElementById('menu-open-icon');
+    const menuCloseIcon = document.getElementById('menu-close-icon');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('hidden');
+      menuOpenIcon.classList.toggle('hidden', !isOpen);
+      menuCloseIcon.classList.toggle('hidden', isOpen);
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.classList.contains('hidden') && 
+          !mobileMenu.contains(event.target) && 
+          !mobileMenuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+        menuOpenIcon.classList.remove('hidden');
+        menuCloseIcon.classList.add('hidden');
+      }
+    });
+    
+    // Close menu on Escape key
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        menuOpenIcon.classList.remove('hidden');
+        menuCloseIcon.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
 <style>
-  /* Gradient shift animation */
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  /* Smooth transitions */
+  * {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .animate-gradient-shift {
-    background-size: 200% 100%;
-    animation: gradient-shift 3s ease infinite;
-  }
-  
-  /* Slow pulse animation */
-  @keyframes pulse-slow {
-    0%, 100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-  
-  .animate-pulse-slow {
-    animation: pulse-slow 2s ease-in-out infinite;
+  /* Mobile menu backdrop */
+  #mobile-menu {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
   }
 </style>
